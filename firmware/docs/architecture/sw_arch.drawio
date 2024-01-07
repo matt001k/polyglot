@@ -1,0 +1,58 @@
+<mxfile host="65bd71144e">
+    <diagram id="uSk6nec7mW33v2Z9Z1P0" name="Overview">
+        <mxGraphModel dx="846" dy="1336" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="4" value="Abstraction (Configurable Peripherals)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="800" width="700" height="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="WDT" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="4">
+                    <mxGeometry y="30" width="700" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="LED" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="4">
+                    <mxGeometry y="60" width="700" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Serial Port (UART, CAN, LIN, etc)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="4">
+                    <mxGeometry y="90" width="700" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Systick" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="4">
+                    <mxGeometry y="120" width="700" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="NVM (Internal/External Flash, EEPROM, etc.)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="4">
+                    <mxGeometry y="150" width="700" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Cryptography" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="4">
+                    <mxGeometry y="180" width="700" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Interface" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="620" width="350" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="Serial" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="11">
+                    <mxGeometry y="30" width="350" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="Command" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="11">
+                    <mxGeometry y="60" width="350" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="LED" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="11">
+                    <mxGeometry y="90" width="350" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="NVM" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="11">
+                    <mxGeometry y="120" width="350" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="Errors" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="11">
+                    <mxGeometry y="150" width="350" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Lib" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="420" y="620" width="350" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Serial dictionary" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="16">
+                    <mxGeometry y="30" width="350" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="CRC Check" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="16">
+                    <mxGeometry y="60" width="350" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -1,0 +1,408 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+ACK_READY	firmware/task/update/update.c	/^#define ACK_READY(/;"	d	file:
+APPLICATION_NODE	firmware/abstraction/nvm/nvm.h	/^#define APPLICATION_NODE /;"	d
+BL_32to8	firmware/lib/helper/helper.h	/^BL_STATIC BL_INLINE void BL_32to8(BL_UINT8_T *dest,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+BL_8to32	firmware/lib/helper/helper.h	/^BL_STATIC BL_INLINE void BL_8to32(BL_UINT32_T *dest,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+BL_BOOL_T	firmware/config/config.h	/^#define BL_BOOL_T /;"	d
+BL_BUFFER_SIZE	firmware/config/config.h	/^#define BL_BUFFER_SIZE /;"	d
+BL_CONST	firmware/config/config.h	/^#define BL_CONST /;"	d
+BL_EACCES	firmware/config/config.h	/^    BL_EACCES   = 13U,$/;"	e	enum:__anon877a19c20103
+BL_EALREADY	firmware/config/config.h	/^    BL_EALREADY = 116U,$/;"	e	enum:__anon877a19c20103
+BL_EBUSY	firmware/config/config.h	/^    BL_EBUSY    = 16U,$/;"	e	enum:__anon877a19c20103
+BL_EINVAL	firmware/config/config.h	/^    BL_EINVAL   = 22U,$/;"	e	enum:__anon877a19c20103
+BL_EIO	firmware/config/config.h	/^    BL_EIO      = 5U,$/;"	e	enum:__anon877a19c20103
+BL_ENODATA	firmware/config/config.h	/^    BL_ENODATA  = 61U,$/;"	e	enum:__anon877a19c20103
+BL_ENODEV	firmware/config/config.h	/^    BL_ENODEV   = 19U,$/;"	e	enum:__anon877a19c20103
+BL_ENOENT	firmware/config/config.h	/^    BL_ENOENT   = 2U,$/;"	e	enum:__anon877a19c20103
+BL_ENOMEM	firmware/config/config.h	/^    BL_ENOMEM   = 12U,$/;"	e	enum:__anon877a19c20103
+BL_ENOMSG	firmware/config/config.h	/^    BL_ENOMSG   = 41U,$/;"	e	enum:__anon877a19c20103
+BL_ENOSYS	firmware/config/config.h	/^    BL_ENOSYS   = 38U,$/;"	e	enum:__anon877a19c20103
+BL_ERASE	firmware/lib/dict/dict.h	/^    BL_ERASE = 0X4B7A4B44,$/;"	e	enum:__anon15fa39040103
+BL_ERR	firmware/config/config.h	/^    BL_ERR      = 1U,$/;"	e	enum:__anon877a19c20103
+BL_ERROR	firmware/lib/dict/dict.h	/^    BL_ERROR = 0x46756334,$/;"	e	enum:__anon15fa39040103
+BL_Err_t	firmware/config/config.h	/^} BL_Err_t;$/;"	t	typeref:enum:__anon877a19c20103
+BL_FALSE	firmware/config/config.h	/^#define BL_FALSE /;"	d
+BL_INLINE	firmware/config/config.h	/^#define BL_INLINE /;"	d
+BL_INT16_T	firmware/config/config.h	/^#define BL_INT16_T /;"	d
+BL_INT32_T	firmware/config/config.h	/^#define BL_INT32_T /;"	d
+BL_INT64_T	firmware/config/config.h	/^#define BL_INT64_T /;"	d
+BL_INT8_T	firmware/config/config.h	/^#define BL_INT8_T /;"	d
+BL_LED_T	firmware/abstraction/led/led.h	/^typedef BL_UINT8_T BL_LED_T;$/;"	t	typeref:typename:BL_UINT8_T
+BL_LOCK	firmware/lib/dict/dict.h	/^    BL_LOCK = 0x34594337,$/;"	e	enum:__anon15fa39040103
+BL_MemCpy	firmware/lib/helper/helper.h	/^BL_STATIC BL_INLINE void *BL_MemCpy(void *dest,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void *
+BL_MemSet	firmware/lib/helper/helper.h	/^BL_STATIC BL_INLINE void *BL_MemSet(void *dest,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void *
+BL_NULL	firmware/config/config.h	/^#define BL_NULL /;"	d
+BL_NUM_PARTITIONS_TO_UPDATE	firmware/config/config.h	/^#define BL_NUM_PARTITIONS_TO_UPDATE /;"	d
+BL_OK	firmware/config/config.h	/^    BL_OK       = 0U,$/;"	e	enum:__anon877a19c20103
+BL_READY	firmware/lib/dict/dict.h	/^    BL_READY = 0x6F516C4E,$/;"	e	enum:__anon15fa39040103
+BL_RELEASE_PORT	firmware/lib/dict/dict.h	/^    BL_RELEASE_PORT = 0x7A566261,$/;"	e	enum:__anon15fa39040103
+BL_RESET	firmware/lib/dict/dict.h	/^    BL_RESET = 0x5451484B,$/;"	e	enum:__anon15fa39040103
+BL_RUN	firmware/lib/dict/dict.h	/^    BL_RUN = 0x75326972,$/;"	e	enum:__anon15fa39040103
+BL_SERIAL_TIMEOUT_MS	firmware/config/config.h	/^#define BL_SERIAL_TIMEOUT_MS /;"	d
+BL_SIZEOF	firmware/config/config.h	/^#define BL_SIZEOF /;"	d
+BL_STATIC	firmware/config/config.h	/^#define BL_STATIC /;"	d
+BL_TRUE	firmware/config/config.h	/^#define BL_TRUE /;"	d
+BL_UINT16_T	firmware/config/config.h	/^#define BL_UINT16_T /;"	d
+BL_UINT32_T	firmware/config/config.h	/^#define BL_UINT32_T /;"	d
+BL_UINT64_T	firmware/config/config.h	/^#define BL_UINT64_T /;"	d
+BL_UINT8_T	firmware/config/config.h	/^#define BL_UINT8_T /;"	d
+BL_UNLOCK	firmware/lib/dict/dict.h	/^    BL_UNLOCK = 0x5A707169,$/;"	e	enum:__anon15fa39040103
+BL_VALIDATE	firmware/lib/dict/dict.h	/^    BL_VALIDATE = 0x7A306536,$/;"	e	enum:__anon15fa39040103
+BL_WRITE	firmware/lib/dict/dict.h	/^    BL_WRITE = 0x674F4761,$/;"	e	enum:__anon15fa39040103
+BOOTLOADER	firmware/CMakeLists.txt	/^add_library(BOOTLOADER STATIC$/;"	t
+Blink_Init	firmware/task/blink/blink.c	/^BL_Err_t Blink_Init(void)$/;"	f	typeref:typename:BL_Err_t
+Buffer_Get	firmware/interface/buffer/buffer.c	/^BL_UINT8_T *Buffer_Get(void)$/;"	f	typeref:typename:BL_UINT8_T *
+CALCULATE_PARITION_CRC	firmware/interface/loader/loader.c	/^    CALCULATE_PARITION_CRC,$/;"	e	enum:__anon5c21211f0303	file:
+CHECK_PARTITIONS	firmware/interface/loader/loader.c	/^    CHECK_PARTITIONS,$/;"	e	enum:__anon5c21211f0203	file:
+COMMAND	firmware/task/update/update.c	/^    COMMAND = 0U,$/;"	e	enum:__anon11a468b90103	file:
+COMMAND_SIZE	firmware/interface/command/command.c	/^#define COMMAND_SIZE /;"	d	file:
+COUNT_PARTITIONS	firmware/interface/loader/loader.c	/^    COUNT_PARTITIONS = 0U,$/;"	e	enum:__anon5c21211f0203	file:
+CRC32	firmware/lib/crc/crc32.c	/^BL_UINT32_T CRC32(BL_UINT32_T crc,$/;"	f	typeref:typename:BL_UINT32_T
+CRC32_SIZE	firmware/lib/crc/crc32.h	/^#define CRC32_SIZE /;"	d
+CRC_CALCULATED	firmware/interface/validator/validator.c	/^#define CRC_CALCULATED /;"	d	file:
+CRC_FLASH	firmware/interface/validator/validator.c	/^#define CRC_FLASH /;"	d	file:
+Command_Deinit	firmware/interface/command/command.c	/^BL_Err_t Command_Deinit(void)$/;"	f	typeref:typename:BL_Err_t
+Command_Init	firmware/interface/command/command.c	/^BL_Err_t Command_Init(void)$/;"	f	typeref:typename:BL_Err_t
+Command_Receive	firmware/interface/command/command.c	/^BL_Err_t Command_Receive(Command_Receive_e *cmd)$/;"	f	typeref:typename:BL_Err_t
+Command_Receive_e	firmware/interface/command/command.h	/^} Command_Receive_e;$/;"	t	typeref:enum:__anon5c6cb6f40203
+Command_Reset	firmware/interface/command/command.c	/^void Command_Reset(void)$/;"	f	typeref:typename:void
+Command_Send	firmware/interface/command/command.c	/^BL_Err_t Command_Send(Command_Transmit_e cmd)$/;"	f	typeref:typename:BL_Err_t
+Command_Transmit_e	firmware/interface/command/command.h	/^} Command_Transmit_e;$/;"	t	typeref:enum:__anon5c6cb6f40103
+DATA	firmware/task/update/update.c	/^    DATA,$/;"	e	enum:__anon11a468b90103	file:
+D_BEGIN	firmware/task/update/update.c	/^    D_BEGIN = 0U,$/;"	e	enum:__anon11a468b90203	file:
+D_DATA	firmware/task/update/update.c	/^    D_DATA,$/;"	e	enum:__anon11a468b90203	file:
+D_INIT	firmware/task/update/update.c	/^    D_INIT,$/;"	e	enum:__anon11a468b90203	file:
+D_LENGTH	firmware/task/update/update.c	/^    D_LENGTH,$/;"	e	enum:__anon11a468b90203	file:
+DataLength_t	firmware/interface/data/data.h	/^typedef BL_UINT32_T DataLength_t;$/;"	t	typeref:typename:BL_UINT32_T
+Data_DataCbDeinit	firmware/interface/data/data.c	/^BL_Err_t Data_DataCbDeinit(void)$/;"	f	typeref:typename:BL_Err_t
+Data_DataCbInit	firmware/interface/data/data.c	/^BL_Err_t Data_DataCbInit(void)$/;"	f	typeref:typename:BL_Err_t
+Data_GetLength	firmware/interface/data/data.c	/^BL_Err_t Data_GetLength(DataLength_t *length)$/;"	f	typeref:typename:BL_Err_t
+Data_LengthCbDeinit	firmware/interface/data/data.c	/^BL_Err_t Data_LengthCbDeinit(void)$/;"	f	typeref:typename:BL_Err_t
+Data_LengthCbInit	firmware/interface/data/data.c	/^BL_Err_t Data_LengthCbInit(void)$/;"	f	typeref:typename:BL_Err_t
+Data_ReceiveData	firmware/interface/data/data.c	/^BL_Err_t Data_ReceiveData(BL_UINT8_T *data)$/;"	f	typeref:typename:BL_Err_t
+Data_Reset	firmware/interface/data/data.c	/^void Data_Reset(void)$/;"	f	typeref:typename:void
+Data_SetLength	firmware/interface/data/data.c	/^BL_Err_t Data_SetLength(DataLength_t length)$/;"	f	typeref:typename:BL_Err_t
+Dict_Item_t	firmware/lib/dict/dict.h	/^typedef BL_UINT32_T Dict_Item_t;$/;"	t	typeref:typename:BL_UINT32_T
+EL_ENXIO	firmware/config/config.h	/^    EL_ENXIO    = 6U,$/;"	e	enum:__anon877a19c20103
+ENDING_PHRASE_LENGTH	firmware/interface/validator/validator.c	/^#define ENDING_PHRASE_LENGTH /;"	d	file:
+ERASE_PARTITIONS	firmware/interface/loader/loader.c	/^    ERASE_PARTITIONS,$/;"	e	enum:__anon5c21211f0203	file:
+ERASE_PARTITION_NODE	firmware/interface/loader/loader.c	/^    ERASE_PARTITION_NODE,$/;"	e	enum:__anon5c21211f0303	file:
+GET_DATA	firmware/interface/data/data.c	/^    GET_DATA = 1U,$/;"	e	enum:__anon4a90cb450103	file:
+GET_LENGTH	firmware/interface/data/data.c	/^    GET_LENGTH = 0U,$/;"	e	enum:__anon4a90cb450103	file:
+GET_PARTITIONS	firmware/interface/loader/loader.c	/^    GET_PARTITIONS,$/;"	e	enum:__anon5c21211f0203	file:
+HOLD_CFG	firmware/config/config.h	/^#define HOLD_CFG /;"	d
+HOLD_ENTRY	firmware/abstraction/hold/hold.c	/^#define HOLD_ENTRY(/;"	d	file:
+HOLD_IDX	firmware/abstraction/hold/hold.c	/^#define HOLD_IDX /;"	d	file:
+Hold_Cb_t	firmware/abstraction/hold/hold.h	/^typedef BL_BOOL_T (*Hold_Cb_t)(void);$/;"	t	typeref:typename:BL_BOOL_T (*)(void)
+Hold_Get	firmware/abstraction/hold/hold.c	/^BL_Err_t Hold_Get(BL_BOOL_T *ret)$/;"	f	typeref:typename:BL_Err_t
+Hold_Init	firmware/abstraction/hold/hold.c	/^BL_Err_t Hold_Init(void)$/;"	f	typeref:typename:BL_Err_t
+INIT_CFG	firmware/config/config.h	/^#define INIT_CFG /;"	d
+INIT_CHECK	firmware/interface/loader/loader.c	/^    INIT_CHECK = 0U,$/;"	e	enum:__anon5c21211f0103	file:
+INIT_CREATE	firmware/interface/loader/loader.c	/^    INIT_CREATE,$/;"	e	enum:__anon5c21211f0103	file:
+INIT_ENTRY	firmware/abstraction/init/init.c	/^#define INIT_ENTRY(/;"	d	file:
+INIT_ERASE	firmware/interface/loader/loader.c	/^    INIT_ERASE,$/;"	e	enum:__anon5c21211f0103	file:
+INIT_PREPARE	firmware/interface/loader/loader.c	/^    INIT_PREPARE,$/;"	e	enum:__anon5c21211f0103	file:
+Init_Abstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void Init_Abstract(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+Init_Init	firmware/abstraction/init/init.c	/^void Init_Init(void)$/;"	f	typeref:typename:void
+IntFlash_EraseAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,$/;"	f	typeref:typename:BL_STATIC BL_INLINE BL_BOOL_T
+IntFlash_ReadAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,$/;"	f	typeref:typename:BL_STATIC BL_INLINE BL_BOOL_T
+IntFlash_WriteAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,$/;"	f	typeref:typename:BL_STATIC BL_INLINE BL_BOOL_T
+JUMP_CFG	firmware/config/config.h	/^#define JUMP_CFG /;"	d
+JUMP_ENTRY	firmware/abstraction/jump/jump.c	/^#define JUMP_ENTRY(/;"	d	file:
+JUMP_IDX	firmware/abstraction/jump/jump.c	/^#define JUMP_IDX /;"	d	file:
+Jump_Cb_t	firmware/abstraction/jump/jump.h	/^typedef void (*Jump_Cb_t)(BL_UINT32_T address);$/;"	t	typeref:typename:void (*)(BL_UINT32_T address)
+Jump_Init	firmware/abstraction/jump/jump.c	/^BL_Err_t Jump_Init(void)$/;"	f	typeref:typename:BL_Err_t
+Jump_ToApp	firmware/abstraction/jump/jump.c	/^BL_Err_t Jump_ToApp(void)$/;"	f	typeref:typename:BL_Err_t
+Jump_ToAppAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void Jump_ToAppAbstract(BL_UINT32_T address)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+LED1_Toggle	firmware/config/config.h	/^BL_STATIC BL_INLINE void LED1_Toggle(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+LED2_Toggle	firmware/config/config.h	/^BL_STATIC BL_INLINE void LED2_Toggle(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+LED3_Toggle	firmware/config/config.h	/^BL_STATIC BL_INLINE void LED3_Toggle(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+LED_CFG	firmware/config/config.h	/^#define LED_CFG /;"	d
+LED_ENTRY	firmware/abstraction/led/led.c	/^#define LED_ENTRY(/;"	d	file:
+LED_GetCount	firmware/abstraction/led/led.c	/^BL_Err_t LED_GetCount(BL_UINT8_T *count)$/;"	f	typeref:typename:BL_Err_t
+LED_GetPeriod	firmware/abstraction/led/led.c	/^BL_Err_t LED_GetPeriod(BL_LED_T num, BL_UINT32_T *period)$/;"	f	typeref:typename:BL_Err_t
+LED_Init	firmware/abstraction/led/led.c	/^BL_Err_t LED_Init(void)$/;"	f	typeref:typename:BL_Err_t
+LED_PERIOD_MIN	firmware/abstraction/led/led.h	/^#define LED_PERIOD_MIN /;"	d
+LED_Toggle	firmware/abstraction/led/led.c	/^BL_Err_t LED_Toggle(BL_LED_T num)$/;"	f	typeref:typename:BL_Err_t
+LED_Toggle_t	firmware/abstraction/led/led.h	/^typedef void (*LED_Toggle_t)(void);$/;"	t	typeref:typename:void (*)(void)
+LENGTH_SIZE	firmware/interface/data/data.c	/^#define LENGTH_SIZE /;"	d	file:
+LOADER_PARTITION_GET_SIZE	firmware/interface/loader/loader.c	/^#define LOADER_PARTITION_GET_SIZE(/;"	d	file:
+LOADER_PARTITION_INIT_REV	firmware/interface/loader/loader.c	/^#define LOADER_PARTITION_INIT_REV /;"	d	file:
+LOADER_PARTITION_REV_SIZE	firmware/interface/loader/loader.c	/^#define LOADER_PARTITION_REV_SIZE /;"	d	file:
+Loader_Init	firmware/interface/loader/loader.c	/^BL_Err_t Loader_Init(BL_UINT8_T *buf, BL_UINT32_T size)$/;"	f	typeref:typename:BL_Err_t
+Loader_Reset	firmware/interface/loader/loader.c	/^BL_Err_t Loader_Reset(void)$/;"	f	typeref:typename:BL_Err_t
+Loader_SetCustomNodes	firmware/interface/loader/loader.c	/^BL_Err_t Loader_SetCustomNodes(BL_UINT8_T *nodes, BL_UINT8_T count)$/;"	f	typeref:typename:BL_Err_t
+Loader_UpdateRevisions	firmware/interface/loader/loader.c	/^BL_Err_t Loader_UpdateRevisions(BL_UINT8_T *data, BL_UINT32_T length)$/;"	f	typeref:typename:BL_Err_t
+Loader_Validate	firmware/interface/loader/loader.c	/^BL_Err_t Loader_Validate(BL_UINT8_T *data, BL_UINT32_T length)$/;"	f	typeref:typename:BL_Err_t
+Loader_Write	firmware/interface/loader/loader.c	/^BL_Err_t Loader_Write(BL_UINT8_T *data, BL_UINT32_T length)$/;"	f	typeref:typename:BL_Err_t
+Loader_WriteSecret	firmware/interface/loader/loader.c	/^BL_Err_t Loader_WriteSecret(BL_UINT8_T *data, BL_UINT32_T length)$/;"	f	typeref:typename:BL_Err_t
+MEMCPY	firmware/lib/helper/helper.h	/^#define MEMCPY /;"	d
+MEMSET	firmware/lib/helper/helper.h	/^#define MEMSET /;"	d
+NACK_READY	firmware/task/update/update.c	/^#define NACK_READY(/;"	d	file:
+NUM_CRC_BUFFER	firmware/interface/validator/validator.c	/^#define NUM_CRC_BUFFER /;"	d	file:
+NUM_STATES	firmware/interface/data/data.c	/^    NUM_STATES,$/;"	e	enum:__anon4a90cb450103	file:
+NVM_CFG	firmware/config/config.h	/^#define NVM_CFG /;"	d
+NVM_ENTRY	firmware/abstraction/nvm/nvm.c	/^                  size, offset, page, priority) \\$/;"	d	file:
+NVM_ERASE_OP	firmware/abstraction/nvm/nvm.c	/^#define NVM_ERASE_OP /;"	d	file:
+NVM_Erase	firmware/abstraction/nvm/nvm.c	/^BL_Err_t NVM_Erase(BL_UINT8_T node, BL_UINT32_T length)$/;"	f	typeref:typename:BL_Err_t
+NVM_Erase_t	firmware/abstraction/nvm/nvm.h	/^typedef BL_BOOL_T (*NVM_Erase_t)(BL_UINT32_T address,$/;"	t	typeref:typename:BL_BOOL_T (*)(BL_UINT32_T address,BL_UINT32_T size)
+NVM_GetCount	firmware/abstraction/nvm/nvm.c	/^BL_Err_t NVM_GetCount(BL_UINT8_T *count)$/;"	f	typeref:typename:BL_Err_t
+NVM_GetLocation	firmware/abstraction/nvm/nvm.c	/^BL_Err_t NVM_GetLocation(BL_UINT8_T node, BL_UINT32_T *location)$/;"	f	typeref:typename:BL_Err_t
+NVM_GetPageSize	firmware/abstraction/nvm/nvm.c	/^BL_Err_t NVM_GetPageSize(BL_UINT8_T node, BL_UINT32_T *size)$/;"	f	typeref:typename:BL_Err_t
+NVM_GetSize	firmware/abstraction/nvm/nvm.c	/^BL_Err_t NVM_GetSize(BL_UINT8_T node, BL_UINT32_T *size)$/;"	f	typeref:typename:BL_Err_t
+NVM_Init	firmware/abstraction/nvm/nvm.c	/^BL_Err_t NVM_Init(void)$/;"	f	typeref:typename:BL_Err_t
+NVM_Init_t	firmware/abstraction/nvm/nvm.h	/^typedef void (*NVM_Init_t)(void);$/;"	t	typeref:typename:void (*)(void)
+NVM_NONE_OP	firmware/abstraction/nvm/nvm.c	/^#define NVM_NONE_OP /;"	d	file:
+NVM_OperationFinish	firmware/abstraction/nvm/nvm.c	/^BL_Err_t NVM_OperationFinish(BL_UINT8_T node)$/;"	f	typeref:typename:BL_Err_t
+NVM_READ_OP	firmware/abstraction/nvm/nvm.c	/^#define NVM_READ_OP /;"	d	file:
+NVM_Read	firmware/abstraction/nvm/nvm.c	/^BL_Err_t NVM_Read(BL_UINT8_T node, BL_UINT8_T *data, BL_UINT32_T *length)$/;"	f	typeref:typename:BL_Err_t
+NVM_Read_t	firmware/abstraction/nvm/nvm.h	/^typedef BL_BOOL_T (*NVM_Read_t)(BL_UINT32_T address,$/;"	t	typeref:typename:BL_BOOL_T (*)(BL_UINT32_T address,BL_UINT8_T * data,BL_UINT32_T length)
+NVM_WRITE_OP	firmware/abstraction/nvm/nvm.c	/^#define NVM_WRITE_OP /;"	d	file:
+NVM_Write	firmware/abstraction/nvm/nvm.c	/^BL_Err_t NVM_Write(BL_UINT8_T node, BL_UINT8_T *data, BL_UINT32_T length)$/;"	f	typeref:typename:BL_Err_t
+NVM_Write_t	firmware/abstraction/nvm/nvm.h	/^typedef BL_BOOL_T (*NVM_Write_t)(BL_UINT32_T address,$/;"	t	typeref:typename:BL_BOOL_T (*)(BL_UINT32_T address,BL_UINT8_T * data,BL_UINT32_T length)
+OBTAIN_PARTITION_INFO	firmware/interface/loader/loader.c	/^    OBTAIN_PARTITION_INFO = 0,$/;"	e	enum:__anon5c21211f0303	file:
+PARTITION_NODE	firmware/abstraction/nvm/nvm.h	/^#define PARTITION_NODE /;"	d
+RECEIVE_ERASE	firmware/interface/command/command.h	/^    RECEIVE_ERASE,$/;"	e	enum:__anon5c6cb6f40203
+RECEIVE_ERROR	firmware/interface/command/command.h	/^    RECEIVE_ERROR,$/;"	e	enum:__anon5c6cb6f40203
+RECEIVE_LOCK	firmware/interface/command/command.h	/^    RECEIVE_LOCK,$/;"	e	enum:__anon5c6cb6f40203
+RECEIVE_NUM_COMMAND	firmware/interface/command/command.h	/^    RECEIVE_NUM_COMMAND,$/;"	e	enum:__anon5c6cb6f40203
+RECEIVE_READY	firmware/interface/command/command.h	/^    RECEIVE_READY = 0U,$/;"	e	enum:__anon5c6cb6f40203
+RECEIVE_RELEASE	firmware/interface/command/command.h	/^    RECEIVE_RELEASE,$/;"	e	enum:__anon5c6cb6f40203
+RECEIVE_RESET	firmware/interface/command/command.h	/^    RECEIVE_RESET,$/;"	e	enum:__anon5c6cb6f40203
+RECEIVE_RUN	firmware/interface/command/command.h	/^    RECEIVE_RUN,$/;"	e	enum:__anon5c6cb6f40203
+RECEIVE_UNLOCK	firmware/interface/command/command.h	/^    RECEIVE_UNLOCK,$/;"	e	enum:__anon5c6cb6f40203
+RECEIVE_VALIDATE	firmware/interface/command/command.h	/^    RECEIVE_VALIDATE,$/;"	e	enum:__anon5c6cb6f40203
+RECEIVE_WRITE	firmware/interface/command/command.h	/^    RECEIVE_WRITE,$/;"	e	enum:__anon5c6cb6f40203
+Run	firmware/main/run/run.c	/^BL_Err_t Run(void)$/;"	f	typeref:typename:BL_Err_t
+Run	firmware/task/main/run/run.c	/^BL_Err_t Run(void)$/;"	f	typeref:typename:BL_Err_t
+SECRET_KEY_SIZE	firmware/lib/dict/dict.h	/^#define SECRET_KEY_SIZE /;"	d
+SECRET_KEY_WORD	firmware/lib/dict/dict.h	/^#define SECRET_KEY_WORD /;"	d
+SERIAL_CFG	firmware/config/config.h	/^#define SERIAL_CFG /;"	d
+SERIAL_ENTRY	firmware/abstraction/serial/serial.c	/^#define SERIAL_ENTRY(/;"	d	file:
+SERIAL_UNLOCKED	firmware/abstraction/serial/serial.c	/^#define SERIAL_UNLOCKED /;"	d	file:
+SIZE_PARTITIONS	firmware/interface/loader/loader.c	/^    SIZE_PARTITIONS,$/;"	e	enum:__anon5c21211f0203	file:
+SYSTICK_CFG	firmware/config/config.h	/^#define SYSTICK_CFG /;"	d
+SYSTICK_CLK_IDX	firmware/abstraction/systick/systick.c	/^#define SYSTICK_CLK_IDX /;"	d	file:
+SYSTICK_ENTRY	firmware/abstraction/systick/systick.c	/^#define SYSTICK_ENTRY(/;"	d	file:
+Schedule_Add	firmware/lib/schedule/schedule.c	/^BL_Err_t Schedule_Add(Schedule_Node_t *node,$/;"	f	typeref:typename:BL_Err_t
+Schedule_GetHead	firmware/lib/schedule/schedule.c	/^BL_Err_t Schedule_GetHead(Schedule_Node_t **node)$/;"	f	typeref:typename:BL_Err_t
+Schedule_GetNext	firmware/lib/schedule/schedule.c	/^BL_Err_t Schedule_GetNext(Schedule_Node_t current, Schedule_Node_t **next)$/;"	f	typeref:typename:BL_Err_t
+Schedule_Node_s	firmware/lib/schedule/schedule.h	/^typedef struct Schedule_Node_s$/;"	s
+Schedule_Node_t	firmware/lib/schedule/schedule.h	/^} Schedule_Node_t;$/;"	t	typeref:struct:Schedule_Node_s
+Schedule_Remove	firmware/lib/schedule/schedule.c	/^BL_Err_t Schedule_Remove(Schedule_Node_t *node)$/;"	f	typeref:typename:BL_Err_t
+Schedule_Run	firmware/lib/schedule/schedule.c	/^BL_Err_t Schedule_Run(Schedule_Node_t *node, BL_UINT32_T time)$/;"	f	typeref:typename:BL_Err_t
+Serial_Cb_t	firmware/abstraction/serial/serial.h	/^typedef void (*Serial_Cb_t)(BL_UINT8_T *data, BL_UINT32_T length);$/;"	t	typeref:typename:void (*)(BL_UINT8_T * data,BL_UINT32_T length)
+Serial_DeregisterCb	firmware/abstraction/serial/serial.c	/^BL_Err_t Serial_DeregisterCb(void)$/;"	f	typeref:typename:BL_Err_t
+Serial_DeregisterCb_t	firmware/abstraction/serial/serial.h	/^typedef void (*Serial_DeregisterCb_t)(void);$/;"	t	typeref:typename:void (*)(void)
+Serial_Flush	firmware/abstraction/serial/serial.c	/^void Serial_Flush(void)$/;"	f	typeref:typename:void
+Serial_Init	firmware/abstraction/serial/serial.c	/^BL_Err_t Serial_Init(void)$/;"	f	typeref:typename:BL_Err_t
+Serial_Init_t	firmware/abstraction/serial/serial.h	/^typedef void (*Serial_Init_t)(void);$/;"	t	typeref:typename:void (*)(void)
+Serial_Receive	firmware/abstraction/serial/serial.c	/^BL_Err_t Serial_Receive(BL_UINT8_T *data, BL_UINT32_T length)$/;"	f	typeref:typename:BL_Err_t
+Serial_RegisterCb	firmware/abstraction/serial/serial.c	/^BL_Err_t Serial_RegisterCb(void (*cb)(BL_UINT32_T length))$/;"	f	typeref:typename:BL_Err_t
+Serial_RegisterCb_t	firmware/abstraction/serial/serial.h	/^typedef void (*Serial_RegisterCb_t)(Serial_Cb_t cb);$/;"	t	typeref:typename:void (*)(Serial_Cb_t cb)
+Serial_Transmit	firmware/abstraction/serial/serial.c	/^BL_Err_t Serial_Transmit(BL_UINT8_T *data, BL_UINT32_T length)$/;"	f	typeref:typename:BL_Err_t
+Serial_Transmit_t	firmware/abstraction/serial/serial.h	/^typedef void (*Serial_Transmit_t)(BL_UINT8_T *data, BL_UINT32_T length);$/;"	t	typeref:typename:void (*)(BL_UINT8_T * data,BL_UINT32_T length)
+Serial_Unlock	firmware/abstraction/serial/serial.c	/^BL_Err_t Serial_Unlock(void)$/;"	f	typeref:typename:BL_Err_t
+Systick_GetMs	firmware/abstraction/systick/systick.c	/^BL_UINT32_T Systick_GetMs(void)$/;"	f	typeref:typename:BL_UINT32_T
+Systick_GetMs_t	firmware/abstraction/systick/systick.h	/^typedef BL_UINT32_T (*Systick_GetMs_t)(void);$/;"	t	typeref:typename:BL_UINT32_T (*)(void)
+Systick_Init	firmware/abstraction/systick/systick.c	/^BL_Err_t Systick_Init(void)$/;"	f	typeref:typename:BL_Err_t
+Systick_Init_t	firmware/abstraction/systick/systick.h	/^typedef void (*Systick_Init_t)(void);$/;"	t	typeref:typename:void (*)(void)
+TRANSMIT_ERROR	firmware/interface/command/command.h	/^    TRANSMIT_ERROR,$/;"	e	enum:__anon5c6cb6f40103
+TRANSMIT_NUM_COMMAND	firmware/interface/command/command.h	/^    TRANSMIT_NUM_COMMAND,$/;"	e	enum:__anon5c6cb6f40103
+TRANSMIT_READY	firmware/interface/command/command.h	/^    TRANSMIT_READY = 0U,$/;"	e	enum:__anon5c6cb6f40103
+UART_DeregisterCbAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void UART_DeregisterCbAbstract(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+UART_RegisterCbAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+UART_TransmitAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+UINT32_UINT8	firmware/lib/helper/helper.h	/^#define UINT32_UINT8 /;"	d
+UINT8_UINT32	firmware/lib/helper/helper.h	/^#define UINT8_UINT32 /;"	d
+UPDATE_TASK_PERIOD_MS	firmware/task/update/update.c	/^#define UPDATE_TASK_PERIOD_MS /;"	d	file:
+Update_Init	firmware/task/update/update.c	/^BL_Err_t Update_Init(void)$/;"	f	typeref:typename:BL_Err_t
+VALIDATE_PARTITION_CRC	firmware/interface/loader/loader.c	/^    VALIDATE_PARTITION_CRC,$/;"	e	enum:__anon5c21211f0303	file:
+Validator_Run	firmware/interface/validator/validator.c	/^BL_Err_t Validator_Run(BL_UINT8_T *data, BL_UINT32_T length)$/;"	f	typeref:typename:BL_Err_t
+WDT_CFG	firmware/config/config.h	/^#define WDT_CFG /;"	d
+WDT_ENTRY	firmware/abstraction/wdt/wdt.c	/^#define WDT_ENTRY(/;"	d	file:
+WDT_Init	firmware/abstraction/wdt/wdt.c	/^BL_Err_t WDT_Init(void)$/;"	f	typeref:typename:BL_Err_t
+WDT_InitAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void WDT_InitAbstract(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+WDT_Init_t	firmware/abstraction/wdt/wdt.h	/^typedef void (*WDT_Init_t)(void);$/;"	t	typeref:typename:void (*)(void)
+WDT_Kick	firmware/abstraction/wdt/wdt.c	/^BL_Err_t WDT_Kick(void)$/;"	f	typeref:typename:BL_Err_t
+WDT_Kick_t	firmware/abstraction/wdt/wdt.h	/^typedef void (*WDT_Kick_t)(void);$/;"	t	typeref:typename:void (*)(void)
+WRITE_REVISIONS	firmware/interface/loader/loader.c	/^    WRITE_REVISIONS,$/;"	e	enum:__anon5c21211f0303	file:
+__BL_BLINK_H	firmware/task/blink/blink.h	/^#define __BL_BLINK_H$/;"	d
+__BL_BUFFER_H	firmware/interface/buffer/buffer.h	/^#define __BL_BUFFER_H$/;"	d
+__BL_COMMAND_H	firmware/interface/command/command.h	/^#define __BL_COMMAND_H$/;"	d
+__BL_CRC32_H	firmware/lib/crc/crc32.h	/^#define __BL_CRC32_H$/;"	d
+__BL_DATA_H	firmware/interface/data/data.h	/^#define __BL_DATA_H$/;"	d
+__BL_HELPER_H	firmware/lib/helper/helper.h	/^#define __BL_HELPER_H$/;"	d
+__BL_HOLD_H	firmware/abstraction/hold/hold.h	/^#define __BL_HOLD_H$/;"	d
+__BL_INIT_H	firmware/abstraction/init/init.h	/^#define __BL_INIT_H$/;"	d
+__BL_JUMP_H	firmware/abstraction/jump/jump.h	/^#define __BL_JUMP_H$/;"	d
+__BL_LED_H	firmware/abstraction/led/led.h	/^#define __BL_LED_H$/;"	d
+__BL_LOADER_H	firmware/interface/loader/loader.h	/^#define __BL_LOADER_H$/;"	d
+__BL_NVM_H	firmware/abstraction/nvm/nvm.h	/^#define __BL_NVM_H$/;"	d
+__BL_RUN_H	firmware/main/run/run.h	/^#define __BL_RUN_H$/;"	d
+__BL_RUN_H	firmware/task/main/run/run.h	/^#define __BL_RUN_H$/;"	d
+__BL_SCHEDULE_H	firmware/lib/schedule/schedule.h	/^#define __BL_SCHEDULE_H$/;"	d
+__BL_SERIAL_H	firmware/abstraction/serial/serial.h	/^#define __BL_SERIAL_H$/;"	d
+__BL_SYSTICK_H	firmware/abstraction/systick/systick.h	/^#define __BL_SYSTICK_H$/;"	d
+__BL_UPDATE_H	firmware/task/update/update.h	/^#define __BL_UPDATE_H$/;"	d
+__BL_VALIDATOR_H	firmware/interface/validator/validator.h	/^#define __BL_VALIDATOR_H$/;"	d
+__BL_WDT_H	firmware/abstraction/wdt/wdt.h	/^#define __BL_WDT_H$/;"	d
+__CONFIG_H	firmware/config/config.h	/^#define __CONFIG_H$/;"	d
+__DICT_H	firmware/lib/dict/dict.h	/^#define __DICT_H$/;"	d
+__anon01b9d0a80108	firmware/abstraction/hold/hold.c	/^{$/;"	s	file:
+__anon01b9d0a80208	firmware/abstraction/hold/hold.c	/^{$/;"	s	file:
+__anon11a468b90103	firmware/task/update/update.c	/^{$/;"	g	file:
+__anon11a468b90203	firmware/task/update/update.c	/^{$/;"	g	file:
+__anon15fa39040103	firmware/lib/dict/dict.h	/^{$/;"	g
+__anon1d3e44710108	firmware/lib/schedule/schedule.c	/^{$/;"	s	file:
+__anon21d138bc0108	firmware/abstraction/nvm/nvm.c	/^{$/;"	s	file:
+__anon21d138bc0208	firmware/abstraction/nvm/nvm.c	/^{$/;"	s	file:
+__anon4a90cb450103	firmware/interface/data/data.c	/^{$/;"	g	file:
+__anon4a90cb450208	firmware/interface/data/data.c	/^{$/;"	s	file:
+__anon5c21211f0103	firmware/interface/loader/loader.c	/^{$/;"	g	file:
+__anon5c21211f0203	firmware/interface/loader/loader.c	/^{$/;"	g	file:
+__anon5c21211f0303	firmware/interface/loader/loader.c	/^{$/;"	g	file:
+__anon5c21211f0408	firmware/interface/loader/loader.c	/^{$/;"	s	file:
+__anon5c6cb6f40103	firmware/interface/command/command.h	/^{$/;"	g
+__anon5c6cb6f40203	firmware/interface/command/command.h	/^{$/;"	g
+__anon5db7ba2e0108	firmware/abstraction/systick/systick.c	/^{$/;"	s	file:
+__anon5db7ba2e0208	firmware/abstraction/systick/systick.c	/^{$/;"	s	file:
+__anon877a19c20103	firmware/config/config.h	/^{$/;"	g
+__anonb15cb1320108	firmware/abstraction/jump/jump.c	/^{$/;"	s	file:
+__anonb15cb1320208	firmware/abstraction/jump/jump.c	/^{$/;"	s	file:
+__anonb900feb80108	firmware/abstraction/wdt/wdt.c	/^{$/;"	s	file:
+__anonb900feb80208	firmware/abstraction/wdt/wdt.c	/^{$/;"	s	file:
+__anond37f67440108	firmware/abstraction/led/led.c	/^{$/;"	s	file:
+__anond37f67440208	firmware/abstraction/led/led.c	/^{$/;"	s	file:
+__anond9bf41ba0108	firmware/abstraction/serial/serial.c	/^{$/;"	s	file:
+__anond9bf41ba0208	firmware/abstraction/serial/serial.c	/^{$/;"	s	file:
+blink_Count	firmware/task/blink/blink.c	/^BL_STATIC BL_UINT8_T blink_Count = 0U;$/;"	v	typeref:typename:BL_STATIC BL_UINT8_T
+blink_Node	firmware/task/blink/blink.c	/^BL_STATIC Schedule_Node_t blink_Node = {0U};$/;"	v	typeref:typename:BL_STATIC Schedule_Node_t
+blink_Run	firmware/task/blink/blink.c	/^BL_STATIC void blink_Run(void)$/;"	f	typeref:typename:BL_STATIC void
+buf	firmware/abstraction/serial/serial.c	/^    BL_UINT8_T buf[BL_BUFFER_SIZE]; \/\/\/< Serial buffer$/;"	m	struct:__anond9bf41ba0208	typeref:typename:BL_UINT8_T[]	file:
+buf	firmware/interface/buffer/buffer.c	/^BL_STATIC BL_UINT8_T buf[BL_BUFFER_SIZE] = {0U};$/;"	v	typeref:typename:BL_STATIC BL_UINT8_T[]
+bufIdx	firmware/abstraction/serial/serial.c	/^    BL_UINT32_T bufIdx;             \/\/\/< Serial buffer index$/;"	m	struct:__anond9bf41ba0208	typeref:typename:BL_UINT32_T	file:
+cCb_Set	firmware/interface/command/command.c	/^BL_STATIC BL_BOOL_T cCb_Set = BL_FALSE;$/;"	v	typeref:typename:BL_STATIC BL_BOOL_T
+cCnt	firmware/interface/command/command.c	/^BL_STATIC BL_UINT8_T cCnt = 0U;$/;"	v	typeref:typename:BL_STATIC BL_UINT8_T
+cReady	firmware/interface/command/command.c	/^BL_STATIC BL_BOOL_T cReady = BL_FALSE;$/;"	v	typeref:typename:BL_STATIC BL_BOOL_T
+cTimeout	firmware/interface/command/command.c	/^BL_STATIC Timeout_Node_t cTimeout = {0U};$/;"	v	typeref:typename:BL_STATIC Timeout_Node_t
+cTimeoutCb	firmware/interface/command/command.c	/^BL_STATIC BL_CONST Timeout_Cb_t cTimeoutCb[] =$/;"	v	typeref:typename:BL_STATIC BL_CONST Timeout_Cb_t[]
+cb	firmware/abstraction/hold/hold.c	/^    Hold_Cb_t cb;$/;"	m	struct:__anon01b9d0a80108	typeref:typename:Hold_Cb_t	file:
+cb	firmware/abstraction/jump/jump.c	/^    Jump_Cb_t cb;$/;"	m	struct:__anonb15cb1320108	typeref:typename:Jump_Cb_t	file:
+cb	firmware/abstraction/serial/serial.c	/^    void (*cb)(BL_UINT32_T length); \/\/\/< Serial Callback$/;"	m	struct:__anond9bf41ba0208	typeref:typename:void (*)(BL_UINT32_T length)	file:
+cfg	firmware/abstraction/hold/hold.c	/^    BL_CONST hold_Cfg_t *cfg;$/;"	m	struct:__anon01b9d0a80208	typeref:typename:BL_CONST hold_Cfg_t *	file:
+cfg	firmware/abstraction/jump/jump.c	/^    BL_CONST jump_Cfg_t *cfg;$/;"	m	struct:__anonb15cb1320208	typeref:typename:BL_CONST jump_Cfg_t *	file:
+cfg	firmware/abstraction/led/led.c	/^    BL_CONST led_Cfg_t *cfg;$/;"	m	struct:__anond37f67440208	typeref:typename:BL_CONST led_Cfg_t *	file:
+cfg	firmware/abstraction/nvm/nvm.c	/^    nvm_Cfg_t *cfg;    \/\/\/< Pointer to configuration$/;"	m	struct:__anon21d138bc0208	typeref:typename:nvm_Cfg_t *	file:
+cfg	firmware/abstraction/serial/serial.c	/^    BL_CONST serial_Cfg_t *cfg;     \/\/\/< Pointer to configuration$/;"	m	struct:__anond9bf41ba0208	typeref:typename:BL_CONST serial_Cfg_t *	file:
+cfg	firmware/abstraction/systick/systick.c	/^    BL_CONST systick_Cfg_t *cfg;$/;"	m	struct:__anon5db7ba2e0208	typeref:typename:BL_CONST systick_Cfg_t *	file:
+cfg	firmware/abstraction/wdt/wdt.c	/^    BL_CONST wdt_Cfg_t *cfg;$/;"	m	struct:__anonb900feb80208	typeref:typename:BL_CONST wdt_Cfg_t *	file:
+command_Cb	firmware/interface/command/command.c	/^BL_STATIC void command_Cb(BL_UINT32_T length)$/;"	f	typeref:typename:BL_STATIC void
+command_Handler	firmware/task/update/update.c	/^BL_STATIC update_State_e command_Handler(Command_Receive_e cmd)$/;"	f	typeref:typename:BL_STATIC update_State_e
+count	firmware/abstraction/hold/hold.c	/^    BL_UINT8_T count;$/;"	m	struct:__anon01b9d0a80208	typeref:typename:BL_UINT8_T	file:
+count	firmware/abstraction/jump/jump.c	/^    BL_UINT8_T count;$/;"	m	struct:__anonb15cb1320208	typeref:typename:BL_UINT8_T	file:
+count	firmware/abstraction/led/led.c	/^    BL_LED_T count;$/;"	m	struct:__anond37f67440208	typeref:typename:BL_LED_T	file:
+count	firmware/abstraction/nvm/nvm.c	/^    BL_UINT8_T count;           \/\/\/< Number of NVM nodes$/;"	m	struct:__anon21d138bc0208	typeref:typename:BL_UINT8_T	file:
+count	firmware/abstraction/serial/serial.c	/^    BL_UINT8_T count;               \/\/\/< Number of serial ports$/;"	m	struct:__anond9bf41ba0208	typeref:typename:BL_UINT8_T	file:
+count	firmware/abstraction/systick/systick.c	/^    BL_UINT8_T count;$/;"	m	struct:__anon5db7ba2e0208	typeref:typename:BL_UINT8_T	file:
+count	firmware/abstraction/wdt/wdt.c	/^    BL_UINT8_T count;$/;"	m	struct:__anonb900feb80208	typeref:typename:BL_UINT8_T	file:
+count	firmware/interface/data/data.c	/^    BL_UINT32_T count;$/;"	m	struct:__anon4a90cb450208	typeref:typename:BL_UINT32_T	file:
+crc	firmware/interface/loader/loader.c	/^    BL_UINT32_T crc;$/;"	m	struct:__anon5c21211f0408	typeref:typename:BL_UINT32_T	file:
+crc32Table	firmware/lib/crc/crc32.c	/^BL_STATIC BL_CONST BL_UINT32_T crc32Table[256] = {$/;"	v	typeref:typename:BL_STATIC BL_CONST BL_UINT32_T[256]
+dCnt	firmware/interface/data/data.c	/^BL_STATIC BL_UINT32_T dCnt[NUM_STATES] = {0U};$/;"	v	typeref:typename:BL_STATIC BL_UINT32_T[]
+dLength	firmware/interface/data/data.c	/^BL_STATIC DataLength_t dLength = 0U;$/;"	v	typeref:typename:BL_STATIC DataLength_t
+dReady	firmware/interface/data/data.c	/^BL_STATIC BL_BOOL_T dReady[NUM_STATES] = {BL_FALSE};$/;"	v	typeref:typename:BL_STATIC BL_BOOL_T[]
+dTimeout	firmware/interface/data/data.c	/^BL_STATIC Timeout_Node_t dTimeout = {0U};$/;"	v	typeref:typename:BL_STATIC Timeout_Node_t
+dTimeoutCb	firmware/interface/data/data.c	/^BL_STATIC BL_CONST Timeout_Cb_t dTimeoutCb[] =$/;"	v	typeref:typename:BL_STATIC BL_CONST Timeout_Cb_t[]
+data_Cb	firmware/interface/data/data.c	/^BL_STATIC void data_Cb(BL_UINT32_T length)$/;"	f	typeref:typename:BL_STATIC void
+data_Handler	firmware/task/update/update.c	/^BL_STATIC update_State_e data_Handler(Command_Receive_e command)$/;"	f	typeref:typename:BL_STATIC update_State_e
+data_State_e	firmware/task/update/update.c	/^} data_State_e;$/;"	t	typeref:enum:__anon11a468b90203	file:
+data_States_t	firmware/interface/data/data.c	/^} data_States_t;$/;"	t	typeref:enum:__anon4a90cb450103	file:
+data_t	firmware/interface/data/data.c	/^} data_t;$/;"	t	typeref:struct:__anon4a90cb450208	file:
+dereg	firmware/abstraction/serial/serial.c	/^    Serial_DeregisterCb_t dereg;    \/\/\/< Function pointer to deregister cb$/;"	m	struct:__anond9bf41ba0108	typeref:typename:Serial_DeregisterCb_t	file:
+erase	firmware/abstraction/nvm/nvm.c	/^    NVM_Erase_t erase;      \/\/\/< Function pointer to erase flash$/;"	m	struct:__anon21d138bc0108	typeref:typename:NVM_Erase_t	file:
+hCfg	firmware/abstraction/hold/hold.c	/^BL_STATIC BL_CONST hold_Cfg_t hCfg[] =$/;"	v	typeref:typename:BL_STATIC BL_CONST hold_Cfg_t[]
+head	firmware/lib/schedule/schedule.c	/^    Schedule_Node_t *head;$/;"	m	struct:__anon1d3e44710108	typeref:typename:Schedule_Node_t *	file:
+hold	firmware/abstraction/hold/hold.c	/^BL_STATIC hold_t hold = {0U};$/;"	v	typeref:typename:BL_STATIC hold_t
+hold_Cfg_t	firmware/abstraction/hold/hold.c	/^} hold_Cfg_t;$/;"	t	typeref:struct:__anon01b9d0a80108	file:
+hold_t	firmware/abstraction/hold/hold.c	/^} hold_t;$/;"	t	typeref:struct:__anon01b9d0a80208	file:
+index	firmware/abstraction/serial/serial.c	/^    BL_UINT8_T index;               \/\/\/< Name of the port$/;"	m	struct:__anond9bf41ba0108	typeref:typename:BL_UINT8_T	file:
+init	firmware/abstraction/nvm/nvm.c	/^    NVM_Init_t init;        \/\/\/< Function pointer to initialization$/;"	m	struct:__anon21d138bc0108	typeref:typename:NVM_Init_t	file:
+init	firmware/abstraction/serial/serial.c	/^    Serial_Init_t init;             \/\/\/< Function pointer to initialization$/;"	m	struct:__anond9bf41ba0108	typeref:typename:Serial_Init_t	file:
+init	firmware/abstraction/systick/systick.c	/^    Systick_Init_t init;$/;"	m	struct:__anon5db7ba2e0108	typeref:typename:Systick_Init_t	file:
+init	firmware/abstraction/wdt/wdt.c	/^    WDT_Init_t init;$/;"	m	struct:__anonb900feb80108	typeref:typename:WDT_Init_t	file:
+jCfg	firmware/abstraction/jump/jump.c	/^BL_STATIC BL_CONST jump_Cfg_t jCfg[] =$/;"	v	typeref:typename:BL_STATIC BL_CONST jump_Cfg_t[]
+jump	firmware/abstraction/jump/jump.c	/^BL_STATIC jump_t jump = {0U};$/;"	v	typeref:typename:BL_STATIC jump_t
+jump_Cfg_t	firmware/abstraction/jump/jump.c	/^} jump_Cfg_t;$/;"	t	typeref:struct:__anonb15cb1320108	file:
+jump_t	firmware/abstraction/jump/jump.c	/^} jump_t;$/;"	t	typeref:struct:__anonb15cb1320208	file:
+kick	firmware/abstraction/wdt/wdt.c	/^    WDT_Kick_t kick;$/;"	m	struct:__anonb900feb80108	typeref:typename:WDT_Kick_t	file:
+lCfg	firmware/abstraction/led/led.c	/^BL_STATIC BL_CONST led_Cfg_t lCfg[] =$/;"	v	typeref:typename:BL_STATIC BL_CONST led_Cfg_t[]
+led	firmware/abstraction/led/led.c	/^BL_STATIC led_t led = {0U};$/;"	v	typeref:typename:BL_STATIC led_t
+led_Cfg_t	firmware/abstraction/led/led.c	/^} led_Cfg_t;$/;"	t	typeref:struct:__anond37f67440108	file:
+led_t	firmware/abstraction/led/led.c	/^} led_t;$/;"	t	typeref:struct:__anond37f67440208	file:
+length	firmware/interface/loader/loader.c	/^    BL_UINT32_T length;$/;"	m	struct:__anon5c21211f0408	typeref:typename:BL_UINT32_T	file:
+length_Cb	firmware/interface/data/data.c	/^BL_STATIC void length_Cb(BL_UINT32_T length)$/;"	f	typeref:typename:BL_STATIC void
+loader_CheckPartition	firmware/interface/loader/loader.c	/^BL_STATIC BL_Err_t loader_CheckPartition(BL_BOOL_T *check, BL_BOOL_T *reset)$/;"	f	typeref:typename:BL_STATIC BL_Err_t
+loader_CreatePartition	firmware/interface/loader/loader.c	/^BL_STATIC BL_Err_t loader_CreatePartition(void)$/;"	f	typeref:typename:BL_STATIC BL_Err_t
+loader_ErasePartition	firmware/interface/loader/loader.c	/^BL_STATIC BL_Err_t loader_ErasePartition(void)$/;"	f	typeref:typename:BL_STATIC BL_Err_t
+loader_Info_t	firmware/interface/loader/loader.c	/^} loader_Info_t;$/;"	t	typeref:struct:__anon5c21211f0408	file:
+loader_Init_States_e	firmware/interface/loader/loader.c	/^} loader_Init_States_e;$/;"	t	typeref:enum:__anon5c21211f0103	file:
+loader_PreparePartitions	firmware/interface/loader/loader.c	/^BL_STATIC BL_Err_t loader_PreparePartitions(BL_UINT8_T *buf, BL_UINT32_T size)$/;"	f	typeref:typename:BL_STATIC BL_Err_t
+loader_Prepare_States_e	firmware/interface/loader/loader.c	/^} loader_Prepare_States_e;$/;"	t	typeref:enum:__anon5c21211f0203	file:
+loader_Revision_States_e	firmware/interface/loader/loader.c	/^} loader_Revision_States_e;$/;"	t	typeref:enum:__anon5c21211f0303	file:
+lock	firmware/abstraction/serial/serial.c	/^    BL_INT8_T lock;                 \/\/\/< Serial port to lock$/;"	m	struct:__anond9bf41ba0208	typeref:typename:BL_INT8_T	file:
+main	firmware/main/main.c	/^int main(void)$/;"	f	typeref:typename:int
+main	firmware/task/main/main.c	/^int main(void)$/;"	f	typeref:typename:int
+ms	firmware/abstraction/systick/systick.c	/^    Systick_GetMs_t ms;$/;"	m	struct:__anon5db7ba2e0108	typeref:typename:Systick_GetMs_t	file:
+ms	firmware/lib/schedule/schedule.h	/^    BL_UINT32_T ms;$/;"	m	struct:Schedule_Node_s	typeref:typename:BL_UINT32_T
+nCfg	firmware/abstraction/nvm/nvm.c	/^BL_STATIC nvm_Cfg_t nCfg[] =$/;"	v	typeref:typename:BL_STATIC nvm_Cfg_t[]
+next	firmware/lib/schedule/schedule.h	/^    struct Schedule_Node_s *next;$/;"	m	struct:Schedule_Node_s	typeref:struct:Schedule_Node_s *
+node	firmware/interface/loader/loader.c	/^    BL_UINT8_T node;$/;"	m	struct:__anon5c21211f0408	typeref:typename:BL_UINT8_T	file:
+nvm	firmware/abstraction/nvm/nvm.c	/^BL_STATIC nvm_t nvm = {0U};$/;"	v	typeref:typename:BL_STATIC nvm_t
+nvm_Cfg_t	firmware/abstraction/nvm/nvm.c	/^} nvm_Cfg_t;$/;"	t	typeref:struct:__anon21d138bc0108	file:
+nvm_t	firmware/abstraction/nvm/nvm.c	/^} nvm_t;$/;"	t	typeref:struct:__anon21d138bc0208	file:
+offset	firmware/abstraction/nvm/nvm.c	/^    BL_UINT32_T offset;     \/\/\/< Offset of the partition to write to$/;"	m	struct:__anon21d138bc0108	typeref:typename:BL_UINT32_T	file:
+op	firmware/abstraction/nvm/nvm.c	/^    BL_UINT8_T op;          \/\/\/< Operation that is currently ongoing$/;"	m	struct:__anon21d138bc0108	typeref:typename:BL_UINT8_T	file:
+p	firmware/abstraction/nvm/nvm.c	/^    BL_UINT32_T p;          \/\/\/< Pointer to read and write locations$/;"	m	struct:__anon21d138bc0108	typeref:typename:BL_UINT32_T	file:
+page	firmware/abstraction/nvm/nvm.c	/^    BL_UINT32_T page;       \/\/\/< Page size of the parition$/;"	m	struct:__anon21d138bc0108	typeref:typename:BL_UINT32_T	file:
+partitions	firmware/interface/loader/loader.c	/^BL_STATIC loader_Info_t partitions[BL_NUM_PARTITIONS_TO_UPDATE] = {0U};$/;"	v	typeref:typename:BL_STATIC loader_Info_t[]
+period	firmware/abstraction/led/led.c	/^    BL_UINT32_T period;$/;"	m	struct:__anond37f67440108	typeref:typename:BL_UINT32_T	file:
+period	firmware/lib/schedule/schedule.h	/^    BL_UINT32_T period;$/;"	m	struct:Schedule_Node_s	typeref:typename:BL_UINT32_T
+priority	firmware/abstraction/nvm/nvm.c	/^    BL_UINT8_T priority;    \/\/\/< Priority of the partition to write to$/;"	m	struct:__anon21d138bc0108	typeref:typename:BL_UINT8_T	file:
+rList	firmware/interface/command/command.c	/^BL_STATIC BL_CONST Dict_Item_t rList[RECEIVE_NUM_COMMAND] =$/;"	v	typeref:typename:BL_STATIC BL_CONST Dict_Item_t[]
+read	firmware/abstraction/nvm/nvm.c	/^    NVM_Read_t read;        \/\/\/< Function pointer to read from flash$/;"	m	struct:__anon21d138bc0108	typeref:typename:NVM_Read_t	file:
+reg	firmware/abstraction/serial/serial.c	/^    Serial_RegisterCb_t reg;        \/\/\/< Function pointer to register cb$/;"	m	struct:__anond9bf41ba0108	typeref:typename:Serial_RegisterCb_t	file:
+revision	firmware/interface/loader/loader.c	/^    BL_UINT32_T revision;$/;"	m	struct:__anon5c21211f0408	typeref:typename:BL_UINT32_T	file:
+run	firmware/lib/schedule/schedule.h	/^    void (*run)(void);$/;"	m	struct:Schedule_Node_s	typeref:typename:void (*)(void)
+sCfg	firmware/abstraction/serial/serial.c	/^BL_STATIC BL_CONST serial_Cfg_t sCfg[] =$/;"	v	typeref:typename:SERIAL_CFG BL_STATIC BL_CONST serial_Cfg_t[]
+sCfg	firmware/abstraction/systick/systick.c	/^BL_STATIC BL_CONST systick_Cfg_t sCfg[] =$/;"	v	typeref:typename:BL_STATIC BL_CONST systick_Cfg_t[]
+schedule	firmware/lib/schedule/schedule.c	/^BL_STATIC schedule_t schedule = {0U};$/;"	v	typeref:typename:BL_STATIC schedule_t
+schedule_t	firmware/lib/schedule/schedule.c	/^} schedule_t;$/;"	t	typeref:struct:__anon1d3e44710108	file:
+serial	firmware/abstraction/serial/serial.c	/^BL_STATIC serial_t serial = {0U};$/;"	v	typeref:typename:BL_STATIC serial_t
+serial_CbInit	firmware/abstraction/serial/serial.c	/^BL_STATIC void serial_CbInit(BL_Err_t *err)$/;"	f	typeref:typename:SERIAL_CFG BL_STATIC void
+serial_Cfg_t	firmware/abstraction/serial/serial.c	/^} serial_Cfg_t;$/;"	t	typeref:struct:__anond9bf41ba0108	file:
+serial_LockCb	firmware/abstraction/serial/serial.c	/^BL_STATIC BL_BOOL_T serial_LockCb(BL_UINT8_T lIdx)$/;"	f	typeref:typename:BL_STATIC BL_BOOL_T
+serial_t	firmware/abstraction/serial/serial.c	/^} serial_t;$/;"	t	typeref:struct:__anond9bf41ba0208	file:
+size	firmware/abstraction/nvm/nvm.c	/^    BL_UINT32_T size;       \/\/\/< Size of the partition to write to$/;"	m	struct:__anon21d138bc0108	typeref:typename:BL_UINT32_T	file:
+size	firmware/interface/loader/loader.c	/^    BL_UINT32_T size;$/;"	m	struct:__anon5c21211f0408	typeref:typename:BL_UINT32_T	file:
+systick	firmware/abstraction/systick/systick.c	/^BL_STATIC systick_t systick = {0U};$/;"	v	typeref:typename:BL_STATIC systick_t
+systick_Cfg_t	firmware/abstraction/systick/systick.c	/^} systick_Cfg_t;$/;"	t	typeref:struct:__anon5db7ba2e0108	file:
+systick_t	firmware/abstraction/systick/systick.c	/^} systick_t;$/;"	t	typeref:struct:__anon5db7ba2e0208	file:
+tList	firmware/interface/command/command.c	/^BL_STATIC BL_CONST Dict_Item_t tList[TRANSMIT_NUM_COMMAND] =$/;"	v	typeref:typename:BL_STATIC BL_CONST Dict_Item_t[]
+tail	firmware/lib/schedule/schedule.c	/^    Schedule_Node_t *tail;$/;"	m	struct:__anon1d3e44710108	typeref:typename:Schedule_Node_t *	file:
+toggle	firmware/abstraction/led/led.c	/^    LED_Toggle_t toggle;$/;"	m	struct:__anond37f67440108	typeref:typename:LED_Toggle_t	file:
+transmit	firmware/abstraction/serial/serial.c	/^    Serial_Transmit_t transmit;     \/\/\/< Function pointer to transmit$/;"	m	struct:__anond9bf41ba0108	typeref:typename:Serial_Transmit_t	file:
+uNode	firmware/task/update/update.c	/^BL_STATIC Schedule_Node_t uNode = {0U};$/;"	v	typeref:typename:BL_STATIC Schedule_Node_t
+update_Run	firmware/task/update/update.c	/^BL_STATIC void update_Run(void)$/;"	f	typeref:typename:BL_STATIC void
+update_State_e	firmware/task/update/update.c	/^} update_State_e;$/;"	t	typeref:enum:__anon11a468b90103	file:
+wCfg	firmware/abstraction/wdt/wdt.c	/^BL_STATIC BL_CONST wdt_Cfg_t wCfg[] =$/;"	v	typeref:typename:BL_STATIC BL_CONST wdt_Cfg_t[]
+wdt	firmware/abstraction/wdt/wdt.c	/^BL_STATIC wdt_t wdt = {0};$/;"	v	typeref:typename:BL_STATIC wdt_t
+wdt_Cfg_t	firmware/abstraction/wdt/wdt.c	/^} wdt_Cfg_t;$/;"	t	typeref:struct:__anonb900feb80108	file:
+wdt_t	firmware/abstraction/wdt/wdt.c	/^} wdt_t;$/;"	t	typeref:struct:__anonb900feb80208	file:
+write	firmware/abstraction/nvm/nvm.c	/^    NVM_Write_t write;      \/\/\/< Function pointer to write to flash$/;"	m	struct:__anon21d138bc0108	typeref:typename:NVM_Write_t	file:

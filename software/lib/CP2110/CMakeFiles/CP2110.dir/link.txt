@@ -1,0 +1,2 @@
+/usr/bin/ar qc libCP2110.a  CMakeFiles/CP2110.dir/cp2110smt/cp2110smt.cpp.obj CMakeFiles/CP2110.dir/cp2110smt/OsDep.cpp.obj CMakeFiles/CP2110.dir/cp2110smt/smt.cpp.obj CMakeFiles/CP2110.dir/cp2110smt/util.cpp.obj
+/usr/bin/ranlib libCP2110.a
