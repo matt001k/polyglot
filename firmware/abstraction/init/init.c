@@ -21,12 +21,12 @@
  *****************************************************************************/
 #include "init.h"
 
+#define INIT_FUNCTIONS(entry) \
+    entry();
+
 void Init_Init(void)
 {
-#define INIT_ENTRY(entry) \
-    entry();
-    INIT_CFG
-#undef INIT_ENTRY
+    INIT_CFG(INIT_FUNCTIONS)
 }
 
 /**@} init */

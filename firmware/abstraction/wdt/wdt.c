@@ -19,6 +19,9 @@
  *****************************************************************************/
 #include "wdt.h"
 
+#define WDT_FUNCTION(init, kick) \
+    {init, kick},
+
 typedef struct
 {
     WDT_Init_t init;
@@ -33,10 +36,7 @@ typedef struct
 
 BL_STATIC BL_CONST wdt_Cfg_t wCfg[] =
 {
-#define WDT_ENTRY(init, kick) \
-    {init, kick},
-    WDT_CFG
-#undef WDT_ENTRY
+    WDT_CFG(WDT_FUNCTION)
     {0, 0},
 };
 

@@ -22,6 +22,8 @@
 #include "systick.h"
 
 #define SYSTICK_CLK_IDX (0U)
+#define SYSTICK_TABLE_ENTRY(init, ms) \
+    {init, ms},
 
 typedef struct
 {
@@ -37,10 +39,7 @@ typedef struct
 
 BL_STATIC BL_CONST systick_Cfg_t sCfg[] =
 {
-#define SYSTICK_ENTRY(init, ms) \
-    {init, ms},
-    SYSTICK_CFG
-#undef SYSTICK_ENTRY
+    SYSTICK_CFG(SYSTICK_TABLE_ENTRY)
     {0, 0},
 };
 

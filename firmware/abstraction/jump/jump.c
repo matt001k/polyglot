@@ -22,6 +22,8 @@
 #include "nvm.h"
 
 #define JUMP_IDX (0U)
+#define JUMP_FUNCTION(jump) \
+    {jump},
 
 typedef struct
 {
@@ -36,10 +38,7 @@ typedef struct
 
 BL_STATIC BL_CONST jump_Cfg_t jCfg[] =
 {
-#define JUMP_ENTRY(jump) \
-    {jump},
-    JUMP_CFG
-#undef JUMP_ENTRY
+    JUMP_CFG(JUMP_FUNCTION)
     {0},
 };
 
