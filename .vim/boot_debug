@@ -1,0 +1,11 @@
+# Segger: listen on port
+target remote localhost:50000
+
+# Segger: reset device
+monitor reset
+
+# Segger: specify flash of device
+monitor device = EFM32TG11B520F128
+
+# Segger: set file to inspect
+file ./build/ahriman_boot.elf

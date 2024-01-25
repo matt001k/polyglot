@@ -1,0 +1,1 @@
+target_sources(${PROJECT_APP_EXECUTABLE} PRIVATE main.c)
