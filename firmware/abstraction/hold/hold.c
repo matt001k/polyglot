@@ -21,6 +21,8 @@
 #include "hold.h"
 
 #define HOLD_IDX (0U)
+#define HOLD_FUNCTION(hold) \
+    {hold},
 
 typedef struct
 {
@@ -35,10 +37,7 @@ typedef struct
 
 BL_STATIC BL_CONST hold_Cfg_t hCfg[] =
 {
-#define HOLD_ENTRY(hold) \
-    {hold},
-    HOLD_CFG
-#undef HOLD_ENTRY
+    HOLD_CFG(HOLD_FUNCTION)
     {0},
 };
 

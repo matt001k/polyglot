@@ -215,7 +215,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          include anything that may speak serially, such as SPI, UART, I2C,
  *          CAN, LIN, etc. The correct format of an entry is as follows:
  * 
- *          SERIAL_ENTRY(name, index, init, transmit, register, deregister)
+ *          ENTRY(name, index, init, transmit, register, deregister)
  *
  *          @param name name of the serial module, this is text not a string
  *          @param index index of the entry, this starts at zero
@@ -244,13 +244,13 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          cannot take control unless a command is sent to the device to
  *          unlock the peripheral.
  *****************************************************************************/
-#define SERIAL_CFG                              \
-    SERIAL_ENTRY(UART0,                         \
-                 0U,                            \
-                 UART_Init,                     \
-                 UART_TransmitAbstract,         \
-                 UART_RegisterCbAbstract,       \
-                 UART_DeregisterCbAbstract)     \
+#define SERIAL_CFG(ENTRY)                       \
+    ENTRY(UART0,                                \
+          0U,                                   \
+          UART_Init,                            \
+          UART_TransmitAbstract,                \
+          UART_RegisterCbAbstract,              \
+          UART_DeregisterCbAbstract)            \
 
 /**************************************************************************//**
  * @brief Configuration Entry for Systick Peripheral
@@ -261,7 +261,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          entered, the system will throw an assertion. The correct format
  *          of an entry looks as follows:
  * 
- *          SYSTICK_ENTRY(init, ms)
+ *          ENTRY(init, ms)
  * 
  *          @param init initialization function pointer in the format of:
  *
@@ -273,8 +273,8 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *                 BL_UINT32_T ms(void)
  * 
  *****************************************************************************/
-#define SYSTICK_CFG                             \
-    SYSTICK_ENTRY(Time_Init, Time_GetRuntimeMs)
+#define SYSTICK_CFG(ENTRY)                      \
+    ENTRY(Time_Init, Time_GetRuntimeMs)         \
 
 /**************************************************************************//**
  * @brief Configuration Entry for LED Peripheral
@@ -287,7 +287,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          run properly if this is not configured correctly. The correct
  *          format of an entry looks as follows:
  * 
- *          LED_ENTRY(toggle, period)
+ *          ENTRY(toggle, period)
  * 
  *          @param toggle toggle function pointer in the format of:
  *
@@ -295,10 +295,10 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *
  *          @param period period of the led toggling
  *****************************************************************************/
-#define LED_CFG                   \
-    LED_ENTRY(LED1_Toggle, 2000U) \
-    LED_ENTRY(LED2_Toggle, 500U)  \
-    LED_ENTRY(LED3_Toggle, 200U)  \
+#define LED_CFG(ENTRY)            \
+    ENTRY(LED1_Toggle, 2000U)     \
+    ENTRY(LED2_Toggle, 500U)      \
+    ENTRY(LED3_Toggle, 200U)      \
 
 /**************************************************************************//**
  * @brief Configuration Entry for Watchdog Timer
@@ -309,7 +309,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          defined, an assertion will be thrown. The correct format of an
  *          entry looks as follows:
  * 
- *          WDT_ENTRY(init, kick)
+ *          ENTRY(init, kick)
  * 
  *          @param init initialization function for the WDT, this will include
  *                      API used to start the watchdog as well, the format of
@@ -323,8 +323,8 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *                      void kick(void)
  * 
  *****************************************************************************/
-#define WDT_CFG                                \
-    WDT_ENTRY(WDT_InitAbstract, Watchdog_Kick) \
+#define WDT_CFG(ENTRY)                          \
+    ENTRY(WDT_InitAbstract, Watchdog_Kick)      \
 
 /**************************************************************************//**
  * @brief Configuration Entry for NVM Partitions
@@ -338,14 +338,14 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          will store the older updates on the device. The correct format of
  *          an entry looks as follows:
  *
- *          NVM_ENTRY(init,
- *                    write,
- *                    read,
- *                    erase,
- *                    size,
- *                    location,
- *                    sector_size,
- *                    partition)
+ *          ENTRY(init,
+ *                write,
+ *                read,
+ *                erase,
+ *                size,
+ *                location,
+ *                sector_size,
+ *                partition)
  *
  *          @param init initialization function for the NVM partition, the
  *                      format of the function is as follows:
@@ -393,39 +393,39 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          @param partition partition number, see required partitions
  *
  *****************************************************************************/
-#define NVM_CFG                             \
-    NVM_ENTRY(Partition_Init,               \
-              Partition_Write,              \
-              Partition_Read,               \
-              Partition_Erase,              \
-              PARTITION_TABLE_SIZE,         \
-              PARTITION_TABLE_LOCATION,     \
-              PARTITION_SECTOR_SIZE,        \
-              0U)                           \
-    NVM_ENTRY(Flash_Init,                   \
-              IntFlash_WriteAbstract,       \
-              IntFlash_ReadAbstract,        \
-              IntFlash_EraseAbstract,       \
-              APP_SIZE,                     \
-              APP_LOCATION,                 \
-              MCU_SECTOR_SIZE,              \
-              1U)                           \
-    NVM_ENTRY(Partition_Init,               \
-              Partition_Write,              \
-              Partition_Read,               \
-              Partition_Erase,              \
-              PARTITION_UPDATE_1_SIZE,      \
-              PARTITION_UPDATE_1_LOCATION,  \
-              PARTITION_SECTOR_SIZE,        \
-              2U)                           \
-    NVM_ENTRY(Partition_Init,               \
-              Partition_Write,              \
-              Partition_Read,               \
-              Partition_Erase,              \
-              PARTITION_UPDATE_2_SIZE,      \
-              PARTITION_UPDATE_2_LOCATION,  \
-              PARTITION_SECTOR_SIZE,        \
-              3U)                           \
+#define NVM_CFG(ENTRY)                      \
+    ENTRY(Partition_Init,                   \
+          Partition_Write,                  \
+          Partition_Read,                   \
+          Partition_Erase,                  \
+          PARTITION_TABLE_SIZE,             \
+          PARTITION_TABLE_LOCATION,         \
+          PARTITION_SECTOR_SIZE,            \
+          0U)                               \
+    ENTRY(Flash_Init,                       \
+          IntFlash_WriteAbstract,           \
+          IntFlash_ReadAbstract,            \
+          IntFlash_EraseAbstract,           \
+          APP_SIZE,                         \
+          APP_LOCATION,                     \
+          MCU_SECTOR_SIZE,                  \
+          1U)                               \
+    ENTRY(Partition_Init,                   \
+          Partition_Write,                  \
+          Partition_Read,                   \
+          Partition_Erase,                  \
+          PARTITION_UPDATE_1_SIZE,          \
+          PARTITION_UPDATE_1_LOCATION,      \
+          PARTITION_SECTOR_SIZE,            \
+          2U)                               \
+    ENTRY(Partition_Init,                   \
+          Partition_Write,                  \
+          Partition_Read,                   \
+          Partition_Erase,                  \
+          PARTITION_UPDATE_2_SIZE,          \
+          PARTITION_UPDATE_2_LOCATION,      \
+          PARTITION_SECTOR_SIZE,            \
+          3U)                               \
 
 /**************************************************************************//**
  * @brief Configuration Entry for Jump
@@ -435,7 +435,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          time, if more than one is configured an assertion will be thrown.
  *          The correct format of an entry is as follows:
  * 
- *          JUMP_ENTRY(jump)
+ *          ENTRY(jump)
  * 
  *          @param jump jump function to jump to application. The correct
  *                      format of the function is as follows:
@@ -443,8 +443,8 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *                      void jump(BL_UINT32_T address)
  * 
  *****************************************************************************/
-#define JUMP_CFG                    \
-    JUMP_ENTRY(Jump_ToAppAbstract)  \
+#define JUMP_CFG(ENTRY)             \
+    ENTRY(Jump_ToAppAbstract)       \
 
 /**************************************************************************//**
  * @brief Configuration Entry for Hold
@@ -455,7 +455,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          configured an assertion will be thrown. The correct format of an
  *          entry is as follows:
  *
- *          HOLD_ENTRY(hold)
+ *          ENTRY(hold)
  * 
  *          @param hold hold function to hold the device in bootloader mode.
  *                      The device will stay in bootloader mode if this
@@ -465,15 +465,15 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *                      BL_BOOL_T hold(void)
  * 
  *****************************************************************************/
-#define HOLD_CFG                    \
-    HOLD_ENTRY(Bootloader_Get)      \
+#define HOLD_CFG(ENTRY)             \
+    ENTRY(Bootloader_Get)           \
 
 /**************************************************************************//**
  * @brief Configuration for peripheral initialization
  * 
  *****************************************************************************/
-#define INIT_CFG                    \
-    INIT_ENTRY(Init_Abstract)
+#define INIT_CFG(ENTRY)              \
+    ENTRY(Init_Abstract)
 
 #endif // __CONFIG_H
 

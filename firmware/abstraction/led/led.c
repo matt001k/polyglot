@@ -20,6 +20,9 @@
  *****************************************************************************/
 #include "led.h"
 
+#define LED_TABLE_ENTRY(toggle, period) \
+    {toggle, period},
+
 typedef struct
 {
     LED_Toggle_t toggle;
@@ -34,10 +37,7 @@ typedef struct
 
 BL_STATIC BL_CONST led_Cfg_t lCfg[] =
 {
-#define LED_ENTRY(toggle, period) \
-    {toggle, period},
-    LED_CFG
-#undef LED_ENTRY
+    LED_CFG(LED_TABLE_ENTRY)
     {0, 0},
 };
 

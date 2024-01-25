@@ -27,6 +27,9 @@
 #define NVM_WRITE_OP (1U)
 #define NVM_READ_OP (2U)
 #define NVM_ERASE_OP (3U)
+#define NVM_TABLE_ENTRY(init, write, read, erase,     \
+                        size, offset, page, priority) \
+    {init, write, read, erase, size, offset, page, priority, offset},
 
 typedef struct
 {
@@ -50,11 +53,7 @@ typedef struct
 
 BL_STATIC nvm_Cfg_t nCfg[] =
 {
-#define NVM_ENTRY(init, write, read, erase, \
-                  size, offset, page, priority) \
-    {init, write, read, erase, size, offset, page, priority, offset},
-    NVM_CFG
-#undef NVM_ENTRY
+    NVM_CFG(NVM_TABLE_ENTRY)
     {0, 0, 0, 0, 0, 0, 0, 0, 0},
 };
 
