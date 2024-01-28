@@ -463,32 +463,26 @@ BL_STATIC BL_Err_t loader_CheckPartition(BL_BOOL_T *check, BL_BOOL_T *reset)
     if (*reset == BL_TRUE)
     {
         *reset = BL_FALSE;
-        err = BL_ERR;
     }
-
-    if (err != BL_OK)
+    err = NVM_Read(PARTITION_NODE, buf, &size);
+    if (err == BL_OK)
     {
-        err = NVM_Read(PARTITION_NODE, buf, &size);
-
-        if (err == BL_OK)
+        /* Check for secret word in partition */
+        for (; i < SECRET_KEY_SIZE; i++)
         {
-            /* Check for secret word in partition */
-            for (; i < SECRET_KEY_SIZE; i++)
+            if (buf[i] != (BL_UINT8_T) (secret >>
+                          ((SECRET_KEY_SIZE * 8U) -
+                          (8U * (i + 1U)))))
             {
-                if (buf[i] != (BL_UINT8_T) (secret >>
-                              ((SECRET_KEY_SIZE * 8U) -
-                              (8U * (i + 1U)))))
-                {
-                    *check = false;
-                    break;
-                }
+                *check = false;
+                break;
             }
-            if (i == SECRET_KEY_SIZE)
-            {
-                *check = true;
-            }
-            NVM_OperationFinish(PARTITION_NODE);
         }
+        if (i == SECRET_KEY_SIZE)
+        {
+            *check = true;
+        }
+        NVM_OperationFinish(PARTITION_NODE);
     }
 
     return err;
@@ -507,7 +501,7 @@ BL_STATIC BL_Err_t loader_ErasePartition(void)
             op = BL_TRUE;
         }
     }
-
+    /* Erase partition table non-blocking */
     if ((err = NVM_Erase(PARTITION_NODE, size)) == BL_OK)
     {
         op = BL_FALSE;

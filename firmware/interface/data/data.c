@@ -32,15 +32,13 @@ typedef enum
     NUM_STATES,
 } data_States_t;
 
-typedef struct
+BL_STATIC struct
 {
-    BL_UINT32_T count;
-} data_t;
-
-BL_STATIC BL_BOOL_T dReady[NUM_STATES] = {BL_FALSE};
-BL_STATIC BL_UINT32_T dCnt[NUM_STATES] = {0U};
-BL_STATIC DataLength_t dLength = 0U;
-BL_STATIC Timeout_Node_t dTimeout = {0U};
+    BL_BOOL_T ready[NUM_STATES];
+    BL_UINT32_T count[NUM_STATES];
+    DataLength_t length;
+    Timeout_Node_t timeout;
+} data = {0};
 BL_STATIC BL_CONST Timeout_Cb_t dTimeoutCb[] =
 {
     Serial_Flush,
@@ -55,7 +53,7 @@ BL_Err_t Data_LengthCbInit(void)
 {
     BL_Err_t err = BL_ERR;
 
-    if ((err = Timeout_Add(&dTimeout,
+    if ((err = Timeout_Add(&data.timeout,
                            dTimeoutCb,
                            BL_SERIAL_TIMEOUT_MS)) == BL_OK)
     {
@@ -69,7 +67,7 @@ BL_Err_t Data_LengthCbDeinit(void)
 {
     BL_Err_t err = BL_ERR;
 
-    if ((err = Timeout_Remove(&dTimeout)) == BL_OK)
+    if ((err = Timeout_Remove(&data.timeout)) == BL_OK)
     {
         err = Serial_DeregisterCb();
     }
@@ -81,7 +79,7 @@ BL_Err_t Data_DataCbInit(void)
 {
     BL_Err_t err = BL_ERR;
 
-    if ((err = Timeout_Add(&dTimeout,
+    if ((err = Timeout_Add(&data.timeout,
                            dTimeoutCb,
                            BL_SERIAL_TIMEOUT_MS)) == BL_OK)
     {
@@ -95,7 +93,7 @@ BL_Err_t Data_DataCbDeinit(void)
 {
     BL_Err_t err = BL_ERR;
 
-    if ((err = Timeout_Remove(&dTimeout)) == BL_OK)
+    if ((err = Timeout_Remove(&data.timeout)) == BL_OK)
     {
         err = Serial_DeregisterCb();
     }
@@ -108,9 +106,9 @@ BL_Err_t Data_GetLength(DataLength_t *length)
     BL_Err_t err = BL_ENODATA;
     BL_UINT8_T buf[LENGTH_SIZE] = {0U};
 
-    if (dReady[GET_LENGTH] == BL_TRUE)
+    if (data.ready[GET_LENGTH] == BL_TRUE)
     {
-        dReady[GET_LENGTH] = BL_FALSE;
+        data.ready[GET_LENGTH] = BL_FALSE;
         Serial_Receive(buf, LENGTH_SIZE);
         *length = (DataLength_t) (buf[0] << 24U |
                                   buf[1] << 16U |
@@ -134,9 +132,9 @@ void Data_Reset(void)
 {
     for (BL_UINT8_T dIdx = 0U; dIdx < NUM_STATES; dIdx++)
     {
-        if (dCnt[dIdx] > 0U)
+        if (data.count[dIdx] > 0U)
         {
-            dCnt[dIdx] = 0U;
+            data.count[dIdx] = 0U;
         }
     }
 }
@@ -148,21 +146,21 @@ BL_Err_t Data_SetLength(DataLength_t length)
     if (length)
     {
         err = BL_OK;
-        dLength = length;
+        data.length = length;
     }
 
     return err;
 }
 
-BL_Err_t Data_ReceiveData(BL_UINT8_T *data)
+BL_Err_t Data_ReceiveData(BL_UINT8_T *buf)
 {
     BL_Err_t err = BL_ENODATA;
 
-    if (dReady[GET_DATA] == BL_TRUE)
+    if (data.ready[GET_DATA] == BL_TRUE)
     {
-        dReady[GET_DATA] = BL_FALSE;
-        Serial_Receive(data, dLength);
-        dLength = 0U;
+        data.ready[GET_DATA] = BL_FALSE;
+        Serial_Receive(buf, data.length);
+        data.length = 0U;
         err = BL_OK;
     }
 
@@ -171,25 +169,25 @@ BL_Err_t Data_ReceiveData(BL_UINT8_T *data)
 
 BL_STATIC void length_Cb(BL_UINT32_T length)
 {
-    Timeout_Kick(&dTimeout);
-    dCnt[GET_LENGTH] += length;
-    if (dCnt[GET_LENGTH] >= LENGTH_SIZE)
+    Timeout_Kick(&data.timeout);
+    data.count[GET_LENGTH] += length;
+    if (data.count[GET_LENGTH] >= LENGTH_SIZE)
     {
-        dCnt[GET_LENGTH] = 0U;
-        dReady[GET_LENGTH] = BL_TRUE;
+        data.count[GET_LENGTH] = 0U;
+        data.ready[GET_LENGTH] = BL_TRUE;
     }
 }
 
 BL_STATIC void data_Cb(BL_UINT32_T length)
 {
-    Timeout_Kick(&dTimeout);
-    if (dLength != 0U)
+    Timeout_Kick(&data.timeout);
+    if (data.length != 0U)
     {
-        dCnt[GET_DATA] += length;
-        if (dCnt[GET_DATA] >= dLength)
+        data.count[GET_DATA] += length;
+        if (data.count[GET_DATA] >= data.length)
         {
-            dCnt[GET_DATA] = 0U;
-            dReady[GET_DATA] = BL_TRUE;
+            data.count[GET_DATA] = 0U;
+            data.ready[GET_DATA] = BL_TRUE;
         }
     }
 }

@@ -92,12 +92,12 @@ BL_Err_t Data_GetLength(DataLength_t *length);
 BL_Err_t Data_SetLength(DataLength_t length);
 
 /**************************************************************************//**
- * @brief 
+ * @brief Receives to a buffer
  * 
- * @param data 
+ * @param buf[in/out] buffer to receive data to
  * @return BL_Err_t 
  *****************************************************************************/
-BL_Err_t Data_ReceiveData(BL_UINT8_T *data);
+BL_Err_t Data_ReceiveData(BL_UINT8_T *buf);
 
 /**@} data */
 

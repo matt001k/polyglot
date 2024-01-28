@@ -19,10 +19,9 @@
  *****************************************************************************/
 #include "buffer.h"
 
-BL_STATIC BL_UINT8_T buf[BL_BUFFER_SIZE] = {0U};
-
 BL_UINT8_T *Buffer_Get(void)
 {
+    BL_STATIC BL_UINT8_T buf[BL_BUFFER_SIZE] = {0U};
     return buf;
 }
 
