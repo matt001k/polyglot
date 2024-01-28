@@ -15,7 +15,7 @@
  * @file        validator.h
  *
  * @brief       Provides an interface to validate what is in the application
- *              partition to be able to run the application
+ *              partition and validate what is in the partition can be ran
  * 
  * @author      Matthew Krause
  *

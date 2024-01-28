@@ -21,7 +21,6 @@
 #include "schedule.h"
 #include "systick.h"
 
-
 BL_Err_t Run(void)
 {
     Schedule_Node_t *node = BL_NULL;
