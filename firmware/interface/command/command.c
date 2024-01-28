@@ -27,10 +27,13 @@
 
 #define COMMAND_SIZE BL_SIZEOF(Dict_Item_t)
 
-BL_STATIC BL_BOOL_T cReady = BL_FALSE;
-BL_STATIC BL_BOOL_T cCb_Set = BL_FALSE;
-BL_STATIC BL_UINT8_T cCnt = 0U;
-BL_STATIC Timeout_Node_t cTimeout = {0U};
+BL_STATIC struct
+{
+    BL_BOOL_T ready;
+    BL_BOOL_T cb;
+    BL_UINT8_T count;
+    Timeout_Node_t timeout;
+} command = {0};
 BL_STATIC BL_CONST Timeout_Cb_t cTimeoutCb[] =
 {
     Serial_Flush,
@@ -64,10 +67,10 @@ BL_Err_t Command_Init(void)
 {
     BL_Err_t err = BL_OK;
 
-    if (cCb_Set == BL_FALSE)
+    if (command.cb == BL_FALSE)
     {
-        cCb_Set = BL_TRUE;
-        err = Timeout_Add(&cTimeout, cTimeoutCb, BL_SERIAL_TIMEOUT_MS);
+        command.cb = BL_TRUE;
+        err = Timeout_Add(&command.timeout, cTimeoutCb, BL_SERIAL_TIMEOUT_MS);
         if (err == BL_OK)
         {
             err = Serial_RegisterCb(command_Cb);
@@ -81,10 +84,10 @@ BL_Err_t Command_Deinit(void)
 {
     BL_Err_t err = BL_OK;
 
-    if (cCb_Set == BL_TRUE)
+    if (command.cb == BL_TRUE)
     {
-        cCb_Set = BL_FALSE;
-        err = Timeout_Remove(&cTimeout);
+        command.cb = BL_FALSE;
+        err = Timeout_Remove(&command.timeout);
         if ( err == BL_OK)
         {
             err = Serial_DeregisterCb();
@@ -96,9 +99,9 @@ BL_Err_t Command_Deinit(void)
 
 void Command_Reset(void)
 {
-    if (cCnt > 0U)
+    if (command.count > 0U)
     {
-        cCnt = 0U;
+        command.count = 0U;
     }
 }
 
@@ -122,9 +125,9 @@ BL_Err_t Command_Receive(Command_Receive_e *cmd)
     BL_UINT8_T buf[COMMAND_SIZE] = {0U};
     Dict_Item_t item = 0U;
 
-    if (cReady == BL_TRUE)
+    if (command.ready == BL_TRUE)
     {
-        cReady = BL_FALSE;
+        command.ready = BL_FALSE;
         Serial_Receive(buf, COMMAND_SIZE);
         UINT8_UINT32(&item, buf);
         err = BL_ENOMSG;
@@ -145,13 +148,13 @@ BL_Err_t Command_Receive(Command_Receive_e *cmd)
 
 BL_STATIC void command_Cb(BL_UINT32_T length)
 {
-    Timeout_Kick(&cTimeout);
-    cCnt += length;
+    Timeout_Kick(&command.timeout);
+    command.count += length;
 
-    if (cCnt >= COMMAND_SIZE)
+    if (command.count >= COMMAND_SIZE)
     {
-        cReady = BL_TRUE;
-        cCnt = 0U;
+        command.ready = BL_TRUE;
+        command.count = 0U;
     }
 }
 

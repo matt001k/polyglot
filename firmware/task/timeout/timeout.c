@@ -22,24 +22,22 @@
 
 #define TIMEOUT_PERIOD_MS (1U)
 
-typedef struct
+BL_STATIC struct
 {
     Timeout_Node_t *head;
     Timeout_Node_t *tail;
     Timeout_Node_t *read;
-} timeout_t;
-
-BL_STATIC timeout_t timeout = {0U};
-BL_STATIC Schedule_Node_t tNode = {0U};
-BL_STATIC BL_UINT32_T time = 0U;
+    BL_UINT32_T time;
+} timeout = {0};
 
 BL_STATIC void timeout_Run(void);
 
 BL_Err_t Timeout_Init(void)
 {
     BL_Err_t err = BL_ENODEV;
+    BL_STATIC Schedule_Node_t node = {0};
 
-    err = Schedule_Add(&tNode, TIMEOUT_PERIOD_MS, timeout_Run);
+    err = Schedule_Add(&node, TIMEOUT_PERIOD_MS, timeout_Run);
 
     return err;
 }
@@ -52,7 +50,7 @@ BL_Err_t Timeout_Add(Timeout_Node_t *node,
 
     if (node && period && cb)
     {
-        node->ms = time;
+        node->ms = timeout.time;
         node->next = BL_NULL;
         node->period = period;
         node->cb = cb;
@@ -127,7 +125,7 @@ BL_Err_t Timeout_Kick(Timeout_Node_t *node)
 
     if (node)
     {
-        node->ms = time;
+        node->ms = timeout.time;
         err = BL_OK;
     }
 
@@ -142,7 +140,7 @@ BL_STATIC void timeout_Run(void)
     while (node != BL_NULL)
     {
         cbIdx = 0U;
-        if (time - node->ms > node->period)
+        if (timeout.time - node->ms > node->period)
         {
             while (node->cb[cbIdx] != BL_NULL)
             {
@@ -151,7 +149,7 @@ BL_STATIC void timeout_Run(void)
         }
         node = node->next;
     }
-    time += TIMEOUT_PERIOD_MS;
+    timeout.time += TIMEOUT_PERIOD_MS;
 }
 
 /**@} timeout */
