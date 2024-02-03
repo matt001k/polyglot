@@ -297,7 +297,7 @@ cb	firmware/abstraction/hold/hold.c	/^    Hold_Cb_t cb;$/;"	m	struct:__anon01b9d
 cb	firmware/abstraction/jump/jump.c	/^    Jump_Cb_t cb;$/;"	m	struct:__anonb15cb1320108	typeref:typename:Jump_Cb_t	file:
 cb	firmware/abstraction/serial/serial.c	/^    void (*cb)(BL_UINT32_T length); \/\/\/< Serial Callback$/;"	m	struct:__anond9bf41ba0208	typeref:typename:void (*)(BL_UINT32_T length)	file:
 cfg	firmware/abstraction/hold/hold.c	/^    BL_CONST hold_Cfg_t *cfg;$/;"	m	struct:__anon01b9d0a80208	typeref:typename:BL_CONST hold_Cfg_t *	file:
-cfg	firmware/abstraction/jump/jump.c	/^    BL_CONST jump_Cfg_t *cfg;$/;"	m	struct:__anonb15cb1320208	typeref:typename:BL_CONST jump_Cfg_t *	file:
+cfg	firmware/abstraction/jump/jump.c	/^    BL_CONST Jump_Cfg_t *cfg;$/;"	m	struct:__anonb15cb1320208	typeref:typename:BL_CONST Jump_Cfg_t *	file:
 cfg	firmware/abstraction/led/led.c	/^    BL_CONST led_Cfg_t *cfg;$/;"	m	struct:__anond37f67440208	typeref:typename:BL_CONST led_Cfg_t *	file:
 cfg	firmware/abstraction/nvm/nvm.c	/^    nvm_Cfg_t *cfg;    \/\/\/< Pointer to configuration$/;"	m	struct:__anon21d138bc0208	typeref:typename:nvm_Cfg_t *	file:
 cfg	firmware/abstraction/serial/serial.c	/^    BL_CONST serial_Cfg_t *cfg;     \/\/\/< Pointer to configuration$/;"	m	struct:__anond9bf41ba0208	typeref:typename:BL_CONST serial_Cfg_t *	file:
@@ -337,9 +337,9 @@ init	firmware/abstraction/nvm/nvm.c	/^    NVM_Init_t init;        \/\/\/< Functi
 init	firmware/abstraction/serial/serial.c	/^    Serial_Init_t init;             \/\/\/< Function pointer to initialization$/;"	m	struct:__anond9bf41ba0108	typeref:typename:Serial_Init_t	file:
 init	firmware/abstraction/systick/systick.c	/^    Systick_Init_t init;$/;"	m	struct:__anon5db7ba2e0108	typeref:typename:Systick_Init_t	file:
 init	firmware/abstraction/wdt/wdt.c	/^    WDT_Init_t init;$/;"	m	struct:__anonb900feb80108	typeref:typename:WDT_Init_t	file:
-jCfg	firmware/abstraction/jump/jump.c	/^BL_STATIC BL_CONST jump_Cfg_t jCfg[] =$/;"	v	typeref:typename:BL_STATIC BL_CONST jump_Cfg_t[]
+jCfg	firmware/abstraction/jump/jump.c	/^BL_STATIC BL_CONST Jump_Cfg_t jCfg[] =$/;"	v	typeref:typename:BL_STATIC BL_CONST Jump_Cfg_t[]
 jump	firmware/abstraction/jump/jump.c	/^BL_STATIC jump_t jump = {0U};$/;"	v	typeref:typename:BL_STATIC jump_t
-jump_Cfg_t	firmware/abstraction/jump/jump.c	/^} jump_Cfg_t;$/;"	t	typeref:struct:__anonb15cb1320108	file:
+Jump_Cfg_t	firmware/abstraction/jump/jump.c	/^} Jump_Cfg_t;$/;"	t	typeref:struct:__anonb15cb1320108	file:
 jump_t	firmware/abstraction/jump/jump.c	/^} jump_t;$/;"	t	typeref:struct:__anonb15cb1320208	file:
 kick	firmware/abstraction/wdt/wdt.c	/^    WDT_Kick_t kick;$/;"	m	struct:__anonb900feb80108	typeref:typename:WDT_Kick_t	file:
 lCfg	firmware/abstraction/led/led.c	/^BL_STATIC BL_CONST led_Cfg_t lCfg[] =$/;"	v	typeref:typename:BL_STATIC BL_CONST led_Cfg_t[]
