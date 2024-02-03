@@ -20,7 +20,7 @@ add_library(BOOTLOADER STATIC
     task/timeout/timeout.c)
 
 target_include_directories(BOOTLOADER PUBLIC
-    config
+    ../
     abstraction/hold
     abstraction/init
     abstraction/jump

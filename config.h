@@ -22,14 +22,26 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
+#include "platform.h"
+#include "clock.h"
+#include "cpu.h"
+#include "delay.h"
+#include "dma.h"
+#include "flash.h"
+#include "gpio.h"
+#include "partition.h"
+#include "spi.h"
+#include "time.h"
+#include "timer.h"
+#include "uart.h"
+#include "spi.h"
+#include "watchdog.h"
+#include "bootloader.h"
 
 /**************************************************************************//**
  * @brief Definitions of various types within the bootloader in accordance to
  *        system requirements
- *
+ * 
  * @details All of these must be defined in order to use the bootloader
  *****************************************************************************/
 #define BL_UINT8_T uint8_t
@@ -78,19 +90,131 @@ typedef enum
 
 /**************************************************************************//**
  * @brief Abstractions for Necessary Functions
- *
+ * 
  * @details This ensures that the necessary function abstractions will be
  *          compatible with the API being ported.
  *****************************************************************************/
+BL_STATIC BL_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,
+                                               BL_UINT32_T length);
+BL_STATIC BL_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,
+                                                 BL_UINT32_T length));
+BL_STATIC BL_INLINE void UART_DeregisterCbAbstract(void);
+
+BL_STATIC BL_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,
+                                               BL_UINT32_T length)
+{
+    UART_Transmit(UART_DEBUG, data, length);
+}
+
+BL_STATIC BL_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,
+                                                 BL_UINT32_T length))
+{
+    UART_RegisterRxCallback(UART_DEBUG, cb);
+}
+
+BL_STATIC BL_INLINE void UART_DeregisterCbAbstract(void)
+{
+    UART_DeregisterRxCallback(UART_DEBUG);
+}
+
+BL_STATIC BL_INLINE void LED1_Toggle(void);
+BL_STATIC BL_INLINE void LED2_Toggle(void);
+BL_STATIC BL_INLINE void LED3_Toggle(void);
+
+BL_STATIC BL_INLINE void LED1_Toggle(void)
+{
+    GPIO_Toggle(LED1);
+}
+
+BL_STATIC BL_INLINE void LED2_Toggle(void)
+{
+    GPIO_Toggle(LED2);
+}
+
+BL_STATIC BL_INLINE void LED3_Toggle(void)
+{
+    GPIO_Toggle(LED3);
+}
+
+BL_STATIC BL_INLINE void WDT_InitAbstract(void);
+
+BL_STATIC BL_INLINE void WDT_InitAbstract(void)
+{
+    Watchdog_Init();
+    Watchdog_Enable();
+}
+
+BL_STATIC BL_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,
+                                                   BL_UINT8_T *data,
+                                                   BL_UINT32_T length);
+BL_STATIC BL_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
+                                                  BL_UINT8_T *data,
+                                                  BL_UINT32_T length);
+BL_STATIC BL_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,
+                                                   BL_UINT32_T length);
+
+BL_STATIC BL_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,
+                                                   BL_UINT8_T *data,
+                                                   BL_UINT32_T length)
+{
+    Flash_Write(address, data, length);
+
+    return true;
+}
+
+BL_STATIC BL_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
+                                                  BL_UINT8_T *data,
+                                                  BL_UINT32_T length)
+{
+    Flash_Read(address, data, length);
+
+    return true;
+}
+
+BL_STATIC BL_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,
+                                                   BL_UINT32_T length)
+{
+    Flash_Erase(address, length);
+
+    return true;
+}
+
+BL_STATIC BL_INLINE void Jump_ToAppAbstract(BL_UINT32_T address);
+
+BL_STATIC BL_INLINE void Jump_ToAppAbstract(BL_UINT32_T address)
+{
+    Clock_Deinit();
+    CPU_Deinit();
+    Delay_Deinit();
+    DMA_Deinit();
+    Flash_Deinit();
+    GPIO_Deinit();
+    SPI_Deinit();
+    Timer_Deinit();
+    UART_Deinit();
+
+    JUMP_TO_APP(address);
+}
+
+BL_STATIC BL_INLINE void Init_Abstract(void)
+{
+    CPU_Init();
+    GPIO_Init();
+    Flash_Init();
+    Timer_Init();
+    Delay_Init();
+    SPI_Init();
+    DMA_Init();
+}
 
 /**************************************************************************//**
  * @brief Configuration Entries for Serial Peripherals
- *
+ * 
  * @details This configuration includes all of the serial peripherals that are
  *          planned on being utilized within the bootloader. Serial peripherals
  *          include anything that may speak serially, such as SPI, UART, I2C,
  *          CAN, LIN, etc. The correct format of an entry is as follows:
- *
+ * 
  *          ENTRY(name, index, init, transmit, register, deregister)
  *
  *          @param name name of the serial module, this is text not a string
@@ -98,56 +222,63 @@ typedef enum
  *          @param init initialization function pointer in the format of:
  *
  *                  void init(void)
- *
+ * 
  *          @param transmit transmit function pointer to transmit data in the
  *                          format of:
- *
+ * 
  *                  void transmit(BL_UINT8_T *data, BL_UINT32_T length)
- *
+ * 
  *          @param register register function pointer to register a receive
  *                          interrupt in the format of:
- *
+ * 
  *                  void register(void (*cb)(BL_UINT8_T *data,
  *                                BL_UINT32_T length))
  *
  *          @param deregister deregister function pointer to deregister a
  *                            receive interrupt in the format of:
- *
+ * 
  *                  void deregister(void)
- *
+ * 
  *          The serial abstraction will lock onto the first peripheral to take
  *          ahold of the bus. Once that has been established another peripheral
  *          cannot take control unless a command is sent to the device to
  *          unlock the peripheral.
  *****************************************************************************/
 #define SERIAL_CFG(ENTRY)                       \
+    ENTRY(UART0,                                \
+          0U,                                   \
+          UART_Init,                            \
+          UART_TransmitAbstract,                \
+          UART_RegisterCbAbstract,              \
+          UART_DeregisterCbAbstract)            \
 
 /**************************************************************************//**
  * @brief Configuration Entry for Systick Peripheral
- *
+ * 
  * @details This configuration is used for the systick timer which will be used
  *          for handling certain events through the bootloader process. Only
  *          one systick timer may be entered, if multiple timer's are
  *          entered, the system will throw an assertion. The correct format
  *          of an entry looks as follows:
- *
+ * 
  *          ENTRY(init, ms)
- *
+ * 
  *          @param init initialization function pointer in the format of:
  *
  *                 void init(void)
  *
  *          @param ms function pointer which obtains the current runtime of the
  *                    system in milliseconds in the format of:
- *
+ * 
  *                 BL_UINT32_T ms(void)
- *
+ * 
  *****************************************************************************/
 #define SYSTICK_CFG(ENTRY)                      \
+    ENTRY(Time_Init, Time_GetRuntimeMs)         \
 
 /**************************************************************************//**
  * @brief Configuration Entry for LED Peripheral
- *
+ * 
  * @details This configuration is used for toggling LEDs while the bootloader
  *          is running. There can be up to 255 LEDs used, although it is not
  *          recommended or necessary. LED periods must be no less than 100ms,
@@ -155,9 +286,9 @@ typedef enum
  *          often the task for the LED is running, the led's will not
  *          run properly if this is not configured correctly. The correct
  *          format of an entry looks as follows:
- *
+ * 
  *          ENTRY(toggle, period)
- *
+ * 
  *          @param toggle toggle function pointer in the format of:
  *
  *                 void toggle(void)
@@ -165,35 +296,39 @@ typedef enum
  *          @param period period of the led toggling
  *****************************************************************************/
 #define LED_CFG(ENTRY)            \
+    ENTRY(LED1_Toggle, 2000U)     \
+    ENTRY(LED2_Toggle, 500U)      \
+    ENTRY(LED3_Toggle, 200U)      \
 
 /**************************************************************************//**
  * @brief Configuration Entry for Watchdog Timer
- *
+ * 
  * @details This configuration is used for ensuring that the bootloader does
  *          not get stuck in an infinite loop. The WDT will reset the device.
  *          Only one watchdog timer can be utilized, if more than one are
  *          defined, an assertion will be thrown. The correct format of an
  *          entry looks as follows:
- *
+ * 
  *          ENTRY(init, kick)
- *
+ * 
  *          @param init initialization function for the WDT, this will include
  *                      API used to start the watchdog as well, the format of
  *                      this function is as follows:
- *
+ * 
  *                      void init(void)
- *
+ * 
  *          @param kick API to kick the watchdog and keep the bootloader alive
  *                      the format of this function is as follows:
- *
+ * 
  *                      void kick(void)
- *
+ * 
  *****************************************************************************/
 #define WDT_CFG(ENTRY)                          \
+    ENTRY(WDT_InitAbstract, Watchdog_Kick)      \
 
 /**************************************************************************//**
  * @brief Configuration Entry for NVM Partitions
- *
+ * 
  * @details This configuration is used for ensuring that the bootloader will
  *          properly write to required partitions. The required partitions are
  *          as follows:
@@ -234,7 +369,7 @@ typedef enum
  *                       or not the read operation is finished or needs to be
  *                       polled again. The format of the function is as
  *                       follows:
- *
+ * 
  *                       BL_BOOL_T read(BL_UINT32_T address,
  *                                      BL_UINT8_T *data,
  *                                      BL_UINT32_T length)
@@ -244,7 +379,7 @@ typedef enum
  *                        partition to erase. This returns whether or not the
  *                        erase operation is finished or needs to be polled
  *                        again. The format of the function is as follows:
- *
+ * 
  *                        BL_BOOL_T erase(BL_UINT32_T address,
  *                                        BL_UINT32_T size)
  *
@@ -259,28 +394,61 @@ typedef enum
  *
  *****************************************************************************/
 #define NVM_CFG(ENTRY)                      \
+    ENTRY(Partition_Init,                   \
+          Partition_Write,                  \
+          Partition_Read,                   \
+          Partition_Erase,                  \
+          PARTITION_TABLE_SIZE,             \
+          PARTITION_TABLE_LOCATION,         \
+          PARTITION_SECTOR_SIZE,            \
+          0U)                               \
+    ENTRY(Flash_Init,                       \
+          IntFlash_WriteAbstract,           \
+          IntFlash_ReadAbstract,            \
+          IntFlash_EraseAbstract,           \
+          APP_SIZE,                         \
+          APP_LOCATION,                     \
+          MCU_SECTOR_SIZE,                  \
+          1U)                               \
+    ENTRY(Partition_Init,                   \
+          Partition_Write,                  \
+          Partition_Read,                   \
+          Partition_Erase,                  \
+          PARTITION_UPDATE_1_SIZE,          \
+          PARTITION_UPDATE_1_LOCATION,      \
+          PARTITION_SECTOR_SIZE,            \
+          2U)                               \
+    ENTRY(Partition_Init,                   \
+          Partition_Write,                  \
+          Partition_Read,                   \
+          Partition_Erase,                  \
+          PARTITION_UPDATE_2_SIZE,          \
+          PARTITION_UPDATE_2_LOCATION,      \
+          PARTITION_SECTOR_SIZE,            \
+          3U)                               \
 
 /**************************************************************************//**
  * @brief Configuration Entry for Jump
- *
+ * 
  * @details This peripheral is used to jump to a valid application in the main
  *          application partition. Only one jump entry can be configured at a
  *          time, if more than one is configured an assertion will be thrown.
  *          The correct format of an entry is as follows:
- *
+ * 
  *          ENTRY(jump)
- *
+ * 
  *          @param jump jump function to jump to application. The correct
  *                      format of the function is as follows:
- *
+ * 
  *                      void jump(BL_UINT32_T address)
- *
+ * 
  *****************************************************************************/
 #define JUMP_CFG(ENTRY)             \
+    ENTRY(Jump_ToAppAbstract)       \
 
 /**************************************************************************//**
  * @brief Configuration Entry for Hold
- *
+ * 
  * @details This peripheral is used to hold the device in bootloader mode even
  *          if there is a valid application in the main application partition.
  *          Only one hold entry can be configured at a time, if more than one
@@ -288,22 +456,24 @@ typedef enum
  *          entry is as follows:
  *
  *          ENTRY(hold)
- *
+ * 
  *          @param hold hold function to hold the device in bootloader mode.
  *                      The device will stay in bootloader mode if this
  *                      function returns BL_TRUE. The correct format of the
  *                      function is as follows:
- *
+ * 
  *                      BL_BOOL_T hold(void)
- *
+ * 
  *****************************************************************************/
 #define HOLD_CFG(ENTRY)             \
+    ENTRY(Bootloader_Get)           \
 
 /**************************************************************************//**
  * @brief Configuration for peripheral initialization
- *
+ * 
  *****************************************************************************/
 #define INIT_CFG(ENTRY)              \
+    ENTRY(Init_Abstract)
 
 #endif // __CONFIG_H
 

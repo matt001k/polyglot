@@ -9,7 +9,7 @@
  */
 
 /**************************************************************************//**
- * @file        jump.C
+ * @file        jump.c
  *
  * @brief       Provides an abstraction layer for the bootloader to jump to the
  *              application
@@ -27,20 +27,19 @@
 
 typedef struct
 {
-    Jump_Cb_t cb;
-} jump_Cfg_t;
-
-typedef struct
-{
-    BL_CONST jump_Cfg_t *cfg;
+    BL_CONST Jump_Cfg_t *cfg;
     BL_UINT8_T count;
 } jump_t;
 
-BL_STATIC BL_CONST jump_Cfg_t jCfg[] =
+#ifndef TEST
+BL_STATIC BL_CONST Jump_Cfg_t jCfg[] =
 {
     JUMP_CFG(JUMP_FUNCTION)
     {0},
 };
+#else
+extern Jump_Cfg_t *jCfg;
+#endif
 
 BL_STATIC jump_t jump = {0U};
 
@@ -61,6 +60,12 @@ BL_Err_t Jump_Init(void)
     }
 
     return err;
+}
+
+BL_Err_t Jump_DeInit(void)
+{
+    jump.count = 0;
+    return BL_OK;
 }
 
 BL_Err_t Jump_ToApp(void)
