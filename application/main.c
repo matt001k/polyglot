@@ -34,7 +34,7 @@ int main(void)
 
     GPIO_Set(FLASH_WP);
 
-   Bootloader_Get();
+    Bootloader_Get();
     Clock_OutputStart();
 
     UART_RegisterRxCallback(UART_DEBUG, uartCb);

@@ -36,12 +36,13 @@
 #include "uart.h"
 #include "spi.h"
 #include "watchdog.h"
+#include "crypto.h"
 #include "bootloader.h"
 
 /**************************************************************************//**
  * @brief Definitions of various types within the bootloader in accordance to
  *        system requirements
- * 
+ *
  * @details All of these must be defined in order to use the bootloader
  *****************************************************************************/
 #define BL_UINT8_T uint8_t
@@ -90,7 +91,7 @@ typedef enum
 
 /**************************************************************************//**
  * @brief Abstractions for Necessary Functions
- * 
+ *
  * @details This ensures that the necessary function abstractions will be
  *          compatible with the API being ported.
  *****************************************************************************/
@@ -209,12 +210,12 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
 
 /**************************************************************************//**
  * @brief Configuration Entries for Serial Peripherals
- * 
+ *
  * @details This configuration includes all of the serial peripherals that are
  *          planned on being utilized within the bootloader. Serial peripherals
  *          include anything that may speak serially, such as SPI, UART, I2C,
  *          CAN, LIN, etc. The correct format of an entry is as follows:
- * 
+ *
  *          ENTRY(name, index, init, transmit, register, deregister)
  *
  *          @param name name of the serial module, this is text not a string
@@ -222,23 +223,23 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          @param init initialization function pointer in the format of:
  *
  *                  void init(void)
- * 
+ *
  *          @param transmit transmit function pointer to transmit data in the
  *                          format of:
- * 
+ *
  *                  void transmit(BL_UINT8_T *data, BL_UINT32_T length)
- * 
+ *
  *          @param register register function pointer to register a receive
  *                          interrupt in the format of:
- * 
+ *
  *                  void register(void (*cb)(BL_UINT8_T *data,
  *                                BL_UINT32_T length))
  *
  *          @param deregister deregister function pointer to deregister a
  *                            receive interrupt in the format of:
- * 
+ *
  *                  void deregister(void)
- * 
+ *
  *          The serial abstraction will lock onto the first peripheral to take
  *          ahold of the bus. Once that has been established another peripheral
  *          cannot take control unless a command is sent to the device to
@@ -254,31 +255,31 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
 
 /**************************************************************************//**
  * @brief Configuration Entry for Systick Peripheral
- * 
+ *
  * @details This configuration is used for the systick timer which will be used
  *          for handling certain events through the bootloader process. Only
  *          one systick timer may be entered, if multiple timer's are
  *          entered, the system will throw an assertion. The correct format
  *          of an entry looks as follows:
- * 
+ *
  *          ENTRY(init, ms)
- * 
+ *
  *          @param init initialization function pointer in the format of:
  *
  *                 void init(void)
  *
  *          @param ms function pointer which obtains the current runtime of the
  *                    system in milliseconds in the format of:
- * 
+ *
  *                 BL_UINT32_T ms(void)
- * 
+ *
  *****************************************************************************/
 #define SYSTICK_CFG(ENTRY)                      \
     ENTRY(Time_Init, Time_GetRuntimeMs)         \
 
 /**************************************************************************//**
  * @brief Configuration Entry for LED Peripheral
- * 
+ *
  * @details This configuration is used for toggling LEDs while the bootloader
  *          is running. There can be up to 255 LEDs used, although it is not
  *          recommended or necessary. LED periods must be no less than 100ms,
@@ -286,9 +287,9 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          often the task for the LED is running, the led's will not
  *          run properly if this is not configured correctly. The correct
  *          format of an entry looks as follows:
- * 
+ *
  *          ENTRY(toggle, period)
- * 
+ *
  *          @param toggle toggle function pointer in the format of:
  *
  *                 void toggle(void)
@@ -302,33 +303,33 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
 
 /**************************************************************************//**
  * @brief Configuration Entry for Watchdog Timer
- * 
+ *
  * @details This configuration is used for ensuring that the bootloader does
  *          not get stuck in an infinite loop. The WDT will reset the device.
  *          Only one watchdog timer can be utilized, if more than one are
  *          defined, an assertion will be thrown. The correct format of an
  *          entry looks as follows:
- * 
+ *
  *          ENTRY(init, kick)
- * 
+ *
  *          @param init initialization function for the WDT, this will include
  *                      API used to start the watchdog as well, the format of
  *                      this function is as follows:
- * 
+ *
  *                      void init(void)
- * 
+ *
  *          @param kick API to kick the watchdog and keep the bootloader alive
  *                      the format of this function is as follows:
- * 
+ *
  *                      void kick(void)
- * 
+ *
  *****************************************************************************/
 #define WDT_CFG(ENTRY)                          \
     ENTRY(WDT_InitAbstract, Watchdog_Kick)      \
 
 /**************************************************************************//**
  * @brief Configuration Entry for NVM Partitions
- * 
+ *
  * @details This configuration is used for ensuring that the bootloader will
  *          properly write to required partitions. The required partitions are
  *          as follows:
@@ -369,7 +370,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *                       or not the read operation is finished or needs to be
  *                       polled again. The format of the function is as
  *                       follows:
- * 
+ *
  *                       BL_BOOL_T read(BL_UINT32_T address,
  *                                      BL_UINT8_T *data,
  *                                      BL_UINT32_T length)
@@ -379,7 +380,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *                        partition to erase. This returns whether or not the
  *                        erase operation is finished or needs to be polled
  *                        again. The format of the function is as follows:
- * 
+ *
  *                        BL_BOOL_T erase(BL_UINT32_T address,
  *                                        BL_UINT32_T size)
  *
@@ -429,26 +430,26 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
 
 /**************************************************************************//**
  * @brief Configuration Entry for Jump
- * 
+ *
  * @details This peripheral is used to jump to a valid application in the main
  *          application partition. Only one jump entry can be configured at a
  *          time, if more than one is configured an assertion will be thrown.
  *          The correct format of an entry is as follows:
- * 
+ *
  *          ENTRY(jump)
- * 
+ *
  *          @param jump jump function to jump to application. The correct
  *                      format of the function is as follows:
- * 
+ *
  *                      void jump(BL_UINT32_T address)
- * 
+ *
  *****************************************************************************/
 #define JUMP_CFG(ENTRY)             \
     ENTRY(Jump_ToAppAbstract)       \
 
 /**************************************************************************//**
  * @brief Configuration Entry for Hold
- * 
+ *
  * @details This peripheral is used to hold the device in bootloader mode even
  *          if there is a valid application in the main application partition.
  *          Only one hold entry can be configured at a time, if more than one
@@ -456,24 +457,52 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *          entry is as follows:
  *
  *          ENTRY(hold)
- * 
+ *
  *          @param hold hold function to hold the device in bootloader mode.
  *                      The device will stay in bootloader mode if this
  *                      function returns BL_TRUE. The correct format of the
  *                      function is as follows:
- * 
+ *
  *                      BL_BOOL_T hold(void)
- * 
+ *
  *****************************************************************************/
 #define HOLD_CFG(ENTRY)             \
     ENTRY(Bootloader_Get)           \
 
 /**************************************************************************//**
  * @brief Configuration for peripheral initialization
- * 
+ *
  *****************************************************************************/
 #define INIT_CFG(ENTRY)              \
     ENTRY(Init_Abstract)
+
+/**************************************************************************//**
+ * @brief Configuration Entry for AES
+ *
+ * @details This peripheral is used to decrypt incoming image data that would
+ *          occur over a serial line. The peripheral uses AES-CBC which
+ *          requires an initialization vector. The correct format of an entry
+ *          is as follows:
+ *
+ *          ENTRY(init, decrypt)
+ *
+ *          @param init initialization function to initializte the peripheral.
+ *                      The correct format of the function is as follows:
+ *
+ *                      void init(void)
+ *
+ *          @param decrypt funtion that will decrypt new data received. The
+ *                         correct format of the function is as follows:
+ *
+ *                         BL_BOOL_T decrypt(BL_UINT8_T *input,
+ *                                           BL_UINT8_T *output,
+ *                                           BL_UINT32_T size
+ *                                           BL_UINT8_T *key
+ *                                           BL_UINT8_T *iv)
+ *
+ *****************************************************************************/
+#define AES_CFG(ENTRY)               \
+    ENTRY(Crypto_AESInit, Crypto_AESDecrypt)
 
 #endif // __CONFIG_H
 

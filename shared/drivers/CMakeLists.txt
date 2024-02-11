@@ -4,6 +4,7 @@ target_include_directories(DRIVERS_LIB INTERFACE
     atomic
     clock
     cpu
+    crypto
     delay
     dma
     flash

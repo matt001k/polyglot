@@ -49,11 +49,11 @@ def compute_crc(binary_load_file):
                                0x00,
                                CRC_REVERSE,
                                CRC_REVERSE)
-    c = crc.CrcCalculator(config)
+    c = crc.Calculator(config)
     fd = open(binary_load_file, "rb")
     buffer = fd.read()
     fd.close()
-    checksum = c.calculate_checksum(buffer)
+    checksum = c.checksum(buffer)
     return checksum
 
 def create_compatible_file(args):

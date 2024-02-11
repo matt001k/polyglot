@@ -3,6 +3,7 @@ add_library(PLATFORM_LIB STATIC
     efm32/drivers/atomic/atomic.c
     efm32/drivers/clock/clock.c
     efm32/drivers/cpu/cpu.c
+    efm32/drivers/crypto/crypto.c
     efm32/drivers/delay/delay.c
     efm32/drivers/dma/dma.c
     efm32/drivers/flash/flash.c
