@@ -102,18 +102,18 @@ typedef enum
  *          @param transmit transmit function pointer to transmit data in the
  *                          format of:
  *
- *                  void transmit(BL_UINT8_T *data, BL_UINT32_T length)
+ *                          void transmit(BL_UINT8_T *data, BL_UINT32_T length)
  *
  *          @param register register function pointer to register a receive
  *                          interrupt in the format of:
  *
- *                  void register(void (*cb)(BL_UINT8_T *data,
- *                                BL_UINT32_T length))
+ *                          void register(void (*cb)(BL_UINT8_T *data,
+ *                                        BL_UINT32_T length))
  *
  *          @param deregister deregister function pointer to deregister a
  *                            receive interrupt in the format of:
  *
- *                  void deregister(void)
+ *                            void deregister(void)
  *
  *          The serial abstraction will lock onto the first peripheral to take
  *          ahold of the bus. Once that has been established another peripheral
@@ -135,12 +135,12 @@ typedef enum
  *
  *          @param init initialization function pointer in the format of:
  *
- *                 void init(void)
+ *                      void init(void)
  *
  *          @param ms function pointer which obtains the current runtime of the
  *                    system in milliseconds in the format of:
  *
- *                 BL_UINT32_T ms(void)
+ *                    BL_UINT32_T ms(void)
  *
  *****************************************************************************/
 #define SYSTICK_CFG(ENTRY)                      \
@@ -160,7 +160,7 @@ typedef enum
  *
  *          @param toggle toggle function pointer in the format of:
  *
- *                 void toggle(void)
+ *                        void toggle(void)
  *
  *          @param period period of the led toggling
  *****************************************************************************/
@@ -229,24 +229,24 @@ typedef enum
  *                                       BL_UINT32_T length)
  *
  *          @param read read function from the NVM partition, this function
- *                       requires an address to read from, a data buffer to
- *                       read to, and a length to read to. This returns whether
- *                       or not the read operation is finished or needs to be
- *                       polled again. The format of the function is as
- *                       follows:
+ *                      requires an address to read from, a data buffer to
+ *                      read to, and a length to read to. This returns whether
+ *                      or not the read operation is finished or needs to be
+ *                      polled again. The format of the function is as
+ *                      follows:
  *
- *                       BL_BOOL_T read(BL_UINT32_T address,
- *                                      BL_UINT8_T *data,
- *                                      BL_UINT32_T length)
+ *                      BL_BOOL_T read(BL_UINT32_T address,
+ *                                     BL_UINT8_T *data,
+ *                                     BL_UINT32_T length)
  *
  *          @param erase erase function for the NVM partition, this function
- *                        requires an address to erase, and size of the
- *                        partition to erase. This returns whether or not the
- *                        erase operation is finished or needs to be polled
- *                        again. The format of the function is as follows:
+ *                       requires an address to erase, and size of the
+ *                       partition to erase. This returns whether or not the
+ *                       erase operation is finished or needs to be polled
+ *                       again. The format of the function is as follows:
  *
- *                        BL_BOOL_T erase(BL_UINT32_T address,
- *                                        BL_UINT32_T size)
+ *                       BL_BOOL_T erase(BL_UINT32_T address,
+ *                                       BL_UINT32_T size)
  *
  *          @param size size of the partition in bytes
  *
@@ -261,12 +261,7 @@ typedef enum
 #define NVM_CFG(ENTRY)                      \
 
 /**************************************************************************//**
- * @brief Configuration Entry for Jump
- *
- * @details This peripheral is used to jump to a valid application in the main
- *          application partition. Only one jump entry can be configured at a
- *          time, if more than one is configured an assertion will be thrown.
- *          The correct format of an entry is as follows:
+ * @brief Configuration Entry for Jump @details This peripheral is used to jump to a valid application in the main application partition. Only one jump entry can be configured at a time, if more than one is configured an assertion will be thrown. The correct format of an entry is as follows:
  *
  *          ENTRY(jump)
  *
@@ -304,6 +299,33 @@ typedef enum
  *
  *****************************************************************************/
 #define INIT_CFG(ENTRY)              \
+
+/**************************************************************************//**
+ * @brief Configuration Entry for AES
+ *
+ * @details This peripheral is used to decrypt incoming image data that would
+ *          occur over a serial line. The peripheral uses AES-CBC which
+ *          requires an initialization vector. The correct format of an entry
+ *          is as follows:
+ *
+ *          ENTRY(init, decrypt)
+ *
+ *          @param init initialization function to initializte the peripheral.
+ *                      The correct format of the function is as follows:
+ *
+ *                      void init(void)
+ *
+ *          @param decrypt funtion that will decrypt new data received. The
+ *                         correct format of the function is as follows:
+ *
+ *                         BL_BOOL_T decrypt(BL_UINT8_T *input,
+ *                                           BL_UINT8_T *output,
+ *                                           BL_UINT32_T size
+ *                                           BL_UINT8_T *key
+ *                                           BL_UINT8_T *iv)
+ *
+ *****************************************************************************/
+#define AES_CFG(ENTRY)               \
 
 #endif // __CONFIG_H
 
