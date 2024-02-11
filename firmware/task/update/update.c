@@ -147,7 +147,8 @@ BL_STATIC update_State_e data_Handler(Command_Receive_e command)
     if (command == RECEIVE_VALIDATE)
     {
         if (handler.initialized == BL_FALSE)
-        { if ((err = Loader_WriteSecret(Buffer_Get(), BL_BUFFER_SIZE)) == BL_OK)
+        { 
+            if ((err = Loader_WriteSecret(Buffer_Get(), BL_BUFFER_SIZE)) == BL_OK || err == BL_ERR)
             {
                 Loader_Reset();
 

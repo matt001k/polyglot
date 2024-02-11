@@ -1,0 +1,61 @@
+<mxfile host="65bd71144e">
+    <diagram id="zE94EdC9SHFnJJ0MZ9hF" name="Page-1">
+        <mxGraphModel dx="1209" dy="668" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;span style=&quot;color: rgb(240, 240, 240); font-weight: 400;&quot;&gt;Bootloader Commands&lt;/span&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#6d8764;fontColor=#ffffff;strokeColor=#3A5431;rounded=1;swimlaneLine=0;swimlaneFillColor=#FFFBD6;" parent="1" vertex="1">
+                    <mxGeometry y="10" width="850" height="950" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Write" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;rounded=1;swimlaneLine=0;" vertex="1" parent="2">
+                    <mxGeometry x="20" y="40" width="810" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;ul&gt;&lt;li&gt;Write Data To Flash&lt;/li&gt;&lt;li&gt;Command Structure:&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Write Command&lt;/li&gt;&lt;li&gt;Send Length Of Data&lt;/li&gt;&lt;li&gt;Send Data&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="3">
+                    <mxGeometry x="15" y="50" width="780" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Validate" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;rounded=1;swimlaneLine=0;" vertex="1" parent="2">
+                    <mxGeometry x="20" y="180" width="810" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;ul&gt;&lt;li&gt;Finalize Data That Has Been Written To Flash&lt;/li&gt;&lt;li&gt;Validate The Data That Has Been Written To Flash&lt;/li&gt;&lt;li&gt;Command Structure&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Validate Command&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="6">
+                    <mxGeometry x="10" y="30" width="780" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Run" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;rounded=1;swimlaneLine=0;" vertex="1" parent="2">
+                    <mxGeometry x="20" y="290" width="810" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="&lt;ul&gt;&lt;li&gt;Check Valid Image To Boot Into&lt;/li&gt;&lt;li&gt;Run Application&lt;/li&gt;&lt;li&gt;Command Structure:&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Run Command&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="8">
+                    <mxGeometry x="10" y="30" width="780" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Erase" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;rounded=1;swimlaneLine=0;" vertex="1" parent="2">
+                    <mxGeometry x="20" y="400" width="810" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;ul&gt;&lt;li&gt;Erase A Partition&lt;/li&gt;&lt;li&gt;Command Structure&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Erase Command&lt;/li&gt;&lt;li&gt;Partition To Erase&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="10">
+                    <mxGeometry x="10" y="30" width="780" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="Lock" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;rounded=1;swimlaneLine=0;" vertex="1" parent="2">
+                    <mxGeometry x="20" y="510" width="810" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&lt;ul&gt;&lt;li&gt;Locks Application Flash Region&lt;/li&gt;&lt;li&gt;Command Structure:&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Lock Command&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="21">
+                    <mxGeometry x="10" y="30" width="780" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="Unlock" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;rounded=1;swimlaneLine=0;" vertex="1" parent="2">
+                    <mxGeometry x="20" y="620" width="810" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="&lt;ul&gt;&lt;li&gt;Unlocks Application Flash Region&lt;/li&gt;&lt;li&gt;Command Structure:&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Unlock Command&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="23">
+                    <mxGeometry x="10" y="30" width="780" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="Release Port" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;rounded=1;swimlaneLine=0;" vertex="1" parent="2">
+                    <mxGeometry x="20" y="730" width="810" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="&lt;ul&gt;&lt;li&gt;Releases The Serial Port Currently Being Used For Writing The Application&amp;nbsp;&lt;/li&gt;&lt;li&gt;Command Structure:&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Release Port Command&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="25">
+                    <mxGeometry x="10" y="30" width="780" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="Reset Chipset" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;rounded=1;swimlaneLine=0;" vertex="1" parent="2">
+                    <mxGeometry x="20" y="840" width="810" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="&lt;ul&gt;&lt;li&gt;Reset The Chipset&amp;nbsp;&lt;/li&gt;&lt;li&gt;Command Structure:&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Reset Command&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="27">
+                    <mxGeometry x="10" y="30" width="780" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
