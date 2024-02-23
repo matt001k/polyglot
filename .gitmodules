@@ -1,3 +1,6 @@
 [submodule "shared/lib/CMSIS_5"]
 	path = shared/lib/CMSIS_5
 	url = git@github.com:ARM-software/CMSIS_5.git
+[submodule "shared/lib/mbedtls"]
+	path = shared/lib/mbedtls
+	url = git@github.com:Mbed-TLS/mbedtls.git

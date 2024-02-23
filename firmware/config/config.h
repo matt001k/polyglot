@@ -327,6 +327,8 @@ typedef enum
  *****************************************************************************/
 #define AES_CFG(ENTRY)               \
 
+#define SHA_CFG(ENTRY)               \
+
 #endif // __CONFIG_H
 
 /**@} config */
