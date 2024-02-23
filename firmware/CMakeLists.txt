@@ -6,6 +6,7 @@ add_library(BOOTLOADER STATIC
     abstraction/led/led.c
     abstraction/nvm/nvm.c
     abstraction/serial/serial.c
+    abstraction/sha/sha256.c
     abstraction/systick/systick.c
     abstraction/wdt/wdt.c
     interface/buffer/buffer.c
@@ -29,6 +30,7 @@ target_include_directories(BOOTLOADER PUBLIC
     abstraction/led
     abstraction/nvm
     abstraction/serial
+    abstraction/sha
     abstraction/systick
     abstraction/wdt
     interface/buffer

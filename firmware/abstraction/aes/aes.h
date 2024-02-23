@@ -49,7 +49,6 @@ typedef struct
     } cb;
 } AES_t;
 
-
 /**************************************************************************//**
  * @brief Initialize The Configured AES Peripheral
  *
