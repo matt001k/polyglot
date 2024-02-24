@@ -32,6 +32,9 @@ bool Crypto_AESDecrypt(uint8_t *input,
                        uint32_t size,
                        uint8_t *key,
                        uint8_t *iv);
+void Crypto_SHA256Start(void);
+bool Crypto_SHA256Update(uint8_t *data, uint32_t size);
+bool Crypto_SHA256Finish(uint8_t *digest);
 
 
 #endif //__CRYPTO_H

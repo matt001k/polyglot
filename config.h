@@ -504,6 +504,9 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
 #define AES_CFG(ENTRY)               \
     ENTRY(Crypto_AESInit, Crypto_AESDecrypt)
 
+#define SHA_CFG(ENTRY)               \
+    ENTRY(Crypto_SHA256Start, Crypto_SHA256Update, Crypto_SHA256Finish)
+
 #endif // __CONFIG_H
 
 /**@} config */

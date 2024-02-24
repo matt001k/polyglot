@@ -11,6 +11,7 @@
 /*****************************************************************************/
 #include "crypto.h"
 #include <string.h>
+#include "mbedtls/sha256.h"
 
 #define CRYPTO_AES_BLOCKSIZE (16)
 
@@ -19,8 +20,14 @@ static inline void write_RegBurst(volatile uint32_t *reg,
 static inline void read_RegBurst(volatile uint32_t *reg,
                                  uint32_t *val);
 
+static struct
+{
+    mbedtls_sha256_context ctx;
+} sha256;
+
 void Crypto_AESInit(void)
 {
+    mbedtls_sha256_init(&sha256.ctx);
 }
 
 bool Crypto_AESDecrypt(uint8_t *input,
@@ -80,6 +87,23 @@ bool Crypto_AESDecrypt(uint8_t *input,
     return true;
 }
 
+void Crypto_SHA256Start(void)
+{
+    mbedtls_sha256_starts(&sha256.ctx, 0);
+}
+
+bool Crypto_SHA256Update(uint8_t *data, uint32_t size)
+{
+    mbedtls_sha256_update(&sha256.ctx, data, size);
+    return true;
+}
+
+bool Crypto_SHA256Finish(uint8_t *digest)
+{
+    mbedtls_sha256_finish(&sha256.ctx, digest);
+    return true;
+}
+
 static inline void write_RegBurst(volatile uint32_t *reg,
                                   const uint32_t *val)
 {
@@ -105,3 +129,4 @@ static inline void read_RegBurst(volatile uint32_t *reg,
     val[2] = v2;
     val[3] = v3;
 }
+

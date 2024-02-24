@@ -8,8 +8,8 @@
  ******************************************************************************/
 MEMORY
 {
-  BOOT (rx)     : ORIGIN = 0x00000000, LENGTH = 0x00008000
-  APP (rx)      : ORIGIN = 0x00008000, LENGTH = 0x00018000
+  BOOT (rx)     : ORIGIN = 0x00000000, LENGTH = 0x00010000
+  APP (rx)      : ORIGIN = 0x00010000, LENGTH = 0x00010000
   RAM (rwx)     : ORIGIN = 0x20000000, LENGTH = 0x00007FF8
   SHARED (rwx)  : ORIGIN = 0x20007FF8, LENGTH = 0X00000008
 }

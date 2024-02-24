@@ -47,10 +47,10 @@ endif
 flash: flash_boot flash_app
 
 flash_boot:all
-	python scripts/flash.py ./build/ahriman_boot.bin 0x0000
+	python3 scripts/flash.py ./build/ahriman_boot.bin 0x0000
 
 flash_app:all
-	python scripts/flash.py ./build/ahriman_app.bin 0x8000
+	python3 scripts/flash.py ./build/ahriman_app.bin 0x8000
 
 clean:
 	@$(RM) $(BUILD_DIR)
