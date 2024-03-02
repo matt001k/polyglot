@@ -308,14 +308,24 @@ typedef enum
  *          requires an initialization vector. The correct format of an entry
  *          is as follows:
  *
- *          ENTRY(init, decrypt)
+ *          ENTRY(key, iv, decrypt)
  *
- *          @param init initialization function to initializte the peripheral.
- *                      The correct format of the function is as follows:
+ *          @param key function to get the key necessary for decrypting data.
+ *                     The correct format of the function is as follows:
  *
- *                      void init(void)
+ *                     BL_UINT8_T *key(void)
  *
- *          @param decrypt funtion that will decrypt new data received. The
+ *                     This must return a key in size of the length of AES
+ *                     decryption type (128 or 256 bit)
+ *
+ *          @param iv function to get the iv necessary for decrypting data.
+ *                    The correct format of the function is as follows:
+ *
+ *                    BL_UINT8_T *iv(void)
+ *
+ *                    This must return a iv of 16 bytes
+ *
+ *          @param decrypt function that will decrypt new data received. The
  *                         correct format of the function is as follows:
  *
  *                         BL_BOOL_T decrypt(BL_UINT8_T *input,
@@ -327,7 +337,66 @@ typedef enum
  *****************************************************************************/
 #define AES_CFG(ENTRY)               \
 
+/**************************************************************************//**
+ * @brief Configuration Entry for SHA256
+ *
+ * @details This peripheral is used to calculate SHA256 hash checksum of
+ *          firmware that is to be loaded onto the device. The methodology for
+ *          obtaining the checksum consists of 3 functions, a start, update and
+ *          finish function. The correct format of an entry is as follows:
+ *
+ *          ENTRY(start, update, finish)
+ *
+ *          @param start function to begin a SHA256 hashing process.
+ *                       The correct format of the function is as follows:
+ *
+ *                       void *start(void)
+ *
+ *          @param update function to update the SHA256 hash in process
+ *                        The correct format of the function is as follows:
+ *
+ *                        BL_BOOL update(BL_UINT8_T *data, BL_UINT32_T size)
+ *
+ *                        This function is non-blocking and must return true
+ *                        once the process is complete.
+ *
+ *          @param finish function which will finish the SHA256 hashing. The
+ *                        correct format of the function is as follows:
+ *
+ *                         BL_BOOL_T finish(BL_UINT8_T *digest)
+ *
+ *****************************************************************************/
 #define SHA_CFG(ENTRY)               \
+
+/**************************************************************************//**
+ * @brief Configuration Entry for Signature Verification
+ *
+ * @details This peripheral is used to validate the hash checksum of the
+ *          firmware to a signature. A key must be provided through a callback
+ *          function, then a validation function is called with a hash and
+ *          signature to verify. The correct format of an entry is as follows:
+ *
+ *          ENTRY(key, verify)
+ *
+ *          @param key function to get the key necessary for verifying data.
+ *                     The correct format of the function is as follows:
+ *
+ *                     BL_UINT8_T *key(void)
+ *
+ *                     This function returns a pointer to a buffer the key will
+ *                     be located in.
+ *
+ *          @param verify function used to validate the signature of a hash.
+ *                        The correct format of the function is as follows:
+ *
+ *                        BL_BOOL_T verify(BL_UINT8_T *hash,
+ *                                         BL_UINT8_T *signature,
+ *                                         BL_UINT8_T *key)
+ *
+ *                        This function returns if the signature was verified.
+ *
+ *****************************************************************************/
+#define VERIFY_CFG(ENTRY)        \
 
 #endif // __CONFIG_H
 
