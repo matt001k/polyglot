@@ -1,5 +1,6 @@
 add_library(BOOTLOADER STATIC
     abstraction/aes/aes.c
+    abstraction/verify/verify.c
     abstraction/hold/hold.c
     abstraction/init/init.c
     abstraction/jump/jump.c
@@ -24,6 +25,7 @@ add_library(BOOTLOADER STATIC
 target_include_directories(BOOTLOADER PUBLIC
     ../
     abstraction/aes
+    abstraction/verify
     abstraction/hold
     abstraction/init
     abstraction/jump
