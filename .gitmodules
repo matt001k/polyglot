@@ -4,3 +4,6 @@
 [submodule "shared/lib/mbedtls"]
 	path = shared/lib/mbedtls
 	url = git@github.com:Mbed-TLS/mbedtls.git
+[submodule "shared/lib/micro-ecc"]
+	path = shared/lib/micro-ecc
+	url = git@github.com:kmackay/micro-ecc.git

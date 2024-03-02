@@ -206,6 +206,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
     Delay_Init();
     SPI_Init();
     DMA_Init();
+    Crypto_Init();
 }
 
 /**************************************************************************//**
@@ -502,10 +503,13 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
  *
  *****************************************************************************/
 #define AES_CFG(ENTRY)               \
-    ENTRY(Crypto_AESInit, Crypto_AESDecrypt)
+    ENTRY(Crypto_AESKey, Crypto_AESIV, Crypto_AESDecrypt)
 
 #define SHA_CFG(ENTRY)               \
     ENTRY(Crypto_SHA256Start, Crypto_SHA256Update, Crypto_SHA256Finish)
+
+#define VERIFY_CFG(ENTRY)        \
+    ENTRY(Crypto_ECDHKey, Crypto_ECDHVerify)
 
 #endif // __CONFIG_H
 

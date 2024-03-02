@@ -34,7 +34,7 @@ ${C_DEFS} \
 -fdata-sections \
 -ffunction-sections \
 -Wall \
--O0 \
+-Og \
 -g")
 
 

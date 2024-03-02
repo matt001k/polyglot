@@ -12,6 +12,7 @@
 #include "crypto.h"
 #include <string.h>
 #include "mbedtls/sha256.h"
+#include "uECC.h"
 
 #define CRYPTO_AES_BLOCKSIZE (16)
 
@@ -25,9 +26,63 @@ static struct
     mbedtls_sha256_context ctx;
 } sha256;
 
-void Crypto_AESInit(void)
+static struct
+{
+    const struct uECC_Curve_t *curve;
+} ecc;
+
+void Crypto_Init(void)
 {
     mbedtls_sha256_init(&sha256.ctx);
+}
+
+uint8_t *Crypto_AESKey(void)
+{
+
+    static const uint8_t key[16] =
+    {
+        0x30,
+        0x31,
+        0x30,
+        0x32,
+        0x30,
+        0x33,
+        0x30,
+        0x34,
+        0x30,
+        0x31,
+        0x30,
+        0x32,
+        0x30,
+        0x33,
+        0x30,
+        0x34,
+    };
+    return (uint8_t *) key;
+}
+
+uint8_t *Crypto_AESIV(void)
+{
+    static uint8_t iv[16] = 
+    {
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+        0x46,
+    };
+    return iv;
 }
 
 bool Crypto_AESDecrypt(uint8_t *input,
@@ -102,6 +157,33 @@ bool Crypto_SHA256Finish(uint8_t *digest)
 {
     mbedtls_sha256_finish(&sha256.ctx, digest);
     return true;
+}
+
+uint8_t *Crypto_ECDHKey(void)
+{
+    uint8_t *ret = NULL;
+    static const uint8_t key[] =
+    {
+        0x3b,0x8d,0xc1,0x9a,0xd1,0xaa,0xa8,0x74,0x1b,0x4b,0xff,0x8d,0xbe,0xdd,
+        0xbc,0x3d,0x24,0xb4,0x84,0x84,0xec,0x26,0xf3,0x14,0x95,0xe2,0x90,0xdf,0x9d,
+        0xd4,0xd7,0x08,0xa7,0x40,0xe8,0x2e,0x5c,0x73,0x80,0x3a,0x4e,0x01,0xc1,0xe5,
+        0xba,0xc7,0x6b,0x09,0xe3,0xfa,0x92,0x97,0x1d,0x4f,0xd3,0x16,0x05,0xdb,0xaf,
+        0x26,0x02,0x42,0x4e,0x7c
+    };
+    ecc.curve = uECC_secp256k1();
+    if (uECC_valid_public_key(key, ecc.curve))
+    {
+        ret = (uint8_t *) key;
+    }
+    return (uint8_t *) ret;
+}
+
+bool Crypto_ECDHVerify(uint8_t *hash,
+                       uint8_t *signature,
+                       uint8_t *key)
+{
+    bool ret = uECC_verify(key, hash, 32, signature, ecc.curve);
+    return ret;
 }
 
 static inline void write_RegBurst(volatile uint32_t *reg,
