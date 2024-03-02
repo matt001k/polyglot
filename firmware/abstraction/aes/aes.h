@@ -24,27 +24,25 @@
  *****************************************************************************/
 #include "config.h"
 
-#define AES_128_IV_SIZE 16
+#define AES_IV_SIZE 16
 #define AES_128_KEY_SIZE 16
+#define AES_KEY_SIZE AES_128_KEY_SIZE
 
-typedef void (*AES_Init_t)(void);
+typedef BL_UINT8_T *(*AES_Key_t)(void);
+typedef BL_UINT8_T *(*AES_IV_t)(void);
 typedef BL_BOOL_T (*AES_Decrypt_t)(BL_UINT8_T *input,
                                    BL_UINT8_T *output,
                                    BL_UINT32_T size,
-                                   uint8_t *key,
-                                   uint8_t *iv);
+                                   BL_UINT8_T *key,
+                                   BL_UINT8_T *iv);
 typedef struct
 {
+    BL_UINT8_T iv[AES_IV_SIZE];
+    BL_UINT8_T key[AES_KEY_SIZE];
     struct
     {
-        BL_UINT8_T *input;
-        BL_UINT8_T *output;
-    } buf;
-    BL_UINT8_T *iv;
-    BL_UINT8_T *key;
-    struct
-    {
-        AES_Init_t init;
+        AES_Key_t key;
+        AES_IV_t iv;
         AES_Decrypt_t decrypt;
     } cb;
 } AES_t;
@@ -59,22 +57,16 @@ BL_Err_t AES_Init(void);
 /**************************************************************************//**
  * @brief Set The Decryption Key
  *
- * @param key[in] pointer to key to be utilized for decryption, must be sized
- *                AES_128_KEY_SIZE
- *
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t AES_SetKey(BL_UINT8_T *key);
+BL_Err_t AES_SetKey(void);
 
 /**************************************************************************//**
  * @brief Set The Decryption Initialization Vector
  *
- * @param key[in] pointer to initialization vector to be utilized for
- *                decryption, must be sized AES_128_IV_SIZE
- *
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t AES_SetIV(BL_UINT8_T *iv);
+BL_Err_t AES_SetIV(void);
 
 /**************************************************************************//**
  * @brief Decrypt Block Of Data
@@ -84,7 +76,7 @@ BL_Err_t AES_SetIV(BL_UINT8_T *iv);
  *
  * @param input[in] data buffer to decrypt
  * @param output[out] output buffer for decrypted data
- * @param size[in] size of data to decrypt, must be bound by AES_128_IV_SIZE
+ * @param size[in] size of data to decrypt, must be bound by AES_IV_SIZE
  *                 bytes
  *
  * @return BL_Err_t

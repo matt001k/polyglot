@@ -15,15 +15,15 @@
  * @date        2024-02-11
  *****************************************************************************/
 #include "aes.h"
+#include "helper.h"
 
-#define AES_CB_EXPAND(init, decrypt) \
-    { init, decrypt },
+#define AES_CB_EXPAND(key, iv, decrypt) \
+    .cb = { key, iv, decrypt },
 
 BL_STATIC AES_t aes =
 {
     {0},
-    NULL,
-    NULL,
+    {0},
     AES_CFG(AES_CB_EXPAND)
 };
 
@@ -31,44 +31,31 @@ BL_Err_t AES_Init(void)
 {
     BL_Err_t err = BL_EIO;
 
-    if (aes.cb.init)
+    if (aes.cb.key && aes.cb.iv && aes.key)
     {
         err = BL_OK;
-        aes.cb.init();
     }
 
     return err;
 }
 
-BL_Err_t AES_SetKey(BL_UINT8_T *key)
+BL_Err_t AES_SetKey(void)
 {
-    BL_Err_t err = BL_EIO;
-
-    if (key)
-    {
-        err = BL_OK;
-        aes.key = key;
-    }
-
+    BL_Err_t err = BL_OK;
+    MEMCPY(aes.key, aes.cb.key(), AES_KEY_SIZE);
     return err;
 }
 
-BL_Err_t AES_SetIV(BL_UINT8_T *iv)
+BL_Err_t AES_SetIV(void)
 {
-    BL_Err_t err = BL_EIO;
-
-    if (iv)
-    {
-        err = BL_OK;
-        aes.iv = iv;
-    }
-
+    BL_Err_t err = BL_OK;
+    MEMCPY(aes.iv, aes.cb.iv(), AES_IV_SIZE);
     return err;
 }
 
 BL_Err_t AES_Decrypt(BL_UINT8_T *input, BL_UINT8_T *output, BL_UINT32_T size)
 {
-    BL_Err_t err = size % AES_128_IV_SIZE == 0 ? BL_EIO : BL_ENODATA;
+    BL_Err_t err = size % AES_IV_SIZE == 0 ? BL_EIO : BL_ENODATA;
     if (aes.cb.decrypt && err == BL_EIO)
     {
         err = aes.cb.decrypt(input, output, size, aes.key, aes.iv) == BL_TRUE 
