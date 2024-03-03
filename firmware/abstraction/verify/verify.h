@@ -18,6 +18,8 @@
  *****************************************************************************/
 #include "config.h"
 
+#define VERIFY_SIGNATURE_LENGTH 64
+
 typedef BL_UINT8_T *(*Verify_Key_t)(void);
 typedef BL_BOOL_T (*Verify_Cb_t)(BL_UINT8_T *hash,
                                  BL_UINT8_T *signature,
