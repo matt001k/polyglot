@@ -403,7 +403,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
           PARTITION_TABLE_SIZE,             \
           PARTITION_TABLE_LOCATION,         \
           PARTITION_SECTOR_SIZE,            \
-          0U)                               \
+          0)                               \
     ENTRY(Flash_Init,                       \
           IntFlash_WriteAbstract,           \
           IntFlash_ReadAbstract,            \
@@ -411,7 +411,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
           APP_SIZE,                         \
           APP_LOCATION,                     \
           MCU_SECTOR_SIZE,                  \
-          1U)                               \
+          1)                               \
     ENTRY(Partition_Init,                   \
           Partition_Write,                  \
           Partition_Read,                   \
@@ -419,7 +419,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
           PARTITION_UPDATE_1_SIZE,          \
           PARTITION_UPDATE_1_LOCATION,      \
           PARTITION_SECTOR_SIZE,            \
-          2U)                               \
+          2)                               \
     ENTRY(Partition_Init,                   \
           Partition_Write,                  \
           Partition_Read,                   \
@@ -427,7 +427,7 @@ BL_STATIC BL_INLINE void Init_Abstract(void)
           PARTITION_UPDATE_2_SIZE,          \
           PARTITION_UPDATE_2_LOCATION,      \
           PARTITION_SECTOR_SIZE,            \
-          3U)                               \
+          3)                               \
 
 /**************************************************************************//**
  * @brief Configuration Entry for Jump
