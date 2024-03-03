@@ -16,7 +16,7 @@
  * @file        helper.h
  *
  * @brief       Provides helper API to the bootloader
- * 
+ *
  * @author      Matthew Krause
  *
  * @date        2022-09-25
@@ -27,6 +27,9 @@
 #define MEMSET BL_MemSet
 #define UINT32_UINT8 BL_32to8
 #define UINT8_UINT32 BL_8to32
+
+#define POLL_DMA_FUNCTION(error, f) \
+    while ((error = f) == BL_EALREADY) {};
 
 BL_STATIC BL_INLINE void *BL_MemCpy(void *dest,
                                     void *src,

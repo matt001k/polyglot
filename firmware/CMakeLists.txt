@@ -14,6 +14,7 @@ add_library(BOOTLOADER STATIC
     interface/command/command.c
     interface/data/data.c
     interface/loader/loader.c
+    interface/table/table.c
     interface/validator/validator.c
     lib/crc/crc32.c
     lib/schedule/schedule.c
@@ -39,6 +40,7 @@ target_include_directories(BOOTLOADER PUBLIC
     interface/command
     interface/data
     interface/loader
+    interface/table
     interface/validator
     lib/crc
     lib/dict
