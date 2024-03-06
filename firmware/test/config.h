@@ -25,6 +25,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include "fake_nvm.h"
 
 /**************************************************************************//**
  * @brief Definitions of various types within the bootloader in accordance to
@@ -259,6 +260,39 @@ typedef enum
  *
  *****************************************************************************/
 #define NVM_CFG(ENTRY)                      \
+    ENTRY(Fake_NVMInit,                     \
+          Fake_NVMWrite,                    \
+          Fake_NVMRead,                     \
+          Fake_NVMErase,                    \
+          FAKE_NVM_SIZE,                    \
+          FAKE_NVM_LOCATION,                \
+          FAKE_NVM_SECTOR_SIZE,             \
+          0)                                \
+    ENTRY(Fake_NVMInit,                     \
+          Fake_NVMWrite,                    \
+          Fake_NVMRead,                     \
+          Fake_NVMErase,                    \
+          FAKE_NVM_SIZE,                    \
+          FAKE_NVM_LOCATION,                \
+          FAKE_NVM_SECTOR_SIZE,             \
+          1)                                \
+    ENTRY(Fake_NVMInit,                     \
+          Fake_NVMWrite,                    \
+          Fake_NVMRead,                     \
+          Fake_NVMErase,                    \
+          FAKE_NVM_SIZE,                    \
+          FAKE_NVM_LOCATION,                \
+          FAKE_NVM_SECTOR_SIZE,             \
+          2)                                \
+    ENTRY(Fake_NVMInit,                     \
+          Fake_NVMWrite,                    \
+          Fake_NVMRead,                     \
+          Fake_NVMErase,                    \
+          FAKE_NVM_SIZE,                    \
+          FAKE_NVM_LOCATION,                \
+          FAKE_NVM_SECTOR_SIZE,             \
+          3)
+
 
 /**************************************************************************//**
  * @brief Configuration Entry for Jump

@@ -29,6 +29,8 @@
 #include "config.h"
 #include "verify.h"
 
+#define PARTITION_MAGIC 0xCAFE
+#define TABLE_MAGIC 0xBABE
 
 /* Data must be 16 byte aligned in the following structs for AES operations */
 typedef struct __attribute__((__packed__))
@@ -75,6 +77,11 @@ typedef enum
  * @return BL_X on failure
  *****************************************************************************/
 BL_Err_t Table_Init(void);
+
+/******************************************************************************
+ * @brief Deintialize Partition Table
+ *****************************************************************************/
+void Table_Deinit(void);
 
 /******************************************************************************
  * @brief Write Partition Information
