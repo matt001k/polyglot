@@ -31,41 +31,17 @@
 #define POLL_DMA_FUNCTION(error, f) \
     while ((error = f) == BL_EALREADY) {};
 
-BL_STATIC BL_INLINE void *BL_MemCpy(void *dest,
-                                    void *src,
-                                    BL_UINT32_T length);
-BL_STATIC BL_INLINE void *BL_MemSet(void *dest,
-                                    BL_UINT8_T data,
-                                    BL_UINT32_T length);
+ void *BL_MemCpy(void *dest,
+                 void *src,
+                 BL_UINT32_T length);
+ void *BL_MemSet(void *dest,
+                 BL_UINT8_T data,
+                 BL_UINT32_T length);
 BL_STATIC BL_INLINE void BL_32to8(BL_UINT8_T *dest,
                                   BL_UINT32_T src);
 BL_STATIC BL_INLINE void BL_8to32(BL_UINT32_T *dest,
                                   BL_UINT8_T *src);
 
-BL_STATIC BL_INLINE void *BL_MemCpy(void *dest,
-                                    void *src,
-                                    BL_UINT32_T length)
-{
-    BL_UINT8_T *d = (BL_UINT8_T *) dest;
-    BL_UINT8_T *s = (BL_UINT8_T *) src;
-    while (length--)
-    {
-        *d++ = *s++;
-    }
-    return dest;
-}
-
-BL_STATIC BL_INLINE void *BL_MemSet(void *dest,
-                                    BL_UINT8_T data,
-                                    BL_UINT32_T length)
-{
-    BL_UINT8_T *p = (BL_UINT8_T *) dest;
-    while (length-- > 0)
-    {
-        *p++ = data;
-    }
-    return dest;
-}
 
 BL_STATIC BL_INLINE void BL_32to8(BL_UINT8_T *dest,
                                    BL_UINT32_T src)

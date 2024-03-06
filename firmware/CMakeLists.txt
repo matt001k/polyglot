@@ -18,6 +18,7 @@ add_library(BOOTLOADER STATIC
     interface/validator/validator.c
     lib/crc/crc32.c
     lib/schedule/schedule.c
+    lib/helper/helper.c
     main/run/run.c
     task/blink/blink.c
     task/update/update.c

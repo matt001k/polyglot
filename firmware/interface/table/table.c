@@ -32,8 +32,6 @@
     helper.lut[PARTITION_PREVIOUS] = info.table.partition.previous; \
     PARTITION_TABLE_MAX_INC_CHECK(helper.lut[PARTITION_NEXT], \
                                   info.table.partition.current);
-#define PARTITION_MAGIC 0xCAFE
-#define TABLE_MAGIC 0xBABE
 
 #define POLL_NVM_OPERATION(err, op) \
     POLL_DMA_FUNCTION(err, op); \
@@ -49,7 +47,7 @@ BL_STATIC struct
 {
     BL_UINT32_T lut[PARTITION_COUNT];
     BL_UINT32_T size;
-} helper;
+} helper = {0};
 
 BL_STATIC BL_Err_t table_EraseAndWrite(void);
 
@@ -66,7 +64,7 @@ BL_Err_t Table_Init(void)
                                          &size));
         if (err == BL_OK && info.table.magic != TABLE_MAGIC)
         {
-            BL_MemSet(&info, 0, sizeof(info));
+            MEMSET(&info, 0, sizeof(info));
             info.table.magic = TABLE_MAGIC;
             info.table.partition.current = 0;
             info.table.partition.previous = 0;
@@ -81,6 +79,12 @@ BL_Err_t Table_Init(void)
     return err;
 }
 
+void Table_Deinit(void)
+{
+    MEMSET(&info, 0, BL_SIZEOF(info));
+    MEMSET(&helper, 0, BL_SIZEOF(helper));
+}
+
 BL_Err_t Table_WritePartiton(Table_Types_e table,
                              Table_Partition_t *partition)
 {
@@ -89,9 +93,9 @@ BL_Err_t Table_WritePartiton(Table_Types_e table,
         partition &&
         helper.lut[table] < NUM_LOADABLE_PARTITIONS)
     {
-        BL_MemCpy(&info.partitions[helper.lut[table]],
-                  partition,
-                  BL_SIZEOF(Table_Partition_t));
+        MEMCPY(&info.partitions[helper.lut[table]],
+               partition,
+               BL_SIZEOF(Table_Partition_t));
         err = table_EraseAndWrite();
     }
     return err;
@@ -101,7 +105,7 @@ BL_Err_t Table_ReadPartiton(Table_Types_e table,
                             Table_Partition_t *partition)
 {
     BL_Err_t err = BL_EIO;
-    BL_UINT32_T size = sizeof(info);
+    BL_UINT32_T size = BL_SIZEOF(info);
     if (table < PARTITION_COUNT &&
         partition &&
         helper.lut[table] < NUM_LOADABLE_PARTITIONS)
@@ -109,11 +113,12 @@ BL_Err_t Table_ReadPartiton(Table_Types_e table,
         POLL_NVM_OPERATION(err, NVM_Read(PARTITION_NODE,
                                          (BL_UINT8_T *) &info,
                                          &size));
+
         if (err == BL_OK)
         {
-            BL_MemCpy(partition,
-                      &info.partitions[helper.lut[table]],
-                      BL_SIZEOF(Table_Partition_t));
+            MEMCPY(partition,
+                   &info.partitions[helper.lut[table]],
+                   BL_SIZEOF(Table_Partition_t));
         }
     }
     return err;
@@ -145,7 +150,7 @@ BL_Err_t Table_UpdatePartitions(void)
 
 BL_Err_t Table_CheckValid(Table_Types_e table)
 {
-    BL_Err_t err = table < NUM_LOADABLE_PARTITIONS ? BL_ERR : BL_EIO;
+    BL_Err_t err = table < PARTITION_COUNT ? BL_ERR : BL_EIO;
     if (err == BL_ERR &&
         info.partitions[helper.lut[table]].magic == PARTITION_MAGIC)
     {
@@ -160,6 +165,6 @@ BL_STATIC BL_Err_t table_EraseAndWrite(void)
     POLL_NVM_OPERATION(err, NVM_Erase(PARTITION_NODE, helper.size));
     POLL_NVM_OPERATION(err, NVM_Write(PARTITION_NODE,
                                       (BL_UINT8_T *) &info,
-                                      sizeof(info)));
+                                      BL_SIZEOF(info)));
     return err;
 }
