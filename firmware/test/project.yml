@@ -25,11 +25,17 @@
 :paths:
   :test:
     - +:abstraction/**
+    - +:interface/**
   :source:
-    - src/**
+    - fake/**
     - +:../abstraction/**
+    - +:../interface/**
+    - +:../lib/**
   :include:
+    - fake/**
     - ../abstraction/**
+    - ../interface/**
+    - ../lib/**
     - .
   :libraries: []
 
