@@ -23,6 +23,8 @@
  *****************************************************************************/
 #include "config.h"
 
+#define FLAG_SET (1)
+#define FLAG_CLEAR (0)
 #define MEMCPY BL_MemCpy
 #define MEMSET BL_MemSet
 #define UINT32_UINT8 BL_32to8
