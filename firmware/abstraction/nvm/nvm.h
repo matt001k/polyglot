@@ -32,6 +32,7 @@
 #define PARTITION_NODE (0U)
 #define APPLICATION_NODE (1U)
 
+typedef BL_UINT8_T NVM_Node_t;
 typedef void (*NVM_Init_t)(void);
 typedef BL_BOOL_T (*NVM_Write_t)(BL_UINT32_T address,
                                  BL_UINT8_T *data,
@@ -59,6 +60,11 @@ enum
  *****************************************************************************/
 BL_Err_t NVM_Init(void);
 
+/******************************************************************************
+ * @brief Deinitialize The Configured NVM Peripherals
+ *****************************************************************************/
+void NVM_Deinit(void);
+
 /**************************************************************************//**
  * @brief Write data to the NVM node
  *
@@ -72,7 +78,7 @@ BL_Err_t NVM_Init(void);
  * @param length[in] length of data to write
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t NVM_Write(BL_UINT8_T node, BL_UINT8_T *data, BL_UINT32_T length);
+BL_Err_t NVM_Write(NVM_Node_t node, BL_UINT8_T *data, BL_UINT32_T length);
 
 /**************************************************************************//**
  * @brief Read Data from the NVM Node
@@ -84,7 +90,7 @@ BL_Err_t NVM_Write(BL_UINT8_T node, BL_UINT8_T *data, BL_UINT32_T length);
  * @param length[in/out] length of data that is to be read/was read
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t NVM_Read(BL_UINT8_T node, BL_UINT8_T *data, BL_UINT32_T *length);
+BL_Err_t NVM_Read(NVM_Node_t node, BL_UINT8_T *data, BL_UINT32_T *length);
 
 /**************************************************************************//**
  * @brief Erases the Requested Node
@@ -95,7 +101,7 @@ BL_Err_t NVM_Read(BL_UINT8_T node, BL_UINT8_T *data, BL_UINT32_T *length);
  * @param length[in] length to erase from the node
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t NVM_Erase(BL_UINT8_T node, BL_UINT32_T length);
+BL_Err_t NVM_Erase(NVM_Node_t node, BL_UINT32_T length);
 
 /**************************************************************************//**
  * @brief Finishes an Operation on The Requested Node
@@ -106,7 +112,7 @@ BL_Err_t NVM_Erase(BL_UINT8_T node, BL_UINT32_T length);
  * @param node[in] node to perform requested action
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t NVM_OperationFinish(BL_UINT8_T  node);
+BL_Err_t NVM_OperationFinish(NVM_Node_t node);
 
 /**************************************************************************//**
  * @brief Obtains the Total Size of the Requested Node Partition
@@ -115,7 +121,7 @@ BL_Err_t NVM_OperationFinish(BL_UINT8_T  node);
  * @param size[out] total size of the requested node
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t NVM_GetSize(BL_UINT8_T node, BL_UINT32_T *size);
+BL_Err_t NVM_GetSize(NVM_Node_t node, BL_UINT32_T *size);
 
 /**************************************************************************//**
  * @brief Obtains Page Size from Requested Node
@@ -124,7 +130,7 @@ BL_Err_t NVM_GetSize(BL_UINT8_T node, BL_UINT32_T *size);
  * @param size[out] page size from the requested node
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t NVM_GetPageSize(BL_UINT8_T node, BL_UINT32_T *size);
+BL_Err_t NVM_GetPageSize(NVM_Node_t node, BL_UINT32_T *size);
 
 /**************************************************************************//**
  * @brief Obtains the Number Of Nodes Configured
@@ -143,7 +149,7 @@ BL_Err_t NVM_GetCount(BL_UINT8_T *count);
  * @param location[out] address of the requested node's partition
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t NVM_GetLocation(BL_UINT8_T node, BL_UINT32_T *location);
+BL_Err_t NVM_GetLocation(NVM_Node_t node, BL_UINT32_T *location);
 
 /**@} nvm */
 

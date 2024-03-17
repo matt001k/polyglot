@@ -4,6 +4,12 @@
 
 static uint8_t *buf = NULL;
 static bool fail = false;
+static struct ret_s
+{
+    bool write;
+    bool read;
+    bool erase;
+} ret = {true, true, true};
 
 void Fake_NVMInit(void)
 {
@@ -19,14 +25,14 @@ void Fake_NVMInit(void)
 
 void Fake_NVMDeinit(void)
 {
+    ret = (struct ret_s) {true, true, true};
 }
 
 bool Fake_NVMWrite(uint32_t address, uint8_t *data, uint32_t length)
 {
-    static bool ret = true;
-    if (ret == true)
+    if (ret.write == true)
     {
-        ret = false;
+        ret.write = false;
     }
     else if (address + length <= FAKE_NVM_SIZE)
     {
@@ -34,17 +40,16 @@ bool Fake_NVMWrite(uint32_t address, uint8_t *data, uint32_t length)
         {
             buf[i] = data[i];
         }
-        ret = true;
+        ret.write = true;
     }
-    return ret;
+    return ret.write;
 }
 
 bool Fake_NVMRead(uint32_t address, uint8_t *data, uint32_t length)
 {
-    static bool ret = true;
-    if (ret == true)
+    if (ret.read == true)
     {
-        ret = false;
+        ret.read = false;
     }
     else if (address + length <= FAKE_NVM_SIZE)
     {
@@ -59,18 +64,17 @@ bool Fake_NVMRead(uint32_t address, uint8_t *data, uint32_t length)
                 data[i] = 0xFF;
             }
         }
-        ret = true;
+        ret.read = true;
         fail = false;
     }
-    return ret;
+    return ret.read;
 }
 
 bool Fake_NVMErase(uint32_t address, uint32_t length)
 {
-    static bool ret = true;
-    if (ret == true)
+    if (ret.erase == true)
     {
-        ret = false;
+        ret.erase = false;
     }
     else if (address + length <= FAKE_NVM_SIZE)
     {
@@ -78,9 +82,9 @@ bool Fake_NVMErase(uint32_t address, uint32_t length)
         {
             buf[i] = 0xFF;
         }
-        ret = true;
+        ret.erase = true;
     }
-    return ret;
+    return ret.erase;
 }
 
 void Fake_NVMFail(void)

@@ -28,6 +28,7 @@
  *****************************************************************************/
 #include "config.h"
 #include "verify.h"
+#include "nvm.h"
 
 #define PARTITION_MAGIC 0xCAFE
 #define TABLE_MAGIC 0xBABE
@@ -117,6 +118,20 @@ BL_Err_t Table_WritePartiton(Table_Types_e table,
  *****************************************************************************/
 BL_Err_t Table_ReadPartiton(Table_Types_e table,
                             Table_Partition_t *partition);
+
+/******************************************************************************
+ * @brief Get The Requested Node For The Partition
+ *
+ * @details Obtains the current node for the partition requested.
+ *          Will fail if the module has not been initialized.
+ *
+ * @param table table type to obtain
+ * @param node node of requested type
+ *
+ * @return BL_OK on success
+ * @return BL_ERR if module not initialized
+ *****************************************************************************/
+BL_Err_t Table_GetPartition(Table_Types_e table, NVM_Node_t *node);
 
 /******************************************************************************
  * @brief Revert Current Partition
