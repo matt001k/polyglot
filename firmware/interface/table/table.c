@@ -20,7 +20,6 @@
  *****************************************************************************/
 #include "table.h"
 #include "helper.h"
-#include "nvm.h"
 
 #define NUM_DEFAULT_NODES (2)
 #define NUM_LOADABLE_PARTITIONS (NUM_NVM_NODES - NUM_DEFAULT_NODES)
@@ -120,6 +119,17 @@ BL_Err_t Table_ReadPartiton(Table_Types_e table,
                    &info.partitions[helper.lut[table]],
                    BL_SIZEOF(Table_Partition_t));
         }
+    }
+    return err;
+}
+
+BL_Err_t Table_GetPartition(Table_Types_e table, NVM_Node_t *node)
+{
+    BL_Err_t err = BL_ERR;
+    if (info.table.magic == TABLE_MAGIC && node)
+    {
+        *node = helper.lut[table] + NUM_DEFAULT_NODES;
+        err = BL_OK;
     }
     return err;
 }

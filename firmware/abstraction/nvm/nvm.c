@@ -96,7 +96,12 @@ BL_Err_t NVM_Init(void)
     return err;
 }
 
-BL_Err_t NVM_Write(BL_UINT8_T node, BL_UINT8_T *data, BL_UINT32_T length)
+void NVM_Deinit(void)
+{
+    nvm = (nvm_t) {0};
+}
+
+BL_Err_t NVM_Write(NVM_Node_t node, BL_UINT8_T *data, BL_UINT32_T length)
 {
     BL_Err_t err = BL_EINVAL;
 
@@ -136,7 +141,7 @@ BL_Err_t NVM_Write(BL_UINT8_T node, BL_UINT8_T *data, BL_UINT32_T length)
     return err;
 }
 
-BL_Err_t NVM_Read(BL_UINT8_T node, BL_UINT8_T *data, BL_UINT32_T *length)
+BL_Err_t NVM_Read(NVM_Node_t node, BL_UINT8_T *data, BL_UINT32_T *length)
 {
     BL_Err_t err = BL_EINVAL;
 
@@ -176,7 +181,7 @@ BL_Err_t NVM_Read(BL_UINT8_T node, BL_UINT8_T *data, BL_UINT32_T *length)
     return err;
 }
 
-BL_Err_t NVM_Erase(BL_UINT8_T node, BL_UINT32_T length)
+BL_Err_t NVM_Erase(NVM_Node_t node, BL_UINT32_T length)
 {
     BL_Err_t err = BL_EINVAL;
 
@@ -218,7 +223,7 @@ BL_Err_t NVM_Erase(BL_UINT8_T node, BL_UINT32_T length)
     return err;
 }
 
-BL_Err_t NVM_OperationFinish(BL_UINT8_T node)
+BL_Err_t NVM_OperationFinish(NVM_Node_t node)
 {
     BL_Err_t err = BL_EINVAL;
 
@@ -235,7 +240,7 @@ BL_Err_t NVM_OperationFinish(BL_UINT8_T node)
     return err;
 }
 
-BL_Err_t NVM_GetSize(BL_UINT8_T node, BL_UINT32_T *size)
+BL_Err_t NVM_GetSize(NVM_Node_t node, BL_UINT32_T *size)
 {
     BL_Err_t err = BL_EINVAL;
 
@@ -248,7 +253,7 @@ BL_Err_t NVM_GetSize(BL_UINT8_T node, BL_UINT32_T *size)
     return err;
 }
 
-BL_Err_t NVM_GetPageSize(BL_UINT8_T node, BL_UINT32_T *size)
+BL_Err_t NVM_GetPageSize(NVM_Node_t node, BL_UINT32_T *size)
 {
     BL_Err_t err = BL_EINVAL;
 
@@ -274,7 +279,7 @@ BL_Err_t NVM_GetCount(BL_UINT8_T *count)
     return err;
 }
 
-BL_Err_t NVM_GetLocation(BL_UINT8_T node, BL_UINT32_T *location)
+BL_Err_t NVM_GetLocation(NVM_Node_t node, BL_UINT32_T *location)
 {
     BL_Err_t err = BL_EINVAL;
     

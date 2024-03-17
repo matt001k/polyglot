@@ -27,6 +27,9 @@
 #include <stddef.h>
 #include "fake_nvm.h"
 
+#define OTA_1_NODE 2
+#define OTA_2_NODE 3
+
 /**************************************************************************//**
  * @brief Definitions of various types within the bootloader in accordance to
  *        system requirements
