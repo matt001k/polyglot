@@ -24,11 +24,12 @@
  *****************************************************************************/
 #include "config.h"
 
-void Writer_Init(void);
 BL_Err_t Writer_Start(void);
 BL_Err_t Writer_Erase(void);
 BL_Err_t Writer_WriteData(BL_UINT8_T *data, BL_UINT32_T length);
 BL_Err_t Writer_ReadData(BL_UINT8_T *data, BL_UINT32_T *length);
 BL_Err_t Writer_Finish(void);
+
+/**@} writer */
 
 #endif // __BL_WRITER_H

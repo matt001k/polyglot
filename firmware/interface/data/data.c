@@ -22,6 +22,7 @@
 #include "data.h"
 #include "serial.h"
 #include "timeout.h"
+#include "helper.h"
 
 #define LENGTH_SIZE BL_SIZEOF(DataLength_t)
 
@@ -109,20 +110,17 @@ BL_Err_t Data_GetLength(DataLength_t *length)
     if (data.ready[GET_LENGTH] == BL_TRUE)
     {
         data.ready[GET_LENGTH] = BL_FALSE;
-        Serial_Receive(buf, LENGTH_SIZE);
-        *length = (DataLength_t) (buf[0] << 24U |
-                                  buf[1] << 16U |
-                                  buf[2] << 8U |
-                                  buf[3]);
+        err = Serial_Receive(buf, LENGTH_SIZE);
+        UINT8_UINT32(length, buf);
 
         if (*length > BL_BUFFER_SIZE)
         {
             err = BL_ERR;
         }
-        else
-        {
-            err = BL_OK;
-        }
+    }
+    else
+    {
+        err = BL_ENODATA;
     }
 
     return err;
@@ -154,14 +152,17 @@ BL_Err_t Data_SetLength(DataLength_t length)
 
 BL_Err_t Data_ReceiveData(BL_UINT8_T *buf)
 {
-    BL_Err_t err = BL_ENODATA;
+    BL_Err_t err = BL_ERR;
 
     if (data.ready[GET_DATA] == BL_TRUE)
     {
         data.ready[GET_DATA] = BL_FALSE;
-        Serial_Receive(buf, data.length);
+        err = Serial_Receive(buf, data.length);
         data.length = 0U;
-        err = BL_OK;
+    }
+    else
+    {
+        err = BL_ENODATA;
     }
 
     return err;

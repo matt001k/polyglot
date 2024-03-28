@@ -35,8 +35,12 @@ static struct writer_s
 BL_Err_t Writer_Start(void)
 {
     BL_Err_t err = BL_ERR;
-    if ((err = Table_GetPartition(PARTITION_CURRENT, &writer.node)) == BL_OK &&
-            (err = NVM_GetSize(writer.node, &writer.size)) == BL_OK)
+    if (writer.flags.start)
+    {
+        err = BL_EALREADY;
+    }
+    else if ((err = Table_GetPartition(PARTITION_CURRENT, &writer.node)) ==
+            BL_OK && (err = NVM_GetSize(writer.node, &writer.size)) == BL_OK)
     {
         writer.flags.start = FLAG_SET;
     }

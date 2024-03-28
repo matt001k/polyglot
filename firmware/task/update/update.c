@@ -27,7 +27,9 @@
 #include "jump.h"
 #include "buffer.h"
 #include "validator.h"
+#include "updater.h"
 
+#define DATA_INST_INIT(start, handle) { {start, handle}, D_BEGIN }
 #define UPDATE_TASK_PERIOD_MS (5U)
 #define ACK_READY() Command_Send(TRANSMIT_READY)
 #define NACK_READY() Command_Send(TRANSMIT_ERROR)
@@ -41,14 +43,44 @@ typedef enum
 typedef enum
 {
     D_BEGIN = 0U,
-    D_INIT,
     D_LENGTH,
     D_DATA,
-} data_State_e;
+    D_HANDLE,
+} data_States_e;
+
+typedef BL_Err_t (*Data_Start_t)(void);
+typedef BL_Err_t (*Data_Handle_t)(BL_UINT8_T *buf, BL_UINT32_T size);
+typedef struct
+{
+    Data_Start_t start;
+    Data_Handle_t handle;
+} Data_Cb_t;
+
+typedef struct
+{
+    Data_Cb_t cb;
+    data_States_e state;
+    DataLength_t length;
+} Data_Inst_t;
+
+BL_STATIC BL_CONST Data_Cb_t inst_LUT[RECEIVE_NUM_COMMAND] =
+{
+    [RECEIVE_READY] = {NULL, NULL},
+    [RECEIVE_ERROR] = {NULL, NULL},
+    [RECEIVE_WRITE] = {Updater_Start, Updater_Handle},
+    [RECEIVE_RUN] = {NULL, NULL},
+    [RECEIVE_VALIDATE] = {NULL, NULL},
+    [RECEIVE_ERASE] = {NULL, NULL},
+    [RECEIVE_LOCK] = {NULL, NULL},
+    [RECEIVE_UNLOCK] = {NULL, NULL},
+    [RECEIVE_RELEASE] = {NULL, NULL},
+    [RECEIVE_RESET] = {NULL, NULL},
+};
+
 
 BL_STATIC void update_Run(void);
 BL_STATIC update_State_e command_Handler(Command_Receive_e command);
-BL_STATIC update_State_e data_Handler(Command_Receive_e command);
+BL_STATIC BL_Err_t data_Handler(Data_Inst_t *inst);
 
 BL_Err_t Update_Init(void)
 {
@@ -62,8 +94,10 @@ BL_Err_t Update_Init(void)
 
 BL_STATIC void update_Run(void)
 {
-    BL_STATIC update_State_e state = COMMAND;
     BL_STATIC Command_Receive_e cmd = RECEIVE_READY;
+    BL_STATIC Data_Inst_t *inst = NULL;
+    update_State_e state = COMMAND;
+    BL_Err_t err = BL_OK;
 
     switch (state)
     {
@@ -73,15 +107,21 @@ BL_STATIC void update_Run(void)
         {
             state = command_Handler(cmd);
         }
-        break;
+        else
+        {
+            break;
+        }
     case DATA:
-        state = data_Handler(cmd);
-        break;
-    default:
+        if ((err = data_Handler(inst)) == BL_OK ||
+                err == BL_ERR)
+        {
+            state = COMMAND;
+        }
         break;
     }
 }
 
+/* TODO: cases will set a data callback, and the data callback will be handled until it is told to change data state */
 BL_STATIC update_State_e command_Handler(Command_Receive_e cmd)
 {
     update_State_e state = COMMAND;
@@ -122,140 +162,85 @@ BL_STATIC update_State_e command_Handler(Command_Receive_e cmd)
     return state;
 }
 
-BL_STATIC update_State_e data_Handler(Command_Receive_e command)
+BL_STATIC BL_Err_t data_Handler(Data_Inst_t *inst)
 {
-    update_State_e uState = DATA;
-    BL_STATIC struct
-    {
-        data_State_e state;
-        DataLength_t length;
-        BL_BOOL_T initialized;
-        struct
-        {
-            BL_BOOL_T write;
-            BL_BOOL_T validate;
-        } ongoing;
-    } handler =
-    {
-        D_BEGIN,
-        0,
-        BL_FALSE,
-        { BL_FALSE },
-    };
-    BL_Err_t err = BL_ERR;
+    BL_Err_t err = BL_OK;
 
-    if (command == RECEIVE_VALIDATE)
+    if (inst->cb.handle && inst->cb.start)
     {
-        if (handler.initialized == BL_FALSE)
-        { if ((err = Loader_WriteSecret(Buffer_Get(), BL_BUFFER_SIZE)) == BL_OK)
-            {
-                Loader_Reset();
-
-                if (err == BL_OK)
-                {
-                    handler.initialized = BL_TRUE;
-                }
-                else if (err == BL_ERR)
-                {
-                    handler.state = D_BEGIN;
-                    uState = COMMAND;
-                    NACK_READY();
-                }
-            }
-        }
-        if (handler.ongoing.validate != BL_TRUE &&
-            handler.initialized == BL_TRUE)
-        {
-            err = Loader_Validate(Buffer_Get(), BL_BUFFER_SIZE);
-        }
-        if ((err == BL_OK ||
-            err == BL_ERR ||
-            handler.ongoing.validate == BL_TRUE) &&
-            handler.initialized == BL_TRUE)
-        {
-            if (err == BL_OK || err == BL_ERR)
-            {
-                Loader_Reset();
-            }
-            if (err == BL_OK ||
-                handler.ongoing.validate == BL_TRUE)
-            {
-                handler.ongoing.validate = BL_TRUE;
-                err = Loader_UpdateRevisions(Buffer_Get(), BL_BUFFER_SIZE);
-            }
-            if (err == BL_OK ||
-                err == BL_ERR ||
-                handler.ongoing.validate == BL_FALSE)
-            {
-                Loader_Reset();
-                MEMSET(Buffer_Get(), 0U, BL_BUFFER_SIZE);
-                handler.state = D_BEGIN;
-                uState = COMMAND;
-                handler.initialized = BL_FALSE;
-                handler.ongoing.validate = BL_FALSE;
-                Command_Init();
-                if (err == BL_OK)
-                {
-                    ACK_READY();
-                }
-                else
-                {
-                    NACK_READY();
-                }
-            }
-        }
-    }
-    else
-    {
-        switch (handler.state)
+        switch (inst->state)
         {
         case D_BEGIN:
-            if (Loader_Init(Buffer_Get(), BL_BUFFER_SIZE) == BL_OK)
+            if (inst->cb.start)
             {
-                handler.state = D_INIT;
+                if ((err = inst->cb.start()) == BL_OK)
+                {
+                    inst->state = D_LENGTH;
+                    Data_LengthCbInit();
+                    ACK_READY();
+                }
+                else 
+                {
+                    break;
+                }
             }
-            break;
-        case D_INIT:
-            Data_LengthCbInit();
-            ACK_READY();
-            handler.state = D_LENGTH;
-            break;
         case D_LENGTH:
-            if (Data_GetLength(&handler.length) == BL_OK)
+            if ((err = Data_GetLength(&inst->length)) == BL_OK)
             {
-                Data_SetLength(handler.length);
+                Data_SetLength(inst->length);
                 Data_LengthCbDeinit();
                 Data_DataCbInit();
                 ACK_READY();
-                handler.state = D_DATA;
+                inst->state = D_DATA;
+            }
+            else if (err == BL_ENODATA)
+            {
+                break;
+            }
+            else
+            {
+                NACK_READY();
+                inst->state = D_BEGIN;
+                break;
+            }
+        case D_DATA:
+            if ((err = Data_ReceiveData(Buffer_Get())) == BL_OK)
+            {
+                Data_DataCbDeinit();
+                inst->state = D_HANDLE;
+            }
+            else if (err == BL_ENODATA)
+            {
+                break;
+            }
+            else
+            {
+                inst->state = D_BEGIN;
+                break;
+            }
+        case D_HANDLE:
+            inst->state = D_BEGIN;
+            if (inst->cb.handle)
+            {
+                if ((err = inst->cb.handle(Buffer_Get(),
+                                           inst->length)) == BL_OK)
+                {
+                    inst->length = 0U;
+                    inst->state = D_BEGIN;
+                    MEMSET(Buffer_Get(), 0U, BL_BUFFER_SIZE);
+                    //TODO: ACK here
+                }
+                else if (err != BL_EALREADY)
+                {
+                    inst->state = D_BEGIN;
+                    //TODO: NACK here
+                }
             }
             break;
-        case D_DATA:
-            if (Data_ReceiveData(Buffer_Get()) == BL_OK || handler.ongoing.write == BL_TRUE)
-            {
-                if (handler.ongoing.write == BL_FALSE)
-                {
-                    handler.ongoing.write = BL_TRUE;
-                    Data_DataCbDeinit();
-                }
-                if (Loader_Write(Buffer_Get(), handler.length) == BL_OK)
-                {
-                    handler.ongoing.write = BL_FALSE;
-                    handler.length = 0U;
-                    MEMSET(Buffer_Get(), 0U, BL_BUFFER_SIZE);
-                    handler.state = D_INIT;
-                    uState = COMMAND;
-                    Command_Init();
-                    ACK_READY();
-                }
-            }
         default:
             break;
         }
     }
 
-    return uState;
+    return err;
 }
-
-
-/**@} update */
