@@ -32,6 +32,14 @@
 #define PARTITION_NODE (0U)
 #define APPLICATION_NODE (1U)
 
+typedef enum
+{
+    NVM_NONE_OP,
+    NVM_WRITE_OP,
+    NVM_READ_OP,
+    NVM_ERASE_OP,
+} NVM_Operation_t;
+
 typedef BL_UINT8_T NVM_Node_t;
 typedef void (*NVM_Init_t)(void);
 typedef BL_BOOL_T (*NVM_Write_t)(BL_UINT32_T address,
@@ -113,6 +121,17 @@ BL_Err_t NVM_Erase(NVM_Node_t node, BL_UINT32_T length);
  * @return BL_Err_t
  *****************************************************************************/
 BL_Err_t NVM_OperationFinish(NVM_Node_t node);
+
+/**************************************************************************//**
+ * @brief Get Ongoing Operation Of The Requested Node
+ *
+ * @param op[in] ongoing operation
+ * @param node node to obtain the ongoing operation
+ *
+ * @return BL_OK when valid parameters are passed in
+ * @return BL_EINVAL when invalid parameters are passed in
+ *****************************************************************************/
+BL_Err_t NVM_GetOperation(NVM_Node_t node, NVM_Operation_t *op);
 
 /**************************************************************************//**
  * @brief Obtains the Total Size of the Requested Node Partition

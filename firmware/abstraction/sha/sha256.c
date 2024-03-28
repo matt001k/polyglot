@@ -46,7 +46,7 @@ BL_Err_t SHA256_Calculate(BL_UINT8_T *data,
     }
     if (data && size)
     {
-        ret = sha.cb.update(data, size) == true ? BL_OK : BL_EACCES;
+        ret = sha.cb.update(data, size) == true ? BL_OK : BL_EINPROGRESS;
     }
     return ret;
 }
@@ -56,7 +56,7 @@ BL_Err_t SHA256_Finish(BL_UINT8_T *digest)
     BL_Err_t ret = BL_EIO;
     if (digest)
     {
-        ret = sha.cb.finish(digest) == true ? BL_OK : BL_EACCES;
+        ret = sha.cb.finish(digest) == true ? BL_OK : BL_EINPROGRESS;
     }
     return ret;
 }
