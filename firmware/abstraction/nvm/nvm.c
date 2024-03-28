@@ -23,10 +23,6 @@
  *****************************************************************************/
 #include "nvm.h"
 
-#define NVM_NONE_OP (0U)
-#define NVM_WRITE_OP (1U)
-#define NVM_READ_OP (2U)
-#define NVM_ERASE_OP (3U)
 #define NVM_TABLE_ENTRY(init, write, read, erase,     \
                         size, offset, page, priority) \
     {init, write, read, erase, size, offset, page, priority, offset},
@@ -126,11 +122,11 @@ BL_Err_t NVM_Write(NVM_Node_t node, BL_UINT8_T *data, BL_UINT32_T length)
             }
             else
             {
-                err = BL_EALREADY;
+                err = BL_EINPROGRESS;
+                nvm.cfg[node].op = NVM_WRITE_OP;
                 if (nvm.cfg[node].write(nvm.cfg[node].p, data, length) ==
                     BL_TRUE)
                 {
-                    nvm.cfg[node].op = NVM_WRITE_OP;
                     nvm.cfg[node].p += length;
                     err = BL_OK;
                 }
@@ -166,11 +162,11 @@ BL_Err_t NVM_Read(NVM_Node_t node, BL_UINT8_T *data, BL_UINT32_T *length)
             }
             else
             {
-                err = BL_EALREADY;
+                err = BL_EINPROGRESS;
+                nvm.cfg[node].op = NVM_READ_OP;
                 if (nvm.cfg[node].read(nvm.cfg[node].p, data, *length) ==
                     BL_TRUE)
                 {
-                    nvm.cfg[node].op = NVM_READ_OP;
                     nvm.cfg[node].p += *length;
                     err = BL_OK;
                 }
@@ -207,11 +203,11 @@ BL_Err_t NVM_Erase(NVM_Node_t node, BL_UINT32_T length)
             }
             else
             {
-                err = BL_EALREADY;
+                err = BL_EINPROGRESS;
+                nvm.cfg[node].op = NVM_ERASE_OP;
                 if (nvm.cfg[node].erase(nvm.cfg[node].p, length) ==
                     BL_TRUE)
                 {
-                    nvm.cfg[node].op = NVM_ERASE_OP;
                     nvm.cfg[node].p += length;
                     err = BL_OK;
                 }
@@ -237,6 +233,17 @@ BL_Err_t NVM_OperationFinish(NVM_Node_t node)
         nvm.cfg[node].op = NVM_NONE_OP;
     }
 
+    return err;
+}
+
+BL_Err_t NVM_GetOperation(NVM_Node_t node, NVM_Operation_t *op)
+{
+    BL_Err_t err = BL_EINVAL;
+    if (op && node < nvm.count)
+    {
+        err = BL_OK;
+        *op = nvm.cfg[node].op;
+    }
     return err;
 }
 

@@ -163,6 +163,7 @@ BL_Err_t Serial_Receive(BL_UINT8_T *data, BL_UINT32_T length)
         MEMCPY(data, serial.buf, length);
         MEMSET(serial.buf, 0U, BL_BUFFER_SIZE);
         serial.bufIdx = 0U;
+        err = BL_OK;
     }
 
     return err;

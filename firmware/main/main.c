@@ -1,3 +1,6 @@
+#include "aes.h"
+#include "verify.h"
+#include "sha256.h"
 #include "systick.h"
 #include "serial.h"
 #include "led.h"
@@ -19,6 +22,9 @@ int main(void)
     BL_BOOL_T hold = BL_FALSE;
 
     /* Initialize Abstract */
+    AES_Init();
+    Verify_Init();
+    SHA256_Init();
     Init_Init();
     Systick_Init();
     Serial_Init();
