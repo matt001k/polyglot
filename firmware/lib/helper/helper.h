@@ -25,13 +25,14 @@
 
 #define FLAG_SET (1)
 #define FLAG_CLEAR (0)
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))
 #define MEMCPY BL_MemCpy
 #define MEMSET BL_MemSet
 #define UINT32_UINT8 BL_32to8
 #define UINT8_UINT32 BL_8to32
 
 #define POLL_DMA_FUNCTION(error, f) \
-    while ((error = f) == BL_EALREADY) {};
+    while ((error = f) == BL_EINPROGRESS) {};
 
  void *BL_MemCpy(void *dest,
                  void *src,

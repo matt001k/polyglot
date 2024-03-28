@@ -49,7 +49,7 @@ BL_Err_t Validator_Run(BL_UINT8_T *data, BL_UINT32_T length)
     {
         /* Read the partition at the split buffer (look behind) */
         while ((err = NVM_Read(APPLICATION_NODE, l, &lSize)) ==
-                BL_EALREADY) {};
+                BL_EINPROGRESS) {};
         
         /* Look for secret word in */
         for (BL_UINT32_T pIdx = 0U;
