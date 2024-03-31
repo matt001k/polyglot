@@ -54,9 +54,9 @@ BL_Err_t Data_LengthCbInit(void)
 {
     BL_Err_t err = BL_ERR;
 
-    if ((err = Timeout_Add(&data.timeout,
-                           dTimeoutCb,
-                           BL_SERIAL_TIMEOUT_MS)) == BL_OK)
+    //if ((err = Timeout_Add(&data.timeout,
+    //                       dTimeoutCb,
+    //                       BL_SERIAL_TIMEOUT_MS)) == BL_OK)
     {
         err = Serial_RegisterCb(length_Cb);
     }
@@ -68,7 +68,7 @@ BL_Err_t Data_LengthCbDeinit(void)
 {
     BL_Err_t err = BL_ERR;
 
-    if ((err = Timeout_Remove(&data.timeout)) == BL_OK)
+    //if ((err = Timeout_Remove(&data.timeout)) == BL_OK)
     {
         err = Serial_DeregisterCb();
     }
@@ -80,9 +80,9 @@ BL_Err_t Data_DataCbInit(void)
 {
     BL_Err_t err = BL_ERR;
 
-    if ((err = Timeout_Add(&data.timeout,
-                           dTimeoutCb,
-                           BL_SERIAL_TIMEOUT_MS)) == BL_OK)
+    //if ((err = Timeout_Add(&data.timeout,
+    //                       dTimeoutCb,
+    //                       BL_SERIAL_TIMEOUT_MS)) == BL_OK)
     {
         err = Serial_RegisterCb(data_Cb);
     }
@@ -94,7 +94,7 @@ BL_Err_t Data_DataCbDeinit(void)
 {
     BL_Err_t err = BL_ERR;
 
-    if ((err = Timeout_Remove(&data.timeout)) == BL_OK)
+    //if ((err = Timeout_Remove(&data.timeout)) == BL_OK)
     {
         err = Serial_DeregisterCb();
     }
@@ -119,9 +119,7 @@ BL_Err_t Data_GetLength(DataLength_t *length)
         }
     }
     else
-    {
-        err = BL_ENODATA;
-    }
+    { err = BL_ENODATA; }
 
     return err;
 }
@@ -170,7 +168,7 @@ BL_Err_t Data_ReceiveData(BL_UINT8_T *buf)
 
 BL_STATIC void length_Cb(BL_UINT32_T length)
 {
-    Timeout_Kick(&data.timeout);
+    //Timeout_Kick(&data.timeout);
     data.count[GET_LENGTH] += length;
     if (data.count[GET_LENGTH] >= LENGTH_SIZE)
     {
@@ -181,7 +179,7 @@ BL_STATIC void length_Cb(BL_UINT32_T length)
 
 BL_STATIC void data_Cb(BL_UINT32_T length)
 {
-    Timeout_Kick(&data.timeout);
+    //Timeout_Kick(&data.timeout);
     if (data.length != 0U)
     {
         data.count[GET_DATA] += length;

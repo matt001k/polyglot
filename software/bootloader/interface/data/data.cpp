@@ -13,7 +13,7 @@
  *
  * @brief       Provides and interface for the necessary data needed for
  *              the bootloader
- * 
+ *
  * @author      Matthew Krause
  *
  * @date        2022-10-10
