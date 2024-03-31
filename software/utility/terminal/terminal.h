@@ -15,7 +15,7 @@
  * @file        terminal.h
  *
  * @brief       Terminal interface for the application
- * 
+ *
  * @author      Matthew Krause
  *
  * @date        2022-10-01
@@ -72,6 +72,7 @@ private:
         BL_TEST_COMMAND,
         BL_TEST_DATA,
         BL_TEST_CRC_OFFSET,
+        BL_TEST_RAND,
         BL_TEST_EXIT,
     } BL_Test_States_e;
     Action_e BLTest(void);

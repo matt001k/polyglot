@@ -72,7 +72,7 @@ BL_Err_t Command_Init(void)
     if (command.cb == BL_FALSE)
     {
         command.cb = BL_TRUE;
-        err = Timeout_Add(&command.timeout, cTimeoutCb, BL_SERIAL_TIMEOUT_MS);
+        //err = Timeout_Add(&command.timeout, cTimeoutCb, BL_SERIAL_TIMEOUT_MS);
         if (err == BL_OK)
         {
             err = Serial_RegisterCb(command_Cb);
@@ -150,7 +150,7 @@ BL_Err_t Command_Receive(Command_Receive_e *cmd)
 
 BL_STATIC void command_Cb(BL_UINT32_T length)
 {
-    Timeout_Kick(&command.timeout);
+    //Timeout_Kick(&command.timeout);
     command.count += length;
 
     if (command.count >= COMMAND_SIZE)

@@ -51,7 +51,7 @@ typedef enum
 
 typedef BL_Err_t (*command_t)(void);
 typedef BL_Err_t (*data_t)(BL_UINT8_T *buf, BL_UINT32_T size);
-typedef BL_Err_t (*error_t)(BL_Err_t **err, BL_UINT8_T *count);
+typedef void (*error_t)(BL_Err_t **err, BL_UINT8_T *count);
 typedef struct
 {
     command_t command;
@@ -174,17 +174,24 @@ BL_STATIC void update_Run(void)
             inst.flags.response = FLAG_CLEAR;
         }
     }
+    /* ensures that the next command will be ready */
     if (inst.flags.reset)
     {
         Command_Init();
         inst.flags.command = FLAG_SET;
         inst.flags.reset = FLAG_CLEAR;
     }
+    /* transmits a response */
     if (inst.flags.transmit)
     {
-        Command_Send(inst.response);
-        inst.flags.transmit = BL_FALSE;
+        inst.flags.response = BL_FALSE;
+        if (Command_Send(inst.response) == BL_OK)
+        {
+            inst.flags.transmit = BL_FALSE;
+            inst.flags.response = BL_TRUE;
+        }
     }
+    /* handles new commands */
     if (inst.flags.command)
     {
         if (Command_Receive(&cmd) == BL_OK)
@@ -209,7 +216,7 @@ BL_STATIC BL_Err_t response(inst_t *inst)
     switch (inst->state)
     {
     case COMMAND_HANDLE:
-        if (inst->cfg.cb.command())
+        if (inst->cfg.cb.command)
         {
             err = inst->cfg.cb.command();
             if (err == BL_OK)
@@ -220,6 +227,7 @@ BL_STATIC BL_Err_t response(inst_t *inst)
                     Data_LengthCbInit();
                 }
                 ACK_READY(inst);
+                err = BL_EINPROGRESS;
             }
             else if (validate(inst, err) == BL_FALSE)
             {
@@ -251,7 +259,7 @@ BL_STATIC BL_Err_t response(inst_t *inst)
         if ((err = Data_ReceiveData(Buffer_Get())) == BL_OK)
         {
             Data_DataCbDeinit();
-            inst->state = GET_DATA;
+            inst->state = DATA_HANDLE;
             err = BL_EINPROGRESS;
         }
         else if (err != BL_ENODATA)

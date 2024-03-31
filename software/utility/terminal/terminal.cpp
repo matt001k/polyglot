@@ -12,7 +12,7 @@
  * @file        terminal.cpp
  *
  * @brief       Terminal interface for the application
- * 
+ *
  * @author      Matthew Krause
  *
  * @date        2022-10-01
@@ -25,6 +25,7 @@
 #include <fstream>
 #include <sstream>
 #include <unistd.h>
+#include "updater.h"
 
 #define RANDOM_BYTE_ARRAY_LEN (4096U)
 
@@ -374,7 +375,7 @@ Terminal::Terminal(void) :
     m_App{ { "Bootloader Test Mode", [this](){ return BLTest(); } },
            { "Exit Terminal Mode", [this](){ return Exit(); } } }
 {
-    
+
     for (std::uint32_t i = 0U; i <= NUM_MODES; i++)
     {
         m_Apps.insert({(Mode_e) i, m_App[i]});
@@ -420,8 +421,7 @@ void Terminal::Run(void)
     }
 }
 
-void Terminal::Menu_Helper(const std::string header,
-                           const std::vector<std::string> opts)
+void Terminal::Menu_Helper(const std::string header, const std::vector<std::string> opts)
 {
     std::cout << std::flush;
 #if defined (__linux__)
@@ -436,10 +436,10 @@ void Terminal::Menu_Helper(const std::string header,
         "Please select an option as follows:" <<
         std::endl << std::endl;
 
-    
+
     for (auto it = opts.begin(); it != opts.end(); it++)
     {
-        std::cout << std::distance(opts.begin(), it) << ": " << 
+        std::cout << std::distance(opts.begin(), it) << ": " <<
             *it << std::endl;
     }
 
@@ -461,7 +461,7 @@ void Terminal::Init(void)
 std::int32_t Terminal::Input(void)
 {
     std::int32_t conv = 0U;
-    std::string line = "";    
+    std::string line = "";
 
     std::getline(std::cin, line);
     std::stringstream ss(line);
@@ -539,11 +539,13 @@ Terminal::Action_e Terminal::BLTest(void)
     static const std::string hMain = "Bootloader Test Mode Interface";
     static const std::string hCommand = "Bootloader Command Interface";
     static const std::string hData = "Bootloader Data Interface";
+    static const std::string rData = "Bootloader Random Data Interface";
     static const std::vector<std::string> oMain =
     {
         "Command Mode", //BL_TEST_COMMAND
         "Data Mode",    //BL_TEST_DATA
-        "Offset Mode"   //BL_TEST_CRC_OFFSET
+        "Offset Mode",  //BL_TEST_CRC_OFFSET
+        "Rand Mode",    //BL_TEST_RAND
         "Exit",         //BL_TEST_EXIT
     };
     static const std::vector<std::string> oCommand =
@@ -575,7 +577,7 @@ Terminal::Action_e Terminal::BLTest(void)
                        state == BL_TEST_COMMAND ? oSize : dSize;
     Action_e action = CONTINUE;
 
-    
+
     switch (state)
     {
     case BL_TEST_INIT:
@@ -750,6 +752,23 @@ Terminal::Action_e Terminal::BLTest(void)
             printed = false;
         }
         break;
+    case BL_TEST_RAND:
+        if (!printed)
+        {
+            Menu_Helper(rData, dCommand);
+            printed = true;
+        }
+        opt = Input();
+        if (opt == 0)
+        {
+            std::cout << "Please enter in data"
+                         " to send over: ";
+            std::string line = "";
+            std::getline(std::cin, line);
+            std::vector<std::uint8_t> data(line.begin(), line.end());
+            Updater u(b.USB);
+            u.Update(data, line.length());
+        }
     case BL_TEST_EXIT:
         state = BL_TEST_INIT;
         action = EXIT;
@@ -761,4 +780,3 @@ Terminal::Action_e Terminal::BLTest(void)
 }
 
 /**@} terminal */
-

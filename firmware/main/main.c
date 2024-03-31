@@ -13,12 +13,11 @@
 #include "jump.h"
 #include "hold.h"
 #include "timeout.h"
-#include "validator.h"
-#include "buffer.h"
+#include "table.h"
 
 int main(void)
 {
-    BL_Err_t err = BL_OK;
+    BL_Err_t err = BL_ERR;
     BL_BOOL_T hold = BL_FALSE;
 
     /* Initialize Abstract */
@@ -33,6 +32,9 @@ int main(void)
     Jump_Init();
     Hold_Init();
 
+    /* Initialize Interfaces */
+    Table_Init();
+
     /* Initialize Tasks */
     Blink_Init();
     Update_Init();
@@ -40,7 +42,6 @@ int main(void)
     
     /* Determine if we should jump to application */
     Hold_Get(&hold);
-    err = Validator_Run(Buffer_Get(), BL_BUFFER_SIZE);
     if (hold == BL_FALSE && err == BL_OK)
     {
         Jump_ToApp();
