@@ -2,6 +2,7 @@ add_library(BOOTLOADER STATIC
     interface/command/command.cpp
     interface/data/data.cpp
     interface/serial/serial.cpp
+    process/updater/updater.cpp
     lib/crc/crc32.cpp)
 
 target_include_directories(BOOTLOADER PUBLIC
@@ -10,6 +11,7 @@ target_include_directories(BOOTLOADER PUBLIC
     interface/serial
     lib/crc
     lib/dict
+    process/updater
     utility)
 
 target_link_libraries(BOOTLOADER PUBLIC)

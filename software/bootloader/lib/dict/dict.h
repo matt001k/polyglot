@@ -23,9 +23,9 @@
 #define __DICT_H
 
 #include "common.h"
-#include <iostream>
+#include <stdint.h>
 
-typedef std::uint32_t Dict_Item_t;
+typedef uint32_t Dict_Item_t;
 
 enum
 {
