@@ -45,10 +45,8 @@ set(CMAKE_EXE_LINKER_FLAGS "-mcpu=${MCU_USED} \
 -mfpu=${FP_UNIT_USED} \
 -mfloat-abi=${FP_USED} \
 -specs=nano.specs \
--specs=nosys.specs \
 -lc \
 -lm \
--lnosys \
 -Wl,--gc-sections -g")
 target_link_options(${PROJECT_APP_EXECUTABLE} PRIVATE
     -Wl,-Map=${PROJECT_APP_NAME}.map,--cref;

@@ -43,7 +43,7 @@ void Bootloader_Set(void)
 {
     bootloader_key = BOOTLOADER_KEY_WORD;
 
-    //JUMP_TO_BOOT(BOOT_LOCATION);
+    JUMP_TO_BOOT(BOOT_LOCATION);
 }
 
 /**@} bootloader */

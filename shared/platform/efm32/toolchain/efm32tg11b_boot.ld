@@ -22,6 +22,13 @@ __approm_size__ = LENGTH(APP);
 __flash_size__ = __bootrom_size__ + __approm_size__;
 __flash_end__ = __bootrom_start__ + __flash_size__;
 
+PHDRS
+{
+  text PT_LOAD FLAGS(5);
+  data PT_LOAD FLAGS(6);
+  bss PT_LOAD FLAGS(6);
+}
+
 ENTRY(Reset_Handler)
 
 SECTIONS
@@ -55,7 +62,7 @@ SECTIONS
     *(.rodata*)
 
     KEEP(*(.eh_frame*))
-  } > BOOT
+  } > BOOT : text
 
   .ARM.extab :
   {
@@ -105,7 +112,7 @@ SECTIONS
     /* All data end */
     __data_end__ = .;
 
-  } > RAM
+  } > RAM : data
 
   .bss :
   {
@@ -115,7 +122,7 @@ SECTIONS
     *(COMMON)
     . = ALIGN(4);
     __bss_end__ = .;
-  } > RAM
+  } > RAM : bss
 
   .heap (COPY):
   {

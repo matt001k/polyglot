@@ -1,5 +1,6 @@
 add_library(PLATFORM_LIB STATIC
     efm32/startup_efm32tg11b.S
+    efm32/syscalls.c
     efm32/drivers/atomic/atomic.c
     efm32/drivers/clock/clock.c
     efm32/drivers/cpu/cpu.c
