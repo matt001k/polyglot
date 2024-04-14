@@ -8,7 +8,8 @@
  *
  * @brief       Provides an abstraction layer for the AES decryption methods
  *              necessary for ingesting images over serial communication and
- *              ensuring safe application loading.
+ *              ensuring safe application loading. This shall use
+ *              CBC encryption.
  *
  * @author      Matthew Krause
  *
