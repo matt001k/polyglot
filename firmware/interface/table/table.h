@@ -29,6 +29,7 @@
 #include "config.h"
 #include "verify.h"
 #include "nvm.h"
+#include "aes.h"
 
 #define PARTITION_MAGIC 0xCAFE
 #define TABLE_MAGIC 0xBABE
@@ -40,9 +41,10 @@ typedef struct __attribute__((__packed__))
     BL_UINT32_T length;
     BL_UINT32_T reserved1;
     BL_UINT32_T crc;
-    BL_UINT32_T reserved2;
+    BL_UINT16_T reserved2;
     BL_UINT8_T signature[VERIFY_SIGNATURE_LENGTH];
-    BL_UINT8_T reserved3[14];
+    BL_UINT8_T iv[AES_IV_SIZE];
+    BL_UINT8_T reserved3[16];
 } Table_Partition_t;
 
 typedef struct __attribute__((__packed__))
