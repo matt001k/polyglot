@@ -7,8 +7,8 @@
 !_TAG_PROGRAM_VERSION	0.0.0	//
 ACK_READY	firmware/task/update/update.c	/^#define ACK_READY(/;"	d	file:
 APPLICATION_NODE	firmware/abstraction/nvm/nvm.h	/^#define APPLICATION_NODE /;"	d
-BL_32to8	firmware/lib/helper/helper.h	/^BL_STATIC BL_INLINE void BL_32to8(BL_UINT8_T *dest,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
-BL_8to32	firmware/lib/helper/helper.h	/^BL_STATIC BL_INLINE void BL_8to32(BL_UINT32_T *dest,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+BL_32to8	firmware/lib/helper/helper.h	/^BL_STATIC_INLINE void BL_32to8(BL_UINT8_T *dest,$/;"	f	typeref:typename:BL_STATIC_INLINE void
+BL_8to32	firmware/lib/helper/helper.h	/^BL_STATIC_INLINE void BL_8to32(BL_UINT32_T *dest,$/;"	f	typeref:typename:BL_STATIC_INLINE void
 BL_BOOL_T	firmware/config/config.h	/^#define BL_BOOL_T /;"	d
 BL_BUFFER_SIZE	firmware/config/config.h	/^#define BL_BUFFER_SIZE /;"	d
 BL_CONST	firmware/config/config.h	/^#define BL_CONST /;"	d
@@ -28,15 +28,15 @@ BL_ERR	firmware/config/config.h	/^    BL_ERR      = 1U,$/;"	e	enum:__anon877a19c
 BL_ERROR	firmware/lib/dict/dict.h	/^    BL_ERROR = 0x46756334,$/;"	e	enum:__anon15fa39040103
 BL_Err_t	firmware/config/config.h	/^} BL_Err_t;$/;"	t	typeref:enum:__anon877a19c20103
 BL_FALSE	firmware/config/config.h	/^#define BL_FALSE /;"	d
-BL_INLINE	firmware/config/config.h	/^#define BL_INLINE /;"	d
+BL_STATIC_INLINE	firmware/config/config.h	/^#define BL_STATIC_INLINE /;"	d
 BL_INT16_T	firmware/config/config.h	/^#define BL_INT16_T /;"	d
 BL_INT32_T	firmware/config/config.h	/^#define BL_INT32_T /;"	d
 BL_INT64_T	firmware/config/config.h	/^#define BL_INT64_T /;"	d
 BL_INT8_T	firmware/config/config.h	/^#define BL_INT8_T /;"	d
 BL_LED_T	firmware/abstraction/led/led.h	/^typedef BL_UINT8_T BL_LED_T;$/;"	t	typeref:typename:BL_UINT8_T
 BL_LOCK	firmware/lib/dict/dict.h	/^    BL_LOCK = 0x34594337,$/;"	e	enum:__anon15fa39040103
-BL_MemCpy	firmware/lib/helper/helper.h	/^BL_STATIC BL_INLINE void *BL_MemCpy(void *dest,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void *
-BL_MemSet	firmware/lib/helper/helper.h	/^BL_STATIC BL_INLINE void *BL_MemSet(void *dest,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void *
+BL_MemCpy	firmware/lib/helper/helper.h	/^BL_STATIC_INLINE void *BL_MemCpy(void *dest,$/;"	f	typeref:typename:BL_STATIC_INLINE void *
+BL_MemSet	firmware/lib/helper/helper.h	/^BL_STATIC_INLINE void *BL_MemSet(void *dest,$/;"	f	typeref:typename:BL_STATIC_INLINE void *
 BL_NULL	firmware/config/config.h	/^#define BL_NULL /;"	d
 BL_NUM_PARTITIONS_TO_UPDATE	firmware/config/config.h	/^#define BL_NUM_PARTITIONS_TO_UPDATE /;"	d
 BL_OK	firmware/config/config.h	/^    BL_OK       = 0U,$/;"	e	enum:__anon877a19c20103
@@ -108,21 +108,21 @@ INIT_CREATE	firmware/interface/loader/loader.c	/^    INIT_CREATE,$/;"	e	enum:__a
 INIT_ENTRY	firmware/abstraction/init/init.c	/^#define INIT_ENTRY(/;"	d	file:
 INIT_ERASE	firmware/interface/loader/loader.c	/^    INIT_ERASE,$/;"	e	enum:__anon5c21211f0103	file:
 INIT_PREPARE	firmware/interface/loader/loader.c	/^    INIT_PREPARE,$/;"	e	enum:__anon5c21211f0103	file:
-Init_Abstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void Init_Abstract(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+Init_Abstract	firmware/config/config.h	/^BL_STATIC_INLINE void Init_Abstract(void)$/;"	f	typeref:typename:BL_STATIC_INLINE void
 Init_Init	firmware/abstraction/init/init.c	/^void Init_Init(void)$/;"	f	typeref:typename:void
-IntFlash_EraseAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,$/;"	f	typeref:typename:BL_STATIC BL_INLINE BL_BOOL_T
-IntFlash_ReadAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,$/;"	f	typeref:typename:BL_STATIC BL_INLINE BL_BOOL_T
-IntFlash_WriteAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,$/;"	f	typeref:typename:BL_STATIC BL_INLINE BL_BOOL_T
+IntFlash_EraseAbstract	firmware/config/config.h	/^BL_STATIC_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,$/;"	f	typeref:typename:BL_STATIC_INLINE BL_BOOL_T
+IntFlash_ReadAbstract	firmware/config/config.h	/^BL_STATIC_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,$/;"	f	typeref:typename:BL_STATIC_INLINE BL_BOOL_T
+IntFlash_WriteAbstract	firmware/config/config.h	/^BL_STATIC_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,$/;"	f	typeref:typename:BL_STATIC_INLINE BL_BOOL_T
 JUMP_CFG	firmware/config/config.h	/^#define JUMP_CFG /;"	d
 JUMP_ENTRY	firmware/abstraction/jump/jump.c	/^#define JUMP_ENTRY(/;"	d	file:
 JUMP_IDX	firmware/abstraction/jump/jump.c	/^#define JUMP_IDX /;"	d	file:
 Jump_Cb_t	firmware/abstraction/jump/jump.h	/^typedef void (*Jump_Cb_t)(BL_UINT32_T address);$/;"	t	typeref:typename:void (*)(BL_UINT32_T address)
 Jump_Init	firmware/abstraction/jump/jump.c	/^BL_Err_t Jump_Init(void)$/;"	f	typeref:typename:BL_Err_t
 Jump_ToApp	firmware/abstraction/jump/jump.c	/^BL_Err_t Jump_ToApp(void)$/;"	f	typeref:typename:BL_Err_t
-Jump_ToAppAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void Jump_ToAppAbstract(BL_UINT32_T address)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
-LED1_Toggle	firmware/config/config.h	/^BL_STATIC BL_INLINE void LED1_Toggle(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
-LED2_Toggle	firmware/config/config.h	/^BL_STATIC BL_INLINE void LED2_Toggle(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
-LED3_Toggle	firmware/config/config.h	/^BL_STATIC BL_INLINE void LED3_Toggle(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+Jump_ToAppAbstract	firmware/config/config.h	/^BL_STATIC_INLINE void Jump_ToAppAbstract(BL_UINT32_T address)$/;"	f	typeref:typename:BL_STATIC_INLINE void
+LED1_Toggle	firmware/config/config.h	/^BL_STATIC_INLINE void LED1_Toggle(void)$/;"	f	typeref:typename:BL_STATIC_INLINE void
+LED2_Toggle	firmware/config/config.h	/^BL_STATIC_INLINE void LED2_Toggle(void)$/;"	f	typeref:typename:BL_STATIC_INLINE void
+LED3_Toggle	firmware/config/config.h	/^BL_STATIC_INLINE void LED3_Toggle(void)$/;"	f	typeref:typename:BL_STATIC_INLINE void
 LED_CFG	firmware/config/config.h	/^#define LED_CFG /;"	d
 LED_ENTRY	firmware/abstraction/led/led.c	/^#define LED_ENTRY(/;"	d	file:
 LED_GetCount	firmware/abstraction/led/led.c	/^BL_Err_t LED_GetCount(BL_UINT8_T *count)$/;"	f	typeref:typename:BL_Err_t
@@ -216,9 +216,9 @@ Systick_Init_t	firmware/abstraction/systick/systick.h	/^typedef void (*Systick_I
 TRANSMIT_ERROR	firmware/interface/command/command.h	/^    TRANSMIT_ERROR,$/;"	e	enum:__anon5c6cb6f40103
 TRANSMIT_NUM_COMMAND	firmware/interface/command/command.h	/^    TRANSMIT_NUM_COMMAND,$/;"	e	enum:__anon5c6cb6f40103
 TRANSMIT_READY	firmware/interface/command/command.h	/^    TRANSMIT_READY = 0U,$/;"	e	enum:__anon5c6cb6f40103
-UART_DeregisterCbAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void UART_DeregisterCbAbstract(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
-UART_RegisterCbAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
-UART_TransmitAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+UART_DeregisterCbAbstract	firmware/config/config.h	/^BL_STATIC_INLINE void UART_DeregisterCbAbstract(void)$/;"	f	typeref:typename:BL_STATIC_INLINE void
+UART_RegisterCbAbstract	firmware/config/config.h	/^BL_STATIC_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,$/;"	f	typeref:typename:BL_STATIC_INLINE void
+UART_TransmitAbstract	firmware/config/config.h	/^BL_STATIC_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,$/;"	f	typeref:typename:BL_STATIC_INLINE void
 UINT32_UINT8	firmware/lib/helper/helper.h	/^#define UINT32_UINT8 /;"	d
 UINT8_UINT32	firmware/lib/helper/helper.h	/^#define UINT8_UINT32 /;"	d
 UPDATE_TASK_PERIOD_MS	firmware/task/update/update.c	/^#define UPDATE_TASK_PERIOD_MS /;"	d	file:
@@ -228,7 +228,7 @@ Validator_Run	firmware/interface/validator/validator.c	/^BL_Err_t Validator_Run(
 WDT_CFG	firmware/config/config.h	/^#define WDT_CFG /;"	d
 WDT_ENTRY	firmware/abstraction/wdt/wdt.c	/^#define WDT_ENTRY(/;"	d	file:
 WDT_Init	firmware/abstraction/wdt/wdt.c	/^BL_Err_t WDT_Init(void)$/;"	f	typeref:typename:BL_Err_t
-WDT_InitAbstract	firmware/config/config.h	/^BL_STATIC BL_INLINE void WDT_InitAbstract(void)$/;"	f	typeref:typename:BL_STATIC BL_INLINE void
+WDT_InitAbstract	firmware/config/config.h	/^BL_STATIC_INLINE void WDT_InitAbstract(void)$/;"	f	typeref:typename:BL_STATIC_INLINE void
 WDT_Init_t	firmware/abstraction/wdt/wdt.h	/^typedef void (*WDT_Init_t)(void);$/;"	t	typeref:typename:void (*)(void)
 WDT_Kick	firmware/abstraction/wdt/wdt.c	/^BL_Err_t WDT_Kick(void)$/;"	f	typeref:typename:BL_Err_t
 WDT_Kick_t	firmware/abstraction/wdt/wdt.h	/^typedef void (*WDT_Kick_t)(void);$/;"	t	typeref:typename:void (*)(void)

@@ -32,6 +32,7 @@
 
 #define PARTITION_MAGIC 0xCAFE
 #define TABLE_MAGIC 0xBABE
+#define NUM_DEFAULT_NODES (2)
 
 /* Data must be 16 byte aligned in the following structs for AES operations */
 typedef struct __attribute__((__packed__))
@@ -90,7 +91,7 @@ void Table_Deinit(void);
  * @details Writes partition information for one of Table_Types_e. The table
  *          interface must be initialized before calling this API. This is
  *          intended to be used to write new firmware information about a
- *          partition.
+ *          partition. This API is not to be polled.
  *
  * @param table table type to write to
  * @param partition partition information
@@ -99,7 +100,7 @@ void Table_Deinit(void);
  * @return BL_EIO on invalid parameters
  * @return BL_X on failure
  *****************************************************************************/
-BL_Err_t Table_WritePartiton(Table_Types_e table,
+BL_Err_t Table_WritePartition(Table_Types_e table,
                              Table_Partition_t *partition);
 
 /******************************************************************************
@@ -107,7 +108,8 @@ BL_Err_t Table_WritePartiton(Table_Types_e table,
  *
  * @details Reads partition information from one of Table_Types_e. The table
  *          interface must be initialized before calling this API. This is
- *          intended to be used when loading firmware.
+ *          intended to be used when loading firmware. This API is not to be
+ *          polled.
  *
  * @param table table type to read from
  * @param partition partition information
@@ -116,7 +118,7 @@ BL_Err_t Table_WritePartiton(Table_Types_e table,
  * @return BL_EIO on invalid parameters
  * @return BL_X on failure
  *****************************************************************************/
-BL_Err_t Table_ReadPartiton(Table_Types_e table,
+BL_Err_t Table_ReadPartition(Table_Types_e table,
                             Table_Partition_t *partition);
 
 /******************************************************************************
@@ -129,7 +131,7 @@ BL_Err_t Table_ReadPartiton(Table_Types_e table,
  * @param node node of requested type
  *
  * @return BL_OK on success
- * @return BL_ERR if module not initialized
+ * @return BL_ERR if module not initialized or invalid parameters
  *****************************************************************************/
 BL_Err_t Table_GetPartition(Table_Types_e table, NVM_Node_t *node);
 
@@ -150,7 +152,7 @@ BL_Err_t Table_RevertPartitions(void);
  * @brief Update Current Partition
  *
  * Used to update the current partition if new firmware is to be loaded onto
- * the device.
+ * the device. This API is not to be polled.
  *
  * @return BL_OK on success
  * @return BL_X on failure to write partition table

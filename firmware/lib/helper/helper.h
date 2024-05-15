@@ -40,32 +40,11 @@
  void *BL_MemSet(void *dest,
                  BL_UINT8_T data,
                  BL_UINT32_T length);
-BL_STATIC BL_INLINE void BL_32to8(BL_UINT8_T *dest,
-                                  BL_UINT32_T src);
-BL_STATIC BL_INLINE void BL_8to32(BL_UINT32_T *dest,
-                                  BL_UINT8_T *src);
+void BL_32to8(BL_UINT8_T *dest,
+                BL_UINT32_T src);
+void BL_8to32(BL_UINT32_T *dest,
+                BL_UINT8_T *src);
 
-
-BL_STATIC BL_INLINE void BL_32to8(BL_UINT8_T *dest,
-                                   BL_UINT32_T src)
-{
-    BL_INT8_T i = BL_SIZEOF(BL_UINT32_T) - 1U;
-
-    dest[i--] = (BL_UINT8_T) (src);
-    for (; i >= 0; --i)
-    {
-        dest[i] = (BL_UINT8_T) (src >>= 8U);
-    }
-}
-
-BL_STATIC BL_INLINE void BL_8to32(BL_UINT32_T *dest,
-                                  BL_UINT8_T *src)
-{
-    *dest = (BL_UINT32_T) (src[0] << 24U |
-                           src[1] << 16U |
-                           src[2] << 8U |
-                           src[3]);
-}
 
 /**@} helper */
 

@@ -31,7 +31,7 @@ BL_Err_t AES_Init(void)
 {
     BL_Err_t err = BL_EIO;
 
-    if (aes.cb.key && aes.cb.iv && aes.key)
+    if (aes.cb.key && aes.cb.iv)
     {
         err = BL_OK;
     }
@@ -59,7 +59,7 @@ BL_Err_t AES_Decrypt(BL_UINT8_T *input, BL_UINT8_T *output, BL_UINT32_T size)
     if (aes.cb.decrypt && err == BL_EIO)
     {
         err = aes.cb.decrypt(input, output, size, aes.key, aes.iv) == BL_TRUE 
-            ? BL_OK : BL_EACCES;
+            ? BL_OK : BL_EINPROGRESS;
     }
 
     return err;

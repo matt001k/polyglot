@@ -43,7 +43,7 @@ BL_Err_t Writer_Start(void)
     BL_Err_t err = BL_ERR;
     NVM_Operation_t op = NVM_NONE_OP;
     if (!writer.flags.start &&
-        (err = Table_GetPartition(PARTITION_NEXT, &writer.node)) ==
+        (err = Table_GetPartition(PARTITION_CURRENT, &writer.node)) ==
         BL_OK && (err = NVM_GetSize(writer.node, &writer.size)) == BL_OK)
     {
         NVM_GetOperation(writer.node, &op);
