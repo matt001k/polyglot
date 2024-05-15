@@ -18,6 +18,8 @@
  *****************************************************************************/
 #include "config.h"
 
+#define SHA256_DIGEST_SIZE 32
+
 typedef void (*SHA_Start_t)(void);
 typedef BL_BOOL_T (*SHA_Update_t)(BL_UINT8_T *data, BL_UINT32_T size);
 typedef BL_BOOL_T (*SHA_Finish_t)(BL_UINT8_T *digest);

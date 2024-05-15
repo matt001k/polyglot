@@ -59,7 +59,7 @@
 #define BL_FALSE false
 
 #define BL_STATIC static
-#define BL_INLINE inline
+#define BL_STATIC_INLINE static inline
 #define BL_CONST const
 
 #define BL_SIZEOF sizeof
@@ -95,66 +95,66 @@ typedef enum
  * @details This ensures that the necessary function abstractions will be
  *          compatible with the API being ported.
  *****************************************************************************/
-BL_STATIC BL_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,
+BL_STATIC_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,
                                                BL_UINT32_T length);
-BL_STATIC BL_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,
+BL_STATIC_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,
                                                  BL_UINT32_T length));
-BL_STATIC BL_INLINE void UART_DeregisterCbAbstract(void);
+BL_STATIC_INLINE void UART_DeregisterCbAbstract(void);
 
-BL_STATIC BL_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,
+BL_STATIC_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,
                                                BL_UINT32_T length)
 {
     UART_Transmit(UART_DEBUG, data, length);
 }
 
-BL_STATIC BL_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,
+BL_STATIC_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,
                                                  BL_UINT32_T length))
 {
     UART_RegisterRxCallback(UART_DEBUG, cb);
 }
 
-BL_STATIC BL_INLINE void UART_DeregisterCbAbstract(void)
+BL_STATIC_INLINE void UART_DeregisterCbAbstract(void)
 {
     UART_DeregisterRxCallback(UART_DEBUG);
 }
 
-BL_STATIC BL_INLINE void LED1_Toggle(void);
-BL_STATIC BL_INLINE void LED2_Toggle(void);
-BL_STATIC BL_INLINE void LED3_Toggle(void);
+BL_STATIC_INLINE void LED1_Toggle(void);
+BL_STATIC_INLINE void LED2_Toggle(void);
+BL_STATIC_INLINE void LED3_Toggle(void);
 
-BL_STATIC BL_INLINE void LED1_Toggle(void)
+BL_STATIC_INLINE void LED1_Toggle(void)
 {
     GPIO_Toggle(LED1);
 }
 
-BL_STATIC BL_INLINE void LED2_Toggle(void)
+BL_STATIC_INLINE void LED2_Toggle(void)
 {
     GPIO_Toggle(LED2);
 }
 
-BL_STATIC BL_INLINE void LED3_Toggle(void)
+BL_STATIC_INLINE void LED3_Toggle(void)
 {
     GPIO_Toggle(LED3);
 }
 
-BL_STATIC BL_INLINE void WDT_InitAbstract(void);
+BL_STATIC_INLINE void WDT_InitAbstract(void);
 
-BL_STATIC BL_INLINE void WDT_InitAbstract(void)
+BL_STATIC_INLINE void WDT_InitAbstract(void)
 {
     Watchdog_Init();
     Watchdog_Enable();
 }
 
-BL_STATIC BL_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,
+BL_STATIC_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,
                                                    BL_UINT8_T *data,
                                                    BL_UINT32_T length);
-BL_STATIC BL_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
+BL_STATIC_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
                                                   BL_UINT8_T *data,
                                                   BL_UINT32_T length);
-BL_STATIC BL_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,
+BL_STATIC_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,
                                                    BL_UINT32_T length);
 
-BL_STATIC BL_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,
+BL_STATIC_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,
                                                    BL_UINT8_T *data,
                                                    BL_UINT32_T length)
 {
@@ -163,7 +163,7 @@ BL_STATIC BL_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,
     return true;
 }
 
-BL_STATIC BL_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
+BL_STATIC_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
                                                   BL_UINT8_T *data,
                                                   BL_UINT32_T length)
 {
@@ -172,7 +172,7 @@ BL_STATIC BL_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
     return true;
 }
 
-BL_STATIC BL_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,
+BL_STATIC_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,
                                                    BL_UINT32_T length)
 {
     Flash_Erase(address, length);
@@ -180,9 +180,9 @@ BL_STATIC BL_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,
     return true;
 }
 
-BL_STATIC BL_INLINE void Jump_ToAppAbstract(BL_UINT32_T address);
+BL_STATIC_INLINE void Jump_ToAppAbstract(BL_UINT32_T address);
 
-BL_STATIC BL_INLINE void Jump_ToAppAbstract(BL_UINT32_T address)
+BL_STATIC_INLINE void Jump_ToAppAbstract(BL_UINT32_T address)
 {
     Clock_Deinit();
     CPU_Deinit();
@@ -197,7 +197,7 @@ BL_STATIC BL_INLINE void Jump_ToAppAbstract(BL_UINT32_T address)
     JUMP_TO_APP(address);
 }
 
-BL_STATIC BL_INLINE void Init_Abstract(void)
+BL_STATIC_INLINE void Init_Abstract(void)
 {
     CPU_Init();
     GPIO_Init();

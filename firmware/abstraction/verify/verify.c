@@ -54,7 +54,7 @@ BL_Err_t Verify_Decrypt(BL_UINT8_T *hash,
         err = verify.cb.verify(hash,
                                signature,
                                verify.key) ==
-            true ? BL_OK : BL_EACCES;
+            BL_TRUE ? BL_OK : BL_ERR;
     }
     return err;
 }

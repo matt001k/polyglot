@@ -37,12 +37,6 @@
 
 typedef enum
 {
-    COMMAND,
-    DATA,
-} update_State_e;
-
-typedef enum
-{
     COMMAND_HANDLE = 0U,
     GET_DATA_LENGTH,
     GET_DATA,
@@ -107,7 +101,7 @@ BL_STATIC BL_CONST cfg_t lut[RECEIVE_NUM_COMMAND] =
     },
     [RECEIVE_FINISH] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        {Writer_Finish, NULL, NULL}, BL_FALSE
     },
     [RECEIVE_RUN] =
     { 

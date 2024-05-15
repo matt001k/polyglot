@@ -47,7 +47,7 @@
 #define BL_FALSE false
 
 #define BL_STATIC static
-#define BL_INLINE inline
+#define BL_STATIC_INLINE static inline
 #define BL_CONST const
 
 #define BL_SIZEOF sizeof
