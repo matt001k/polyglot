@@ -14,7 +14,7 @@ TEST_FILE("randomizer.c")
 #define TEST_PARTITION 2
 #define START_HELPER(partition, ret) \
 writer.node = partition; \
-Table_GetPartition_ExpectAndReturn(PARTITION_NEXT, NULL, ret); \
+Table_GetPartition_ExpectAndReturn(PARTITION_CURRENT, NULL, ret); \
 Table_GetPartition_IgnoreArg_node(); \
 Table_GetPartition_ReturnThruPtr_node(&writer.node);
 

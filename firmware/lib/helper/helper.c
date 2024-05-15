@@ -38,3 +38,25 @@ void *BL_MemSet(void *dest,
     }
     return dest;
 }
+
+void BL_32to8(BL_UINT8_T *dest,
+                BL_UINT32_T src)
+{
+    BL_INT8_T i = BL_SIZEOF(BL_UINT32_T) - 1U;
+
+    dest[i--] = (BL_UINT8_T) (src);
+    for (; i >= 0; --i)
+    {
+        dest[i] = (BL_UINT8_T) (src >>= 8U);
+    }
+}
+
+void BL_8to32(BL_UINT32_T *dest,
+                BL_UINT8_T *src)
+{
+    *dest = (BL_UINT32_T) (src[0] << 24U |
+                           src[1] << 16U |
+                           src[2] << 8U |
+                           src[3]);
+}
+

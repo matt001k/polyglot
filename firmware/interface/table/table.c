@@ -21,11 +21,12 @@
 #include "table.h"
 #include "helper.h"
 
-#define NUM_DEFAULT_NODES (2)
 #define NUM_LOADABLE_PARTITIONS (NUM_NVM_NODES - NUM_DEFAULT_NODES)
 #define LOADABLE_PARTITION_OFFSET(x) (x + NUM_DEFAULT_NODES)
+#define PARTITION_TABLE_MAX_DEC_CHECK(x, y) \
+    x = y != 0 ? y - 1 : NUM_LOADABLE_PARTITIONS - 1
 #define PARTITION_TABLE_MAX_INC_CHECK(x, y) \
-    x = y + 1 < NUM_LOADABLE_PARTITIONS ? y + 1 : y
+    x = y + 1 < NUM_LOADABLE_PARTITIONS ? y + 1 : 0
 #define UPDATE_LUT() \
     helper.lut[PARTITION_CURRENT] = info.table.partition.current; \
     helper.lut[PARTITION_PREVIOUS] = info.table.partition.previous; \
@@ -66,7 +67,8 @@ BL_Err_t Table_Init(void)
             MEMSET(&info, 0, sizeof(info));
             info.table.magic = TABLE_MAGIC;
             info.table.partition.current = 0;
-            info.table.partition.previous = 0;
+            info.table.partition.previous =
+                NUM_NVM_NODES - NUM_DEFAULT_NODES - 1;
             for (BL_UINT32_T i = 0; i < NUM_LOADABLE_PARTITIONS; i++)
             {
                 info.partitions[i].magic = PARTITION_MAGIC;
@@ -84,7 +86,7 @@ void Table_Deinit(void)
     MEMSET(&helper, 0, BL_SIZEOF(helper));
 }
 
-BL_Err_t Table_WritePartiton(Table_Types_e table,
+BL_Err_t Table_WritePartition(Table_Types_e table,
                              Table_Partition_t *partition)
 {
     BL_Err_t err = BL_EIO;
@@ -100,7 +102,7 @@ BL_Err_t Table_WritePartiton(Table_Types_e table,
     return err;
 }
 
-BL_Err_t Table_ReadPartiton(Table_Types_e table,
+BL_Err_t Table_ReadPartition(Table_Types_e table,
                             Table_Partition_t *partition)
 {
     BL_Err_t err = BL_EIO;
@@ -126,7 +128,8 @@ BL_Err_t Table_ReadPartiton(Table_Types_e table,
 BL_Err_t Table_GetPartition(Table_Types_e table, NVM_Node_t *node)
 {
     BL_Err_t err = BL_ERR;
-    if (info.table.magic == TABLE_MAGIC && node)
+    if (info.table.magic == TABLE_MAGIC && node &&
+            table < PARTITION_COUNT)
     {
         *node = helper.lut[table] + NUM_DEFAULT_NODES;
         err = BL_OK;
@@ -137,13 +140,11 @@ BL_Err_t Table_GetPartition(Table_Types_e table, NVM_Node_t *node)
 BL_Err_t Table_RevertPartitions(void)
 {
     BL_Err_t err = BL_ERR;
-    if (info.table.partition.current != info.table.partition.previous)
-    {
-        info.table.partition.current = info.table.partition.previous;
-        UPDATE_LUT();
-        err = table_EraseAndWrite();
-    }
-
+    info.table.partition.current = info.table.partition.previous;
+    PARTITION_TABLE_MAX_DEC_CHECK(info.table.partition.previous,
+                                  info.table.partition.previous);
+    UPDATE_LUT();
+    err = table_EraseAndWrite();
     return err;
 }
 BL_Err_t Table_UpdatePartitions(void)
