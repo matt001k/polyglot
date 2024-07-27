@@ -25,7 +25,7 @@
 #include "helper.h"
 #include "aes.h"
 #include "sha256.h"
-#include "verify.h"
+#include "ecc.h"
 
 #define LOADER_CHECK(s, f) s = loader_Check(s, f);
 
@@ -149,7 +149,7 @@ BL_STATIC BL_Err_t loader_Start(void)
     if((err = Table_GetPartition(PARTITION_CURRENT, &loader.node)) == BL_OK &&
         (err = NVM_GetSize(loader.node, &loader.size.partition)) == BL_OK &&
         (err = NVM_GetOperation(loader.node, &op)) == BL_OK &&
-        (err = Verify_GetKey()) == BL_OK &&
+        (err = ECC_GetKey()) == BL_OK &&
         (err = AES_SetKey()) == BL_OK)
     {
         if (op != NVM_NONE_OP)
@@ -255,7 +255,7 @@ BL_STATIC states_e loader_Finish(BL_Err_t *err)
 BL_STATIC BL_Err_t loader_Validate(void)
 {
     BL_Err_t err = BL_ERR;
-    if((err = Verify_Decrypt(loader.digest, loader.table.signature)) == BL_OK &&
+    if((err = ECC_Decrypt(loader.digest, loader.table.signature)) == BL_OK &&
             (err = Table_UpdatePartitions()) == BL_OK)
     {
         loader.clean = FLAG_SET;

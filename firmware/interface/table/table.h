@@ -27,7 +27,7 @@
  * @date        2024-03-03
  *****************************************************************************/
 #include "config.h"
-#include "verify.h"
+#include "ecc.h"
 #include "nvm.h"
 #include "aes.h"
 
@@ -43,7 +43,7 @@ typedef struct __attribute__((__packed__))
     BL_UINT32_T reserved1;
     BL_UINT32_T crc;
     BL_UINT16_T reserved2;
-    BL_UINT8_T signature[VERIFY_SIGNATURE_LENGTH];
+    BL_UINT8_T signature[ECC_SIGNATURE_LENGTH];
     BL_UINT8_T iv[AES_IV_SIZE];
     BL_UINT8_T reserved3[16];
 } Table_Partition_t;

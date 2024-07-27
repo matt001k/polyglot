@@ -3,11 +3,11 @@
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
 
-#ifndef __BL_ASYMMETRIC_H
-#define __BL_ASYMMETRIC_H
+#ifndef __BL_ECC_H
+#define __BL_ECC_H
 
 /**************************************************************************//**
- * @file        verify.h
+ * @file        ecc.h
  *
  * @brief       Provides an abstraction layer for verify decryption used
  *              for validating firmware image signatures
@@ -18,10 +18,10 @@
  *****************************************************************************/
 #include "config.h"
 
-#define VERIFY_SIGNATURE_LENGTH 64
+#define ECC_SIGNATURE_LENGTH 64
 
-typedef BL_UINT8_T *(*Verify_Key_t)(void);
-typedef BL_BOOL_T (*Verify_Cb_t)(BL_UINT8_T *hash,
+typedef BL_UINT8_T *(*ECC_Key_t)(void);
+typedef BL_BOOL_T (*ECC_Cb_t)(BL_UINT8_T *hash,
                                  BL_UINT8_T *signature,
                                  BL_UINT8_T *key);
 
@@ -30,37 +30,37 @@ typedef struct
     BL_UINT8_T *key;
     struct
     {
-        Verify_Key_t key;
-        Verify_Cb_t verify;
+        ECC_Key_t key;
+        ECC_Cb_t verify;
     } cb;
-} Verify_t;
+} ECC_t;
 
 /**************************************************************************//**
- * @brief Initialize The Configured Verification Module
+ * @brief Initialize The Configured ECC Verification Module
  *
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t Verify_Init(void);
+BL_Err_t ECC_Init(void);
 
 /**************************************************************************//**
- * @brief Get The Decryption Key
+ * @brief Get The ECC Decryption Key
  *
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t Verify_GetKey(void);
+BL_Err_t ECC_GetKey(void);
 
 /**************************************************************************//**
- * @brief Decrypt Block Of Data
+ * @brief Decrypt Signature And Compare To Hash
  *
  * @details The API for getting the decryption key must be called before this.
  *
  * @param hash[in] calculated hash value
- * @param size[in] provided signature to validate
+ * @param signature[in] provided signature to validate
  *
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t Verify_Decrypt(BL_UINT8_T *hash,
-                        BL_UINT8_T *signature);
+BL_Err_t ECC_Decrypt(BL_UINT8_T *hash,
+                     BL_UINT8_T *signature);
 
 
 #endif //__BL_ASYMMETRIC_H
