@@ -397,7 +397,7 @@ typedef enum
  *                        This function returns if the signature was verified.
  *
  *****************************************************************************/
-#define VERIFY_CFG(ENTRY)        \
+#define ECC_CFG(ENTRY)        \
 
 #endif // __CONFIG_H
 

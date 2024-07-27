@@ -1,5 +1,5 @@
 #include "aes.h"
-#include "verify.h"
+#include "ecc.h"
 #include "sha256.h"
 #include "systick.h"
 #include "serial.h"
@@ -22,7 +22,7 @@ int main(void)
 
     /* Initialize Abstract */
     AES_Init();
-    Verify_Init();
+    ECC_Init();
     SHA256_Init();
     Init_Init();
     Systick_Init();

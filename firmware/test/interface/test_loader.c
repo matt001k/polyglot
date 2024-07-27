@@ -3,7 +3,7 @@
 #include "loader.h"
 #include "mock_table.h"
 #include "mock_nvm.h"
-#include "mock_verify.h"
+#include "mock_ecc.h"
 #include "mock_aes.h"
 #include "mock_sha256.h"
 #include "mock_buffer.h"
@@ -84,7 +84,7 @@ static void loader_StartHelper(bool pass)
     NVM_GetSize_IgnoreArg_size();
     NVM_GetSize_ReturnThruPtr_size(&partitionSize);
     NVM_GetOperation_ExpectAnyArgsAndReturn(BL_OK);
-    Verify_GetKey_ExpectAndReturn(BL_OK);
+    ECC_GetKey_ExpectAndReturn(BL_OK);
     AES_SetKey_ExpectAndReturn(BL_OK);
 }
 
@@ -143,6 +143,6 @@ static void loader_FinishHelper(void)
 
 static void loader_ValidateHelper(void)
 {
-    RUN_NVM_OP(Verify_Decrypt,);
+    RUN_NVM_OP(ECC_Decrypt,);
     Table_UpdatePartitions_ExpectAndReturn(BL_OK);
 }
