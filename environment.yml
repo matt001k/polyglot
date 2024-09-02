@@ -1,0 +1,33 @@
+#
+# This is the primary conda environment.yml for development
+# There is a reduced environment_ci.yml used for automated test/builds
+# Do NOT FORGET to update both when making changes to this file
+#
+channels:
+  - conda-forge
+  - defaults
+  - sofar_fw
+dependencies:
+  # Don't forget to update compiler version check when updating compiler here!
+  # Change COMPILER_VERSION near top of src/CMakeLists.txt
+  - arm-none-eabi-gcc=13.2
+  - clang-tools=18.1
+  - cmake=3.29
+  - cppcheck
+  - gcovr
+  - make=4.3
+  - openocd-xpack=0.12
+  - pre_commit
+  - pyserial
+  - python=3.10
+  - pip
+  - pip:
+      - cbor2
+      - click
+      - crcmod
+      - cryptography>=42.0
+      - gitpython
+      - intelhex
+      - pytest
+      - python-dotenv
+      - regex
