@@ -18,6 +18,7 @@ help()
                     - secp256r1
     -d          Output directory of generated keys
     -e          Withold ECDH key generation
+    -a          Withold AES key generation
     "
 }
 
@@ -47,6 +48,7 @@ while getopts "h?t:d:ea" opt; do
   esac
 done
 
+directory="${directory}/keys"
 mkdir -p $directory
 if [[ $ecdh -eq 1 ]];
 then

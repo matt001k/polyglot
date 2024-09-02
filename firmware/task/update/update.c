@@ -56,12 +56,6 @@ typedef struct
 typedef struct
 {
     cb_t cb;
-    BL_BOOL_T data;
-} cfg_t;
-
-typedef struct
-{
-    cfg_t cfg;
     DataLength_t length;
     states_e state;
     struct
@@ -81,55 +75,55 @@ typedef struct
     } flags;
 } inst_t;
 
-BL_STATIC BL_CONST cfg_t lut[RECEIVE_NUM_COMMAND] =
+BL_STATIC BL_CONST cb_t lut[RECEIVE_NUM_COMMAND] =
 {
     [RECEIVE_READY] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        NULL, NULL, NULL,
     },
     [RECEIVE_ERROR] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        NULL, NULL, NULL,
     },
     [RECEIVE_WRITE] =
     {
-        { Writer_Start, Writer_WriteData, Writer_States }, BL_TRUE
+         Writer_Start, Writer_WriteData, Writer_States ,
     },
     [RECEIVE_READ] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        NULL, NULL, NULL,
     },
     [RECEIVE_FINISH] =
     { 
-        {Writer_Finish, NULL, NULL}, BL_FALSE
+         Writer_Finish, NULL, NULL ,
     },
     [RECEIVE_RUN] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        NULL, NULL, NULL,
     },
     [RECEIVE_VALIDATE] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        Loader_Load, NULL, NULL,
     },
     [RECEIVE_ERASE] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        NULL, NULL, NULL,
     },
     [RECEIVE_LOCK] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        NULL, NULL, NULL,
     },
     [RECEIVE_UNLOCK] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        NULL, NULL, NULL,
     },
     [RECEIVE_RELEASE] =
     { 
-        {Serial_Unlock, NULL, NULL}, BL_FALSE
+        Serial_Unlock, NULL, NULL,
     },
     [RECEIVE_RESET] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        NULL, NULL, NULL,
     },
 };
 
@@ -190,11 +184,11 @@ BL_STATIC void update_Run(void)
     {
         if (Command_Receive(&cmd) == BL_OK)
         {
-            inst.cfg = lut[cmd];
-            if (inst.cfg.cb.err)
+            inst.cb = lut[cmd];
+            if (inst.cb.err)
             {
-                inst.cfg.cb.err(&inst.acceptable.err,
-                                &inst.acceptable.count);
+                inst.cb.err(&inst.acceptable.err,
+                            &inst.acceptable.count);
             }
             Command_Deinit();
             inst.flags.command = FLAG_CLEAR;
@@ -210,12 +204,12 @@ BL_STATIC BL_Err_t response(inst_t *inst)
     switch (inst->state)
     {
     case COMMAND_HANDLE:
-        if (inst->cfg.cb.command)
+        if (inst->cb.command)
         {
-            err = inst->cfg.cb.command();
+            err = inst->cb.command();
             if (err == BL_OK)
             {
-                if (inst->cfg.data == BL_TRUE)
+                if (inst->cb.data)
                 {
                     inst->state = GET_DATA_LENGTH;
                     Data_LengthCbInit();
@@ -263,22 +257,15 @@ BL_STATIC BL_Err_t response(inst_t *inst)
         }
         break;
     case DATA_HANDLE:
-        if (inst->cfg.cb.data)
+        err = inst->cb.data(Buffer_Get(), inst->length);
+        if (err == BL_OK)
         {
-            err = inst->cfg.cb.data(Buffer_Get(), inst->length);
-            if (err == BL_OK)
-            {
-                inst->length = 0U;
-                inst->state = COMMAND_HANDLE;
-                MEMSET(Buffer_Get(), 0U, BL_BUFFER_SIZE);
-                ACK_READY(inst);
-            }
-            else if (validate(inst, err) == BL_FALSE)
-            {
-                NACK_READY(inst, err);
-            }
+            inst->length = 0U;
+            inst->state = COMMAND_HANDLE;
+            MEMSET(Buffer_Get(), 0U, BL_BUFFER_SIZE);
+            ACK_READY(inst);
         }
-        else
+        else if (validate(inst, err) == BL_FALSE)
         {
             NACK_READY(inst, err);
         }
