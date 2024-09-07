@@ -553,8 +553,8 @@ Terminal::Action_e Terminal::BLTest(void)
         "Send Ready",      //Command::TRANSMIT_READY
         "Send Error",      //Command::TRANSMIT_ERROR
         "Send Write",      //Command::TRANSMIT_WRITE
-        "Send Run",       //Command::TRANSMIT_RUN
-        "Send Validate",   //Command::TRANSMIT_VALIDATE
+        "Send Run",        //Command::TRANSMIT_RUN
+        "Send Load",       //Command::TRANSMIT_LOAD
         "Send Erase",      //Command::TRANSMIT_ERASE
         "Send Lock",       //Command::TRANSMIT_LOCK
         "Send Unlock",     //Command::TRANSMIT_UNLOCK
@@ -688,7 +688,7 @@ Terminal::Action_e Terminal::BLTest(void)
                 size-=sent;
             }
             std::cout << "Beginning Validation..." << std::endl;
-            c.Send(b.USB, Command::TRANSMIT_VALIDATE);
+            c.Send(b.USB, Command::TRANSMIT_LOAD);
             c.Receive(b.USB, &dict, &r);
             std::cout << "Command Received: " << r << std::endl;
         }
@@ -742,7 +742,7 @@ Terminal::Action_e Terminal::BLTest(void)
             std::cout << "Command Received: " << r << std::endl;
             sent = sizeof(std::uint32_t);
             std::cout << "Beginning Validation..." << std::endl;
-            c.Send(b.USB, Command::TRANSMIT_VALIDATE);
+            c.Send(b.USB, Command::TRANSMIT_LOAD);
             c.Receive(b.USB, &dict, &r);
             std::cout << "Command Received: " << r << std::endl;
         }

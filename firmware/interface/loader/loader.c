@@ -128,6 +128,15 @@ BL_Err_t Loader_Load(void)
     return err;
 }
 
+void Loader_States(BL_Err_t **err, BL_UINT8_T *count)
+{
+    if (err && count)
+    {
+        *err = (BL_Err_t *) acceptable;
+        *count = ARRAY_SIZE(acceptable);
+    }
+}
+
 BL_STATIC_INLINE states_e loader_Check(states_e current, BL_Err_t err)
 {
     states_e state = LOADER_CLEAN;
@@ -171,7 +180,6 @@ BL_STATIC BL_Err_t loader_Table(void)
     if (err == BL_OK && size &&
             (err = NVM_OperationFinish(loader.node)) == BL_OK)
     {
-
         err = Table_WritePartition(PARTITION_CURRENT,
                                   &loader.table);
     }
@@ -223,7 +231,10 @@ BL_STATIC BL_Err_t loader_Write(void)
 {
     BL_Err_t err = BL_ERR;
     err = NVM_Write(APPLICATION_NODE, loader.p.out, loader.size.buf);
-    loader.size.total += loader.size.buf;
+    if (err == BL_OK)
+    {
+        loader.size.total += loader.size.buf;
+    }
     return err;
 }
 

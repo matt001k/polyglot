@@ -13,7 +13,7 @@
  *
  * @brief       Provides and interface for the necessary commands needed for
  *              the bootloader
- * 
+ *
  * @author      Matthew Krause
  *
  * @date        2022-10-01
@@ -27,7 +27,7 @@ Command::Command() :
              {TRANSMIT_ERROR, BL_ERROR},
              {TRANSMIT_WRITE, BL_WRITE},
              {TRANSMIT_RUN, BL_RUN},
-             {TRANSMIT_VALIDATE, BL_VALIDATE},
+             {TRANSMIT_LOAD, BL_LOAD},
              {TRANSMIT_ERASE, BL_ERASE},
              {TRANSMIT_LOCK, BL_LOCK},
              {TRANSMIT_UNLOCK, BL_UNLOCK},

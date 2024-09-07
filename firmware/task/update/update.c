@@ -107,9 +107,9 @@ BL_STATIC BL_CONST cfg_t lut[RECEIVE_NUM_COMMAND] =
     { 
         {NULL, NULL, NULL}, BL_FALSE
     },
-    [RECEIVE_VALIDATE] =
+    [RECEIVE_LOAD] =
     { 
-        {NULL, NULL, NULL}, BL_FALSE
+        {Loader_Load, NULL, Loader_States}, BL_FALSE
     },
     [RECEIVE_ERASE] =
     { 
@@ -219,9 +219,9 @@ BL_STATIC BL_Err_t response(inst_t *inst)
                 {
                     inst->state = GET_DATA_LENGTH;
                     Data_LengthCbInit();
+                    err = BL_EINPROGRESS;
                 }
                 ACK_READY(inst);
-                err = BL_EINPROGRESS;
             }
             else if (validate(inst, err) == BL_FALSE)
             {
