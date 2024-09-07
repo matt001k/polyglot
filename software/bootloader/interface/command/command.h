@@ -16,7 +16,7 @@
  *
  * @brief       Provides and interface for the necessary commands needed for
  *              the bootloader
- * 
+ *
  * @author      Matthew Krause
  *
  * @date        2022-10-01
@@ -42,7 +42,7 @@ public:
         TRANSMIT_ERROR,
         TRANSMIT_WRITE,
         TRANSMIT_RUN,
-        TRANSMIT_VALIDATE,
+        TRANSMIT_LOAD,
         TRANSMIT_ERASE,
         TRANSMIT_LOCK,
         TRANSMIT_UNLOCK,
