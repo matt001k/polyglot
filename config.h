@@ -510,7 +510,7 @@ BL_STATIC_INLINE void Init_Abstract(void)
     ENTRY(Crypto_SHA256Start, Crypto_SHA256Update, Crypto_SHA256Finish)
 
 #define ECC_CFG(ENTRY)        \
-    ENTRY(Crypto_ECDHKey, Crypto_ECDHVerify)
+    ENTRY(Crypto_ECDHVerify)
 
 #endif // __CONFIG_H
 

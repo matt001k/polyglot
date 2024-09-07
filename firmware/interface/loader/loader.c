@@ -158,7 +158,6 @@ BL_STATIC BL_Err_t loader_Start(void)
     if((err = Table_GetPartition(PARTITION_CURRENT, &loader.node)) == BL_OK &&
         (err = NVM_GetSize(loader.node, &loader.size.partition)) == BL_OK &&
         (err = NVM_GetOperation(loader.node, &op)) == BL_OK &&
-        (err = ECC_GetKey()) == BL_OK &&
         (err = AES_SetKey()) == BL_OK)
     {
         if (op != NVM_NONE_OP)

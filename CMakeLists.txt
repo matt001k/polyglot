@@ -28,6 +28,12 @@ set(PROJECT_BOOT_EXECUTABLE ${PROJECT_BOOT_NAME}.elf CACHE INTERNAL "")
 add_executable(${PROJECT_APP_EXECUTABLE})
 add_executable(${PROJECT_BOOT_EXECUTABLE})
 
+include(firmware/polyglot.cmake)
+setup_polyglot(
+    ${CMAKE_CURRENT_LIST_DIR}/keys/ecdh_public.pem
+    ${PROJECT_BOOT_EXECUTABLE}
+)
+
 ###############################################################################
 # Determine compiler used and set languages
 ###############################################################################
@@ -41,6 +47,9 @@ foreach(LIBRARY ${PROJECT_LIBRARIES})
     add_subdirectory(${CMAKE_SOURCE_DIR}/${LIBRARY}
         ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY})
 endforeach()
+target_link_libraries(BOOTLOADER PUBLIC
+    SHARED)
+
 
 ###############################################################################
 # Run any extra tools that may be required post compilation

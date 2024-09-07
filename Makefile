@@ -31,11 +31,11 @@ endif
 # Build Commands
 ###############################################################################
 all:init
-	@cd $(BUILD_DIR) && $(MAKE) --no-print-directory
+	@cd $(BUILD_DIR) && $(MAKE) all --no-print-directory
 
 init:$(BUILD_DIR)
 ifeq ("$(wildcard $(BUILD_DIR)/CMakeCache.txt)","")
-	@cd $(BUILD_DIR) && $(CMAKE) -G $(GEN_NAME) -DCMAKE_TOOLCHAIN_FILE=$(ROOT_DIR)/cmake/arm.cmake $(ROOT_DIR)
+	@cd $(BUILD_DIR) && $(CMAKE) -G $(GEN_NAME) -DCMAKE_TOOLCHAIN_FILE=$(ROOT_DIR)/cmake/arm.cmake -DCMAKE_VERBOSE_OUTPUT=1 $(ROOT_DIR)
 endif
 
 $(BUILD_DIR):
