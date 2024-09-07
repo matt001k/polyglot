@@ -13,9 +13,10 @@
  * @date        2024-02-24
  *****************************************************************************/
 #include "ecc.h"
+#include "ecdh_key.h"
 
-#define ECC_VERIFY_CB_EXPAND(key, decrypt) \
-    .cb = { key, decrypt }
+#define ECC_VERIFY_CB_EXPAND(v) \
+    .verify = v
 
 BL_STATIC ECC_t ecc =
 {
@@ -27,18 +28,8 @@ BL_Err_t ECC_Init(void)
 {
     BL_Err_t err = BL_EIO;
 
-    if (ecc.cb.key && ecc.cb.verify)
-    {
-        err = BL_OK;
-    }
-    return err;
-}
-
-BL_Err_t ECC_GetKey(void)
-{
-    BL_Err_t err = BL_EINVAL;
-    ecc.key = ecc.cb.key();
-    if (ecc.key)
+    ecc.key = ecdh_key;
+    if (ecc.verify)
     {
         err = BL_OK;
     }
@@ -51,7 +42,7 @@ BL_Err_t ECC_Decrypt(BL_UINT8_T *hash,
     BL_Err_t err = hash && signature ? BL_EIO : BL_ENODATA;
     if (err == BL_EIO)
     {
-        err = ecc.cb.verify(hash,
+        err = ecc.verify(hash,
                             signature,
                             ecc.key) ==
             BL_TRUE ? BL_OK : BL_ERR;

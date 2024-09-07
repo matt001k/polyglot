@@ -21,7 +21,6 @@
 #include "helper.h"
 #include "jump.h"
 #include "buffer.h"
-#include "validator.h"
 #include "writer.h"
 
 #define DATA_INST_INIT(start, handle) { {start, handle}, D_BEGIN }
@@ -93,7 +92,7 @@ BL_STATIC BL_CONST cfg_t lut[RECEIVE_NUM_COMMAND] =
     },
     [RECEIVE_WRITE] =
     {
-        { Writer_Start, Writer_WriteData, Writer_States }, BL_TRUE
+         Writer_Start, Writer_WriteData, Writer_States,
     },
     [RECEIVE_READ] =
     { 
@@ -109,7 +108,7 @@ BL_STATIC BL_CONST cfg_t lut[RECEIVE_NUM_COMMAND] =
     },
     [RECEIVE_LOAD] =
     { 
-        {Loader_Load, NULL, Loader_States}, BL_FALSE
+        Loader_Load, NULL, Loader_States,
     },
     [RECEIVE_ERASE] =
     { 

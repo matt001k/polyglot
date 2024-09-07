@@ -20,7 +20,6 @@
 
 #define ECC_SIGNATURE_LENGTH 64
 
-typedef BL_UINT8_T *(*ECC_Key_t)(void);
 typedef BL_BOOL_T (*ECC_Cb_t)(BL_UINT8_T *hash,
                                  BL_UINT8_T *signature,
                                  BL_UINT8_T *key);
@@ -28,11 +27,7 @@ typedef BL_BOOL_T (*ECC_Cb_t)(BL_UINT8_T *hash,
 typedef struct
 {
     BL_UINT8_T *key;
-    struct
-    {
-        ECC_Key_t key;
-        ECC_Cb_t verify;
-    } cb;
+    ECC_Cb_t verify;
 } ECC_t;
 
 /**************************************************************************//**
@@ -41,13 +36,6 @@ typedef struct
  * @return BL_Err_t
  *****************************************************************************/
 BL_Err_t ECC_Init(void);
-
-/**************************************************************************//**
- * @brief Get The ECC Decryption Key
- *
- * @return BL_Err_t
- *****************************************************************************/
-BL_Err_t ECC_GetKey(void);
 
 /**************************************************************************//**
  * @brief Decrypt Signature And Compare To Hash
