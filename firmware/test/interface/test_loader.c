@@ -88,7 +88,6 @@ static void loader_StartHelper(bool pass)
     NVM_GetSize_IgnoreArg_size();
     NVM_GetSize_ReturnThruPtr_size(&partitionSize);
     NVM_GetOperation_ExpectAnyArgsAndReturn(BL_OK);
-    ECC_GetKey_ExpectAndReturn(BL_OK);
     AES_SetKey_ExpectAndReturn(BL_OK);
 }
 

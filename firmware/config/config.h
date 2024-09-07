@@ -379,14 +379,6 @@ typedef enum
  *
  *          ENTRY(key, verify)
  *
- *          @param key function to get the key necessary for verifying data.
- *                     The correct format of the function is as follows:
- *
- *                     BL_UINT8_T *key(void)
- *
- *                     This function returns a pointer to a buffer the key will
- *                     be located in.
- *
  *          @param verify function used to validate the signature of a hash.
  *                        The correct format of the function is as follows:
  *
