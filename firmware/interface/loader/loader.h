@@ -24,6 +24,7 @@
 #include "config.h"
 
 BL_Err_t Loader_Load(void);
+void Loader_States(BL_Err_t **err, BL_UINT8_T *count);
 
 /**@} loader */
 
