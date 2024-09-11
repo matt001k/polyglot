@@ -27,6 +27,7 @@ The following describes the bootloader's flow when loading an application:
 In order to integrate the project with CMake the following must be included:
 
 ```
+set(executable_name example)
 add_executable(${executable_name})
 include(path/to/polyglot/firmware/polyglot.cmake)
 setup_polyglot(
@@ -39,11 +40,11 @@ setup_polyglot(
 add_subdirectory(${path/to/polyglot/firmware})
 ```
 
-An executable must be added for the bootloader.
-Then including the path to the `polyglot.cmake` file.
-A function `setup_polyglot` is required with the following variables are needed:
+An executable must be added for the bootloader to the project.
+Then include the path to the `polyglot.cmake` file.
+A function `setup_polyglot` is required with the following variables:
 
-- Path to the ECDH key used for signing the application
+- Path to directory with the ECDH public and private PEM key files used for signing the bootloader
 - Executable name of the bootloader
 
 Lastly the subdirectory must be added for polyglot to build the library.
