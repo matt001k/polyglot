@@ -65,9 +65,11 @@ BL_Err_t AES_SetKey(void);
 /**************************************************************************//**
  * @brief Set The Decryption Initialization Vector
  *
+ * @param iv[in] initialization vector for AES operations
+ *
  * @return BL_Err_t
  *****************************************************************************/
-BL_Err_t AES_SetIV(void);
+BL_Err_t AES_SetIV(uint8_t *iv);
 
 /**************************************************************************//**
  * @brief Decrypt Block Of Data

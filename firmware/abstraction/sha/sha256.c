@@ -57,6 +57,7 @@ BL_Err_t SHA256_Finish(BL_UINT8_T *digest)
     if (digest)
     {
         ret = sha.cb.finish(digest) == true ? BL_OK : BL_EINPROGRESS;
+        sha.started = false;
     }
     return ret;
 }

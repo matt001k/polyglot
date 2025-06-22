@@ -38,7 +38,7 @@
 /* in the FTP archive "ftp.adelaide.edu.au/pub/rocksoft".        */
 /*                                                               */
 /*****************************************************************/
-static const std::uint32_t crc32Table[256] = {
+static const uint32_t crc32Table[256] = {
 	0x00000000L, 0xF26B8303L, 0xE13B70F7L, 0x1350F3F4L,
 	0xC79A971FL, 0x35F1141CL, 0x26A1E7E8L, 0xD4CA64EBL,
 	0x8AD958CFL, 0x78B2DBCCL, 0x6BE22838L, 0x9989AB3BL,
@@ -105,11 +105,11 @@ static const std::uint32_t crc32Table[256] = {
 	0xBE2DA0A5L, 0x4C4623A6L, 0x5F16D052L, 0xAD7D5351L
 };
 
-std::uint32_t CRC32(std::uint32_t crc,
+uint32_t CRC32(uint32_t crc,
                     const void *buf,
-                    std::uint32_t size)
+                    uint32_t size)
 {
-	const std::uint8_t *p = (std::uint8_t *) buf;
+	const uint8_t *p = (uint8_t *) buf;
 
 	while (size--)
 		crc = crc32Table[(crc ^ *p++) & 0xff] ^ (crc >> 8);

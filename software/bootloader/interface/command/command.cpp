@@ -26,6 +26,7 @@ Command::Command() :
     m_TxMap{ {TRANSMIT_READY, BL_READY},
              {TRANSMIT_ERROR, BL_ERROR},
              {TRANSMIT_WRITE, BL_WRITE},
+             {TRANSMIT_FINISH, BL_FINISH},
              {TRANSMIT_RUN, BL_RUN},
              {TRANSMIT_LOAD, BL_LOAD},
              {TRANSMIT_ERASE, BL_ERASE},
@@ -47,18 +48,18 @@ Command::~Command()
 BL_Err_t Command::Send(Serial serial, Command_Transmit_e cmd)
 {
     BL_Err_t err = BL_EINVAL;
-    std::uint8_t buf[COMMAND_SIZE] = {0U};
-    std::int8_t bIdx = COMMAND_SIZE - 1U;
+    uint8_t buf[COMMAND_SIZE] = {0U};
+    int8_t bIdx = COMMAND_SIZE - 1U;
     Dict_Item_t tTemp = 0U;
 
     if (cmd < TRANSMIT_NUM_COMMAND)
     {
         err = BL_ENODEV;
         tTemp = m_TxMap[cmd];
-        buf[bIdx--] = (std::uint8_t) (tTemp);
+        buf[bIdx--] = (uint8_t) (tTemp);
         for (; bIdx >= 0; --bIdx)
         {
-            buf[bIdx] = (std::uint8_t) (tTemp >>= 8U);
+            buf[bIdx] = (uint8_t) (tTemp >>= 8U);
         }
         err = serial.Transmit(buf, COMMAND_SIZE);
     }
@@ -71,7 +72,7 @@ BL_Err_t Command::Receive(Serial serial,
                           Command_Receive_e *cmd)
 {
     BL_Err_t err = BL_ENODATA;
-    std::uint8_t buf[COMMAND_SIZE] = {0U};
+    uint8_t buf[COMMAND_SIZE] = {0U};
 
     err = serial.Receive(buf, COMMAND_SIZE);
     if (err == BL_OK)

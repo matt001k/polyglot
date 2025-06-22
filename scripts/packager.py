@@ -77,14 +77,14 @@ class AES:
     def encrypt(self, data, key):
         iv = self._iv()
         cipher = Cipher(algorithms.AES(key),
-                        modes.CFB(iv),
+                        modes.CBC(iv),
                         backend=default_backend())
         encryptor = cipher.encryptor()
         ciphertext = encryptor.update(data) + encryptor.finalize()
         return ciphertext, iv
     def decrypt(self, data, key, iv):
         cipher = Cipher(algorithms.AES(key),
-                        modes.CFB(iv),
+                        modes.CBC(iv),
                         backend=default_backend())
         decryptor = cipher.decryptor()
         plaintext = decryptor.update(data) + decryptor.finalize()

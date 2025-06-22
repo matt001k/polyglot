@@ -24,13 +24,14 @@
  *****************************************************************************/
 #include <iostream>
 #include "common.h"
+#include <stdint.h>
 
 class Serial
 {
 public:
    typedef void (*Serial_Init_t)(void);
-   typedef void (*Serial_Tx_t)(std::uint8_t *data, std::uint32_t length);
-   typedef void (*Serial_Rx_t)(std::uint8_t *data, std::uint32_t length);
+   typedef void (*Serial_Tx_t)(uint8_t *data, uint32_t length);
+   typedef void (*Serial_Rx_t)(uint8_t *data, uint32_t length);
    typedef struct
    {
        Serial_Init_t init;
@@ -42,8 +43,8 @@ public:
    Serial();
    ~Serial();
    BL_Err_t Init(Serial_Cfg_t cfg);
-   BL_Err_t Transmit(std::uint8_t *data, std::uint32_t length);
-   BL_Err_t Receive(std::uint8_t *data, std::uint32_t length);
+   BL_Err_t Transmit(uint8_t *data, uint32_t length);
+   BL_Err_t Receive(uint8_t *data, uint32_t length);
 private:
    Serial_Init_t m_Init;
    Serial_Tx_t m_Tx;
