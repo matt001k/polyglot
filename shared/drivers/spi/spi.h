@@ -1,4 +1,4 @@
-/**************************************************************************//**
+/******************************************************************************
  * (c) 2022 Ahriman
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
@@ -34,7 +34,7 @@ typedef enum
 typedef void (*SPI_TxCallback_t)(void);
 typedef void (*SPI_RxCallback_t)(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Initialize SPI Peripherals
  * 
  * @details This is responsible for initializing all SPI_Type_t peripherals
@@ -43,7 +43,7 @@ typedef void (*SPI_RxCallback_t)(void);
  *****************************************************************************/
 void SPI_Init(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Deinitialize SPI Periherals
  * 
  * @details This is responsible for deinitializing all SPI_Type_t peripherals
@@ -52,7 +52,7 @@ void SPI_Init(void);
  *****************************************************************************/
 void SPI_Deinit(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Transmit and Receive Data Over SPI Peripheral
  * 
  * @details All parameters must be valid for this function to work
@@ -67,7 +67,7 @@ void SPI_Deinit(void);
 void SPI_TransmitReceive(SPI_Type_t type, uint8_t *txData,
                          uint8_t *rxData, uint32_t size);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Assert the Required Chip Select Pin
  * 
  * @details This must be called prior to SPI_TransmitReceive for a successful
@@ -79,7 +79,7 @@ void SPI_TransmitReceive(SPI_Type_t type, uint8_t *txData,
  *****************************************************************************/
 void SPI_AssertCs(GPIO_Pin_t pin);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Deassert the Required Chip Select Pin
  * 
  * @details This must be called after to SPI_TransmitReceive to end a
@@ -91,7 +91,7 @@ void SPI_AssertCs(GPIO_Pin_t pin);
  *****************************************************************************/
 void SPI_DeassertCs(GPIO_Pin_t pin);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Register a callback for when a transmission is completed
  * 
  * @details This callback occurs when the full transmission is completed
@@ -103,7 +103,7 @@ void SPI_DeassertCs(GPIO_Pin_t pin);
  *****************************************************************************/
 void SPI_RegisterTxCallback(SPI_Type_t type, SPI_TxCallback_t cb);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Register a callback for when a reception is completed
  * 
  * @details This callback occurs when the full reception is completed

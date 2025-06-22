@@ -1,4 +1,4 @@
-/**************************************************************************//**
+/******************************************************************************
  * (c) 2022 Ahriman
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
@@ -33,7 +33,7 @@ typedef enum
     NUM_I2C
 } I2C_Type_t;
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Initialize I2C Peripherals
  * 
  * @details This is responsible for initializing all I2C_Type_t peripherals
@@ -42,7 +42,7 @@ typedef enum
  *****************************************************************************/
 void I2C_Init(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Deinitialize I2C Peripherals
  * 
  * @details This is responsible for deinitializing all I2C_Type_t peripherals
@@ -51,7 +51,7 @@ void I2C_Init(void);
  *****************************************************************************/
 void I2C_Deinit(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Transmit Data Over I2C Bus
  * 
  * @details Transmits requested number of bytes over I2C bus, can opt to send a
@@ -72,7 +72,7 @@ void I2C_Transmit(I2C_Type_t type,
                   uint32_t size,
                   uint8_t stop);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Receive Data Over I2C Bus
  * 
  * @details Receives requested number of bytes over I2C bus, can opt to send a
@@ -92,7 +92,7 @@ void I2C_Receive(I2C_Type_t type,
                  uint32_t size,
                  uint8_t stop);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Flush I2C Rx and Tx Buffers
  * 
  * @param type[in] I2C peripheral type

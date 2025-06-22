@@ -1,4 +1,4 @@
-/**************************************************************************//**
+/******************************************************************************
  * (c) 2022 Ahriman
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
@@ -34,7 +34,7 @@ typedef enum
 typedef void (*I2S_TxCallback_t)(void);
 typedef void (*I2S_RxCallback_t)(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Initialize I2S Peripherals
  * 
  * @details This is responsible for initializing all I2S_Type_t peripherals
@@ -43,7 +43,7 @@ typedef void (*I2S_RxCallback_t)(void);
  *****************************************************************************/
 void I2S_Init(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Deinitialize I2S Periherals
  * 
  * @details This is responsible for deinitializing all I2S_Type_t peripherals
@@ -52,7 +52,7 @@ void I2S_Init(void);
  *****************************************************************************/
 void I2S_Deinit(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Transmit Data Over I2S Peripheral
  * 
  * @details All parameters must be valid for this function to work
@@ -65,7 +65,7 @@ void I2S_Deinit(void);
  *****************************************************************************/
 void I2S_Transmit(I2S_Type_t type, uint16_t left, uint16_t right);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Receive Data Over I2S Peripheral
  * 
  * @details All parameters must be valid for this function to work
@@ -78,7 +78,7 @@ void I2S_Transmit(I2S_Type_t type, uint16_t left, uint16_t right);
  *****************************************************************************/
 void I2S_Receive(I2S_Type_t type, uint16_t *left, uint16_t *right);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Register a callback for when a transmission is completed
  * 
  * @details This callback occurs when the full transmission is completed
@@ -90,7 +90,7 @@ void I2S_Receive(I2S_Type_t type, uint16_t *left, uint16_t *right);
  *****************************************************************************/
 void I2S_RegisterTxCallback(I2S_Type_t type, I2S_TxCallback_t cb);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Register a callback for when a reception is completed
  * 
  * @details This callback occurs when the full reception is completed

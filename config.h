@@ -1,4 +1,4 @@
-/**************************************************************************//**
+/******************************************************************************
  * (c) 2022 Ahriman
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
@@ -22,101 +22,101 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#include "platform.h"
+#include "bootloader.h"
 #include "clock.h"
 #include "cpu.h"
+#include "crypto.h"
 #include "delay.h"
 #include "dma.h"
 #include "flash.h"
 #include "gpio.h"
 #include "partition.h"
+#include "platform.h"
 #include "spi.h"
 #include "time.h"
 #include "timer.h"
 #include "uart.h"
-#include "spi.h"
 #include "watchdog.h"
-#include "crypto.h"
-#include "bootloader.h"
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Definitions of various types within the bootloader in accordance to
  *        system requirements
  *
  * @details All of these must be defined in order to use the bootloader
  *****************************************************************************/
-#define BL_UINT8_T uint8_t
+#define BL_UINT8_T  uint8_t
 #define BL_UINT16_T uint16_t
 #define BL_UINT32_T uint32_t
 #define BL_UINT64_T uint64_t
 
-#define BL_INT8_T int8_t
+#define BL_INT8_T  int8_t
 #define BL_INT16_T int16_t
 #define BL_INT32_T int32_t
 #define BL_INT64_T int64_t
 
 #define BL_BOOL_T bool
-#define BL_TRUE true
-#define BL_FALSE false
+#define BL_TRUE   true
+#define BL_FALSE  false
 
-#define BL_STATIC static
+#define BL_STATIC        static
 #define BL_STATIC_INLINE static inline
-#define BL_CONST const
+#define BL_CONST         const
 
 #define BL_SIZEOF sizeof
 
 #define BL_NULL NULL
 
-typedef enum
-{
-    BL_OK          = 0U,
-    BL_ERR         = 1U,
-    BL_ENOENT      = 2U,
-    BL_EIO         = 5U,
-    EL_ENXIO       = 6U,
-    BL_ENOMEM      = 12U,
-    BL_EACCES      = 13U,
-    BL_EBUSY       = 16U,
-    BL_ENODEV      = 19U,
-    BL_EINVAL      = 22U,
-    BL_ENOSYS      = 38U,
-    BL_ENOMSG      = 41U,
-    BL_ENODATA     = 61U,
-    BL_EINPROGRESS = 115U,
-    BL_EALREADY    = 116U,
+#define BL_STATIC_ASSERT _Static_assert
+
+typedef enum {
+  BL_OK          = 0U,
+  BL_ERR         = 1U,
+  BL_ENOENT      = 2U,
+  BL_EIO         = 5U,
+  EL_ENXIO       = 6U,
+  BL_ENOMEM      = 12U,
+  BL_EACCES      = 13U,
+  BL_EBUSY       = 16U,
+  BL_ENODEV      = 19U,
+  BL_EINVAL      = 22U,
+  BL_ENOSYS      = 38U,
+  BL_ENOMSG      = 41U,
+  BL_ENODATA     = 61U,
+  BL_EINPROGRESS = 115U,
+  BL_EALREADY    = 116U,
 } BL_Err_t;
 
-#define BL_BUFFER_SIZE (1024U)
+#define BL_BUFFER_SIZE              (1024U)
 #define BL_NUM_PARTITIONS_TO_UPDATE (2U)
-#define BL_SERIAL_TIMEOUT_MS (20U)
+#define BL_SERIAL_TIMEOUT_MS        (20U)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Abstractions for Necessary Functions
  *
  * @details This ensures that the necessary function abstractions will be
  *          compatible with the API being ported.
  *****************************************************************************/
 BL_STATIC_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,
-                                               BL_UINT32_T length);
+                                            BL_UINT32_T length);
 BL_STATIC_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,
-                                                 BL_UINT32_T length));
+                                                         BL_UINT32_T length));
 BL_STATIC_INLINE void UART_DeregisterCbAbstract(void);
 
 BL_STATIC_INLINE void UART_TransmitAbstract(BL_UINT8_T *data,
-                                               BL_UINT32_T length)
+                                            BL_UINT32_T length)
 {
-    UART_Transmit(UART_DEBUG, data, length);
+  UART_Transmit(UART_DEBUG, data, length);
 }
 
 BL_STATIC_INLINE void UART_RegisterCbAbstract(void (*cb)(BL_UINT8_T *data,
-                                                 BL_UINT32_T length))
+                                                         BL_UINT32_T length))
 {
-    UART_RegisterRxCallback(UART_DEBUG, cb);
+  UART_RegisterRxCallback(UART_DEBUG, cb);
 }
 
 BL_STATIC_INLINE void UART_DeregisterCbAbstract(void)
 {
-    UART_DeregisterRxCallback(UART_DEBUG);
+  UART_DeregisterRxCallback(UART_DEBUG);
 }
 
 BL_STATIC_INLINE void LED1_Toggle(void);
@@ -125,92 +125,92 @@ BL_STATIC_INLINE void LED3_Toggle(void);
 
 BL_STATIC_INLINE void LED1_Toggle(void)
 {
-    GPIO_Toggle(LED1);
+  GPIO_Toggle(LED1);
 }
 
 BL_STATIC_INLINE void LED2_Toggle(void)
 {
-    GPIO_Toggle(LED2);
+  GPIO_Toggle(LED2);
 }
 
 BL_STATIC_INLINE void LED3_Toggle(void)
 {
-    GPIO_Toggle(LED3);
+  GPIO_Toggle(LED3);
 }
 
 BL_STATIC_INLINE void WDT_InitAbstract(void);
 
 BL_STATIC_INLINE void WDT_InitAbstract(void)
 {
-    Watchdog_Init();
-    Watchdog_Enable();
+  Watchdog_Init();
+  Watchdog_Enable();
 }
 
 BL_STATIC_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,
-                                                   BL_UINT8_T *data,
-                                                   BL_UINT32_T length);
-BL_STATIC_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
                                                   BL_UINT8_T *data,
                                                   BL_UINT32_T length);
+BL_STATIC_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
+                                                 BL_UINT8_T *data,
+                                                 BL_UINT32_T length);
 BL_STATIC_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,
-                                                   BL_UINT32_T length);
+                                                  BL_UINT32_T length);
 
 BL_STATIC_INLINE BL_BOOL_T IntFlash_WriteAbstract(BL_UINT32_T address,
-                                                   BL_UINT8_T *data,
-                                                   BL_UINT32_T length)
-{
-    Flash_Write(address, data, length);
-
-    return true;
-}
-
-BL_STATIC_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
                                                   BL_UINT8_T *data,
                                                   BL_UINT32_T length)
 {
-    Flash_Read(address, data, length);
+  Flash_Write(address, data, length);
 
-    return true;
+  return true;
+}
+
+BL_STATIC_INLINE BL_BOOL_T IntFlash_ReadAbstract(BL_UINT32_T address,
+                                                 BL_UINT8_T *data,
+                                                 BL_UINT32_T length)
+{
+  Flash_Read(address, data, length);
+
+  return true;
 }
 
 BL_STATIC_INLINE BL_BOOL_T IntFlash_EraseAbstract(BL_UINT32_T address,
-                                                   BL_UINT32_T length)
+                                                  BL_UINT32_T length)
 {
-    Flash_Erase(address, length);
+  Flash_Erase(address, length);
 
-    return true;
+  return true;
 }
 
 BL_STATIC_INLINE void Jump_ToAppAbstract(BL_UINT32_T address);
 
 BL_STATIC_INLINE void Jump_ToAppAbstract(BL_UINT32_T address)
 {
-    Clock_Deinit();
-    CPU_Deinit();
-    Delay_Deinit();
-    DMA_Deinit();
-    Flash_Deinit();
-    GPIO_Deinit();
-    SPI_Deinit();
-    Timer_Deinit();
-    UART_Deinit();
+  Clock_Deinit();
+  CPU_Deinit();
+  Delay_Deinit();
+  DMA_Deinit();
+  Flash_Deinit();
+  GPIO_Deinit();
+  SPI_Deinit();
+  Timer_Deinit();
+  UART_Deinit();
 
-    JUMP_TO_APP(address);
+  JUMP_TO_APP(address);
 }
 
 BL_STATIC_INLINE void Init_Abstract(void)
 {
-    CPU_Init();
-    GPIO_Init();
-    Flash_Init();
-    Timer_Init();
-    Delay_Init();
-    SPI_Init();
-    DMA_Init();
-    Crypto_Init();
+  CPU_Init();
+  GPIO_Init();
+  Flash_Init();
+  Timer_Init();
+  Delay_Init();
+  SPI_Init();
+  DMA_Init();
+  Crypto_Init();
 }
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entries for Serial Peripherals
  *
  * @details This configuration includes all of the serial peripherals that are
@@ -247,15 +247,15 @@ BL_STATIC_INLINE void Init_Abstract(void)
  *          cannot take control unless a command is sent to the device to
  *          unlock the peripheral.
  *****************************************************************************/
-#define SERIAL_CFG(ENTRY)                       \
-    ENTRY(UART0,                                \
-          0U,                                   \
-          UART_Init,                            \
-          UART_TransmitAbstract,                \
-          UART_RegisterCbAbstract,              \
-          UART_DeregisterCbAbstract)            \
+#define SERIAL_CFG(ENTRY)                                                      \
+  ENTRY(UART0,                                                                 \
+        0U,                                                                    \
+        UART_Init,                                                             \
+        UART_TransmitAbstract,                                                 \
+        UART_RegisterCbAbstract,                                               \
+        UART_DeregisterCbAbstract)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Systick Peripheral
  *
  * @details This configuration is used for the systick timer which will be used
@@ -276,10 +276,9 @@ BL_STATIC_INLINE void Init_Abstract(void)
  *                 BL_UINT32_T ms(void)
  *
  *****************************************************************************/
-#define SYSTICK_CFG(ENTRY)                      \
-    ENTRY(Time_Init, Time_GetRuntimeMs)         \
+#define SYSTICK_CFG(ENTRY) ENTRY(Time_Init, Time_GetRuntimeMs)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for LED Peripheral
  *
  * @details This configuration is used for toggling LEDs while the bootloader
@@ -298,12 +297,12 @@ BL_STATIC_INLINE void Init_Abstract(void)
  *
  *          @param period period of the led toggling
  *****************************************************************************/
-#define LED_CFG(ENTRY)            \
-    ENTRY(LED1_Toggle, 2000U)     \
-    ENTRY(LED2_Toggle, 500U)      \
-    ENTRY(LED3_Toggle, 200U)      \
+#define LED_CFG(ENTRY)                                                         \
+  ENTRY(LED1_Toggle, 2000U)                                                    \
+  ENTRY(LED2_Toggle, 500U)                                                     \
+  ENTRY(LED3_Toggle, 200U)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Watchdog Timer
  *
  * @details This configuration is used for ensuring that the bootloader does
@@ -326,10 +325,9 @@ BL_STATIC_INLINE void Init_Abstract(void)
  *                      void kick(void)
  *
  *****************************************************************************/
-#define WDT_CFG(ENTRY)                          \
-    ENTRY(WDT_InitAbstract, Watchdog_Kick)      \
+#define WDT_CFG(ENTRY) ENTRY(WDT_InitAbstract, Watchdog_Kick)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for NVM Partitions
  *
  * @details This configuration is used for ensuring that the bootloader will
@@ -396,41 +394,41 @@ BL_STATIC_INLINE void Init_Abstract(void)
  *          @param partition partition number, see required partitions
  *
  *****************************************************************************/
-#define NVM_CFG(ENTRY)                      \
-    ENTRY(Partition_Init,                   \
-          Partition_Write,                  \
-          Partition_Read,                   \
-          Partition_Erase,                  \
-          PARTITION_TABLE_SIZE,             \
-          PARTITION_TABLE_LOCATION,         \
-          PARTITION_SECTOR_SIZE,            \
-          0)                               \
-    ENTRY(Flash_Init,                       \
-          IntFlash_WriteAbstract,           \
-          IntFlash_ReadAbstract,            \
-          IntFlash_EraseAbstract,           \
-          APP_SIZE,                         \
-          APP_LOCATION,                     \
-          MCU_SECTOR_SIZE,                  \
-          1)                               \
-    ENTRY(Partition_Init,                   \
-          Partition_Write,                  \
-          Partition_Read,                   \
-          Partition_Erase,                  \
-          PARTITION_UPDATE_1_SIZE,          \
-          PARTITION_UPDATE_1_LOCATION,      \
-          PARTITION_SECTOR_SIZE,            \
-          2)                               \
-    ENTRY(Partition_Init,                   \
-          Partition_Write,                  \
-          Partition_Read,                   \
-          Partition_Erase,                  \
-          PARTITION_UPDATE_2_SIZE,          \
-          PARTITION_UPDATE_2_LOCATION,      \
-          PARTITION_SECTOR_SIZE,            \
-          3)                               \
+#define NVM_CFG(ENTRY)                                                         \
+  ENTRY(Partition_Init,                                                        \
+        Partition_Write,                                                       \
+        Partition_Read,                                                        \
+        Partition_Erase,                                                       \
+        PARTITION_TABLE_SIZE,                                                  \
+        PARTITION_TABLE_LOCATION,                                              \
+        PARTITION_SECTOR_SIZE,                                                 \
+        0)                                                                     \
+  ENTRY(Flash_Init,                                                            \
+        IntFlash_WriteAbstract,                                                \
+        IntFlash_ReadAbstract,                                                 \
+        IntFlash_EraseAbstract,                                                \
+        APP_SIZE,                                                              \
+        APP_LOCATION,                                                          \
+        MCU_SECTOR_SIZE,                                                       \
+        1)                                                                     \
+  ENTRY(Partition_Init,                                                        \
+        Partition_Write,                                                       \
+        Partition_Read,                                                        \
+        Partition_Erase,                                                       \
+        PARTITION_UPDATE_1_SIZE,                                               \
+        PARTITION_UPDATE_1_LOCATION,                                           \
+        PARTITION_SECTOR_SIZE,                                                 \
+        2)                                                                     \
+  ENTRY(Partition_Init,                                                        \
+        Partition_Write,                                                       \
+        Partition_Read,                                                        \
+        Partition_Erase,                                                       \
+        PARTITION_UPDATE_2_SIZE,                                               \
+        PARTITION_UPDATE_2_LOCATION,                                           \
+        PARTITION_SECTOR_SIZE,                                                 \
+        3)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Jump
  *
  * @details This peripheral is used to jump to a valid application in the main
@@ -446,10 +444,9 @@ BL_STATIC_INLINE void Init_Abstract(void)
  *                      void jump(BL_UINT32_T address)
  *
  *****************************************************************************/
-#define JUMP_CFG(ENTRY)             \
-    ENTRY(Jump_ToAppAbstract)       \
+#define JUMP_CFG(ENTRY) ENTRY(Jump_ToAppAbstract)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Hold
  *
  * @details This peripheral is used to hold the device in bootloader mode even
@@ -468,17 +465,15 @@ BL_STATIC_INLINE void Init_Abstract(void)
  *                      BL_BOOL_T hold(void)
  *
  *****************************************************************************/
-#define HOLD_CFG(ENTRY)             \
-    ENTRY(Bootloader_Get)           \
+#define HOLD_CFG(ENTRY) ENTRY(Bootloader_Get)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration for peripheral initialization
  *
  *****************************************************************************/
-#define INIT_CFG(ENTRY)              \
-    ENTRY(Init_Abstract)
+#define INIT_CFG(ENTRY) ENTRY(Init_Abstract)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for AES
  *
  * @details This peripheral is used to decrypt incoming image data that would
@@ -486,14 +481,17 @@ BL_STATIC_INLINE void Init_Abstract(void)
  *          requires an initialization vector. The correct format of an entry
  *          is as follows:
  *
- *          ENTRY(init, decrypt)
+ *          ENTRY(key, decrypt)
  *
- *          @param init initialization function to initializte the peripheral.
- *                      The correct format of the function is as follows:
+ *          @param key function to get the key necessary for decrypting data.
+ *                     The correct format of the function is as follows:
  *
- *                      void init(void)
+ *                     BL_UINT8_T *key(void)
  *
- *          @param decrypt funtion that will decrypt new data received. The
+ *                     This must return a key in size of the length of AES
+ *                     decryption type (128 or 256 bit)
+ *
+ *          @param decrypt function that will decrypt new data received. The
  *                         correct format of the function is as follows:
  *
  *                         BL_BOOL_T decrypt(BL_UINT8_T *input,
@@ -503,15 +501,13 @@ BL_STATIC_INLINE void Init_Abstract(void)
  *                                           BL_UINT8_T *iv)
  *
  *****************************************************************************/
-#define AES_CFG(ENTRY)               \
-    ENTRY(Crypto_AESKey, Crypto_AESIV, Crypto_AESDecrypt)
+#define AES_CFG(ENTRY) ENTRY(Crypto_AESKey, Crypto_AESDecrypt)
 
-#define SHA_CFG(ENTRY)               \
-    ENTRY(Crypto_SHA256Start, Crypto_SHA256Update, Crypto_SHA256Finish)
+#define SHA_CFG(ENTRY)                                                         \
+  ENTRY(Crypto_SHA256Start, Crypto_SHA256Update, Crypto_SHA256Finish)
 
-#define ECC_CFG(ENTRY)        \
-    ENTRY(Crypto_ECDHVerify)
+#define ECC_CFG(ENTRY) ENTRY(Crypto_ECDHVerify)
 
-#endif // __CONFIG_H
+#endif  // __CONFIG_H
 
 /**@} config */
