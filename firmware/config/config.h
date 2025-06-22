@@ -1,4 +1,4 @@
-/**************************************************************************//**
+/******************************************************************************
  * (c) 2022 Ahriman
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
@@ -22,69 +22,69 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Definitions of various types within the bootloader in accordance to
  *        system requirements
  *
  * @details All of these must be defined in order to use the bootloader
  *****************************************************************************/
-#define BL_UINT8_T uint8_t
+#define BL_UINT8_T  uint8_t
 #define BL_UINT16_T uint16_t
 #define BL_UINT32_T uint32_t
 #define BL_UINT64_T uint64_t
 
-#define BL_INT8_T int8_t
+#define BL_INT8_T  int8_t
 #define BL_INT16_T int16_t
 #define BL_INT32_T int32_t
 #define BL_INT64_T int64_t
 
 #define BL_BOOL_T bool
-#define BL_TRUE true
-#define BL_FALSE false
+#define BL_TRUE   true
+#define BL_FALSE  false
 
-#define BL_STATIC static
+#define BL_STATIC        static
 #define BL_STATIC_INLINE static inline
-#define BL_CONST const
+#define BL_CONST         const
 
 #define BL_SIZEOF sizeof
 
 #define BL_NULL NULL
 
-typedef enum
-{
-    BL_OK          = 0U,
-    BL_ERR         = 1U,
-    BL_ENOENT      = 2U,
-    BL_EIO         = 5U,
-    EL_ENXIO       = 6U,
-    BL_ENOMEM      = 12U,
-    BL_EACCES      = 13U,
-    BL_EBUSY       = 16U,
-    BL_ENODEV      = 19U,
-    BL_EINVAL      = 22U,
-    BL_ENOSYS      = 38U,
-    BL_ENOMSG      = 41U,
-    BL_ENODATA     = 61U,
-    BL_EINPROGRESS = 115U,
-    BL_EALREADY    = 116U,
+#define BL_STATIC_ASSERT _Static_assert
+
+typedef enum {
+  BL_OK          = 0U,
+  BL_ERR         = 1U,
+  BL_ENOENT      = 2U,
+  BL_EIO         = 5U,
+  EL_ENXIO       = 6U,
+  BL_ENOMEM      = 12U,
+  BL_EACCES      = 13U,
+  BL_EBUSY       = 16U,
+  BL_ENODEV      = 19U,
+  BL_EINVAL      = 22U,
+  BL_ENOSYS      = 38U,
+  BL_ENOMSG      = 41U,
+  BL_ENODATA     = 61U,
+  BL_EINPROGRESS = 115U,
+  BL_EALREADY    = 116U,
 } BL_Err_t;
 
-#define BL_BUFFER_SIZE (1024U)
-#define BL_NUM_PARTITIONS_TO_UPDATE (2U)
+#define BL_BUFFER_SIZE       (1024U)
 #define BL_SERIAL_TIMEOUT_MS (20U)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Abstractions for Necessary Functions
  *
  * @details This ensures that the necessary function abstractions will be
  *          compatible with the API being ported.
  *****************************************************************************/
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entries for Serial Peripherals
  *
  * @details This configuration includes all of the serial peripherals that are
@@ -121,9 +121,9 @@ typedef enum
  *          cannot take control unless a command is sent to the device to
  *          unlock the peripheral.
  *****************************************************************************/
-#define SERIAL_CFG(ENTRY)                       \
+#define SERIAL_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Systick Peripheral
  *
  * @details This configuration is used for the systick timer which will be used
@@ -144,9 +144,9 @@ typedef enum
  *                    BL_UINT32_T ms(void)
  *
  *****************************************************************************/
-#define SYSTICK_CFG(ENTRY)                      \
+#define SYSTICK_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for LED Peripheral
  *
  * @details This configuration is used for toggling LEDs while the bootloader
@@ -165,9 +165,9 @@ typedef enum
  *
  *          @param period period of the led toggling
  *****************************************************************************/
-#define LED_CFG(ENTRY)            \
+#define LED_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Watchdog Timer
  *
  * @details This configuration is used for ensuring that the bootloader does
@@ -190,9 +190,9 @@ typedef enum
  *                      void kick(void)
  *
  *****************************************************************************/
-#define WDT_CFG(ENTRY)                          \
+#define WDT_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for NVM Partitions
  *
  * @details This configuration is used for ensuring that the bootloader will
@@ -259,10 +259,13 @@ typedef enum
  *          @param partition partition number, see required partitions
  *
  *****************************************************************************/
-#define NVM_CFG(ENTRY)                      \
+#define NVM_CFG(ENTRY)
 
-/**************************************************************************//**
- * @brief Configuration Entry for Jump @details This peripheral is used to jump to a valid application in the main application partition. Only one jump entry can be configured at a time, if more than one is configured an assertion will be thrown. The correct format of an entry is as follows:
+/******************************************************************************
+ * @brief Configuration Entry for Jump @details This peripheral is used to jump
+ *to a valid application in the main application partition. Only one jump entry
+ *can be configured at a time, if more than one is configured an assertion will
+ *be thrown. The correct format of an entry is as follows:
  *
  *          ENTRY(jump)
  *
@@ -272,9 +275,9 @@ typedef enum
  *                      void jump(BL_UINT32_T address)
  *
  *****************************************************************************/
-#define JUMP_CFG(ENTRY)             \
+#define JUMP_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Hold
  *
  * @details This peripheral is used to hold the device in bootloader mode even
@@ -293,15 +296,15 @@ typedef enum
  *                      BL_BOOL_T hold(void)
  *
  *****************************************************************************/
-#define HOLD_CFG(ENTRY)             \
+#define HOLD_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration for peripheral initialization
  *
  *****************************************************************************/
-#define INIT_CFG(ENTRY)              \
+#define INIT_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for AES
  *
  * @details This peripheral is used to decrypt incoming image data that would
@@ -309,7 +312,7 @@ typedef enum
  *          requires an initialization vector. The correct format of an entry
  *          is as follows:
  *
- *          ENTRY(key, iv, decrypt)
+ *          ENTRY(key, decrypt)
  *
  *          @param key function to get the key necessary for decrypting data.
  *                     The correct format of the function is as follows:
@@ -318,13 +321,6 @@ typedef enum
  *
  *                     This must return a key in size of the length of AES
  *                     decryption type (128 or 256 bit)
- *
- *          @param iv function to get the iv necessary for decrypting data.
- *                    The correct format of the function is as follows:
- *
- *                    BL_UINT8_T *iv(void)
- *
- *                    This must return a iv of 16 bytes
  *
  *          @param decrypt function that will decrypt new data received. The
  *                         correct format of the function is as follows:
@@ -336,9 +332,9 @@ typedef enum
  *                                           BL_UINT8_T *iv)
  *
  *****************************************************************************/
-#define AES_CFG(ENTRY)               \
+#define AES_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for SHA256
  *
  * @details This peripheral is used to calculate SHA256 hash checksum of
@@ -367,9 +363,9 @@ typedef enum
  *                         BL_BOOL_T finish(BL_UINT8_T *digest)
  *
  *****************************************************************************/
-#define SHA_CFG(ENTRY)               \
+#define SHA_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Signature Verification
  *
  * @details This peripheral is used to validate the hash checksum of the
@@ -377,7 +373,7 @@ typedef enum
  *          function, then a validation function is called with a hash and
  *          signature to verify. The correct format of an entry is as follows:
  *
- *          ENTRY(key, verify)
+ *          ENTRY(verify)
  *
  *          @param verify function used to validate the signature of a hash.
  *                        The correct format of the function is as follows:
@@ -389,8 +385,8 @@ typedef enum
  *                        This function returns if the signature was verified.
  *
  *****************************************************************************/
-#define ECC_CFG(ENTRY)        \
+#define ECC_CFG(ENTRY)
 
-#endif // __CONFIG_H
+#endif  // __CONFIG_H
 
 /**@} config */

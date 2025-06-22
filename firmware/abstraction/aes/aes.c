@@ -1,9 +1,9 @@
-/**************************************************************************//**
+/******************************************************************************
  * (c) 2022 Ahriman
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
 
-/**************************************************************************//**
+/******************************************************************************
  * @file        aes.c
  *
  * @brief       Provides an abstraction layer for the AES decryption methods
@@ -16,52 +16,66 @@
  * @date        2024-02-11
  *****************************************************************************/
 #include "aes.h"
+
 #include "helper.h"
 
-#define AES_CB_EXPAND(key, iv, decrypt) \
-    .cb = { key, iv, decrypt },
+#define AES_CB_EXPAND(key, decrypt) .cb = { key, decrypt },
 
-BL_STATIC AES_t aes =
-{
-    {0},
-    {0},
-    AES_CFG(AES_CB_EXPAND)
-};
+typedef BL_UINT8_T *(*AES_Key_t)(void);
+typedef BL_BOOL_T (*AES_Decrypt_t)(BL_UINT8_T *input,
+                                   BL_UINT8_T *output,
+                                   BL_UINT32_T size,
+                                   BL_UINT8_T *key,
+                                   BL_UINT8_T *iv);
+typedef struct {
+  BL_UINT8_T iv[AES_IV_SIZE];
+  BL_UINT8_T key[AES_KEY_SIZE];
+  struct {
+    AES_Key_t     key;
+    AES_Decrypt_t decrypt;
+  } cb;
+} AES_t;
+
+BL_STATIC AES_t aes = { { 0 }, { 0 }, AES_CFG(AES_CB_EXPAND) };
 
 BL_Err_t AES_Init(void)
 {
-    BL_Err_t err = BL_EIO;
+  BL_Err_t err = BL_EIO;
 
-    if (aes.cb.key && aes.cb.iv)
-    {
-        err = BL_OK;
-    }
+  if(aes.cb.key && aes.cb.decrypt) {
+    err = BL_OK;
+  }
 
-    return err;
+  return err;
 }
 
 BL_Err_t AES_SetKey(void)
 {
-    BL_Err_t err = BL_OK;
-    MEMCPY(aes.key, aes.cb.key(), AES_KEY_SIZE);
-    return err;
+  BL_Err_t err = BL_OK;
+
+  MEMCPY(aes.key, aes.cb.key(), AES_KEY_SIZE);
+
+  return err;
 }
 
 BL_Err_t AES_SetIV(uint8_t *iv)
 {
-    BL_Err_t err = BL_OK;
-    MEMCPY(aes.iv, iv, AES_IV_SIZE);
-    return err;
+  BL_Err_t err = BL_OK;
+
+  MEMCPY(aes.iv, iv, AES_IV_SIZE);
+
+  return err;
 }
 
 BL_Err_t AES_Decrypt(BL_UINT8_T *input, BL_UINT8_T *output, BL_UINT32_T size)
 {
-    BL_Err_t err = size % AES_IV_SIZE == 0 ? BL_EIO : BL_ENODATA;
-    if (aes.cb.decrypt && err == BL_EIO)
-    {
-        err = aes.cb.decrypt(input, output, size, aes.key, aes.iv) == BL_TRUE 
-            ? BL_OK : BL_EINPROGRESS;
-    }
+  BL_Err_t err = size % AES_IV_SIZE == 0 ? BL_EIO : BL_ENODATA;
 
-    return err;
+  if(aes.cb.decrypt && err == BL_EIO) {
+    err = aes.cb.decrypt(input, output, size, aes.key, aes.iv) == BL_TRUE
+              ? BL_OK
+              : BL_EINPROGRESS;
+  }
+
+  return err;
 }

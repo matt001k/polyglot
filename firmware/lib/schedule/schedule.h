@@ -1,4 +1,4 @@
-/**************************************************************************//**
+/******************************************************************************
  * (c) 2022 Ahriman
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
@@ -11,7 +11,7 @@
  * @{
  */
 
-/**************************************************************************//**
+/******************************************************************************
  * @file        schedule.h
  *
  * @brief       API required for adding tasks to the scheduler
@@ -30,7 +30,7 @@ typedef struct Schedule_Node_s
     void (*run)(void);
 } Schedule_Node_t;
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Adds an item to the schedule module
  * 
  * @param node[in] node to add, this must be a statically allocated variable
@@ -42,7 +42,7 @@ BL_Err_t Schedule_Add(Schedule_Node_t *node,
                       BL_UINT32_T period,
                       void (*run)(void));
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Remove a task from the scheduler
  * 
  * @param node[in] node to remove from the scheduler
@@ -50,7 +50,7 @@ BL_Err_t Schedule_Add(Schedule_Node_t *node,
  *****************************************************************************/
 BL_Err_t Schedule_Remove(Schedule_Node_t *node);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Obtains the head node of the schedule module
  * 
  * @details This will reset the current read node of the module to the head, so
@@ -61,7 +61,7 @@ BL_Err_t Schedule_Remove(Schedule_Node_t *node);
  *****************************************************************************/
 BL_Err_t Schedule_GetHead(Schedule_Node_t **node);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Get the next node in the schedule module
  * 
  * @param current[in] current node
@@ -70,7 +70,7 @@ BL_Err_t Schedule_GetHead(Schedule_Node_t **node);
  *****************************************************************************/
 BL_Err_t Schedule_GetNext(Schedule_Node_t current, Schedule_Node_t **next);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Run the node requested
  * 
  * @param node node to run
