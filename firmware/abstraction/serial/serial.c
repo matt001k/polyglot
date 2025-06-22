@@ -1,4 +1,4 @@
-/**************************************************************************//**
+/******************************************************************************
  * (c) 2022 Ahriman
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
@@ -22,215 +22,190 @@
 
 /*****************************************************************************/
 #include "serial.h"
+
 #include "helper.h"
 
 #define SERIAL_UNLOCKED (-1)
-#define SERIAL_CB(name, index, init, tx, register, deregister) \
-BL_STATIC void name##_Cb(BL_UINT8_T *data, BL_UINT32_T length);
-#define SERIAL_CB_DEFINE(name, index, init, tx, register, deregister) \
-BL_STATIC void name##_Cb(BL_UINT8_T *data, BL_UINT32_T length)        \
-{                                                                     \
-    if (serial_LockCb(index))                                         \
-    {                                                                 \
-        if (serial.cb)                                                \
-        {                                                             \
-            serial.cb(length);                                        \
-        }                                                             \
-        while (length--)                                              \
-        {                                                             \
-            if (serial.bufIdx < BL_BUFFER_SIZE)                       \
-            {                                                         \
-                serial.buf[serial.bufIdx++] = *data++;                \
-            }                                                         \
-        }                                                             \
-    }                                                                 \
-}
-#define SERIAL_TABLE_ENTRY(name, index, init, tx, register, deregister) \
-    {index, init, tx, register, deregister},
-#define SERIAL_INIT(name, index, init, tx, register, deregister)  \
-    if (serial.cfg[index].reg && *err == BL_OK)                   \
-    {                                                             \
-        serial.cfg[index].reg(name##_Cb);                         \
-    }                                                             \
-    else                                                          \
-    {                                                             \
-        *err = BL_EINVAL;                                         \
-    }
-#define SERIAL_LOCK(name, index, init, tx, register, deregister)  \
-        if (serial.cfg[index].dereg && serial.lock != index)      \
-        {                                                         \
-            serial.cfg[index].dereg();                            \
-        }
+#define SERIAL_CB(name, index, init, tx, register, deregister)                 \
+  BL_STATIC void name##_Cb(BL_UINT8_T *data, BL_UINT32_T length);
+#define SERIAL_CB_DEFINE(name, index, init, tx, register, deregister)          \
+  BL_STATIC void name##_Cb(BL_UINT8_T *data, BL_UINT32_T length)               \
+  {                                                                            \
+    if(serial_LockCb(index)) {                                                 \
+      if(serial.cb) {                                                          \
+        serial.cb(length);                                                     \
+      }                                                                        \
+      while(length--) {                                                        \
+        if(serial.bufIdx < BL_BUFFER_SIZE) {                                   \
+          serial.buf[serial.bufIdx++] = *data++;                               \
+        }                                                                      \
+      }                                                                        \
+    }                                                                          \
+  }
+#define SERIAL_TABLE_ENTRY(name, index, init, tx, register, deregister)        \
+  { index, init, tx, register, deregister },
+#define SERIAL_INIT(name, index, init, tx, register, deregister)               \
+  if(serial.cfg[index].reg && *err == BL_OK) {                                 \
+    serial.cfg[index].reg(name##_Cb);                                          \
+  } else {                                                                     \
+    *err = BL_EINVAL;                                                          \
+  }
+#define SERIAL_LOCK(name, index, init, tx, register, deregister)               \
+  if(serial.cfg[index].dereg && serial.lock != index) {                        \
+    serial.cfg[index].dereg();                                                 \
+  }
 
-
-typedef struct
-{
-    BL_UINT8_T index;               ///< Name of the port
-    Serial_Init_t init;             ///< Function pointer to initialization
-    Serial_Transmit_t transmit;     ///< Function pointer to transmit
-    Serial_RegisterCb_t reg;        ///< Function pointer to register cb
-    Serial_DeregisterCb_t dereg;    ///< Function pointer to deregister cb
+typedef void (*Serial_Init_t)(void);
+typedef void (*Serial_Transmit_t)(BL_UINT8_T *data, BL_UINT32_T length);
+typedef void (*Serial_Cb_t)(BL_UINT8_T *data, BL_UINT32_T length);
+typedef void (*Serial_RegisterCb_t)(Serial_Cb_t cb);
+typedef void (*Serial_DeregisterCb_t)(void);
+typedef struct {
+  BL_UINT8_T            index;     ///< Name of the port
+  Serial_Init_t         init;      ///< Function pointer to initialization
+  Serial_Transmit_t     transmit;  ///< Function pointer to transmit
+  Serial_RegisterCb_t   reg;       ///< Function pointer to register cb
+  Serial_DeregisterCb_t dereg;     ///< Function pointer to deregister cb
 } serial_Cfg_t;
 
-typedef struct
-{
-    BL_CONST serial_Cfg_t *cfg;     ///< Pointer to configuration
-    BL_UINT8_T count;               ///< Number of serial ports
-    BL_INT8_T lock;                 ///< Serial port to lock
-    BL_UINT8_T buf[BL_BUFFER_SIZE]; ///< Serial buffer
-    BL_UINT32_T bufIdx;             ///< Serial buffer index
-    void (*cb)(BL_UINT32_T length); ///< Serial Callback
+typedef struct {
+  BL_CONST serial_Cfg_t *cfg;                  ///< Pointer to configuration
+  BL_UINT8_T             count;                ///< Number of serial ports
+  BL_INT8_T              lock;                 ///< Serial port to lock
+  BL_UINT8_T             buf[BL_BUFFER_SIZE];  ///< Serial buffer
+  BL_UINT32_T            bufIdx;               ///< Serial buffer index
+  void (*cb)(BL_UINT32_T length);              ///< Serial Callback
 } serial_t;
 
-BL_STATIC void serial_CbInit(BL_Err_t *err);
+BL_STATIC void      serial_CbInit(BL_Err_t *err);
 BL_STATIC BL_BOOL_T serial_LockCb(BL_UINT8_T lIdx);
 
 SERIAL_CFG(SERIAL_CB)
 
 /* NULL terminated config struct to accept multiple serial peripherals */
-BL_STATIC BL_CONST serial_Cfg_t sCfg[] =
-{
-    SERIAL_CFG(SERIAL_TABLE_ENTRY)
-    {0, 0, 0, 0, 0},
+BL_STATIC BL_CONST serial_Cfg_t sCfg[] = {
+  SERIAL_CFG(SERIAL_TABLE_ENTRY){ 0, 0, 0, 0, 0 },
 };
 
-BL_STATIC serial_t serial = {0U};
+BL_STATIC serial_t serial = { 0U };
 
 BL_Err_t Serial_Init(void)
 {
-    BL_Err_t err = BL_OK;
+  BL_Err_t err = BL_OK;
 
-    serial.cfg = sCfg;
-    serial.lock = SERIAL_UNLOCKED;
-    while (serial.cfg[serial.count].init != 0 &&
-           serial.cfg[serial.count].transmit != 0 &&
-           serial.cfg[serial.count].reg != 0 &&
-           serial.cfg[serial.count].dereg != 0)
-    {
-        if (serial.cfg[serial.count].init)
-        {
-            serial.cfg[serial.count].init();
-            serial.count++;
-        }
-        else
-        {
-            err = BL_EINVAL;
-            break;
-        }
+  serial.cfg  = sCfg;
+  serial.lock = SERIAL_UNLOCKED;
+  while(serial.cfg[serial.count].init != 0 &&
+        serial.cfg[serial.count].transmit != 0 &&
+        serial.cfg[serial.count].reg != 0 &&
+        serial.cfg[serial.count].dereg != 0) {
+    if(serial.cfg[serial.count].init) {
+      serial.cfg[serial.count].init();
+      serial.count++;
+    } else {
+      err = BL_EINVAL;
+      break;
     }
+  }
 
-    serial_CbInit(&err);
+  serial_CbInit(&err);
 
-    return err;
+  return err;
 }
 
 void Serial_Flush(void)
 {
-    if (serial.bufIdx > 0U)
-    {
-        MEMSET(serial.buf, 0U, BL_BUFFER_SIZE);
-        serial.bufIdx = 0U;
-    }
+  if(serial.bufIdx > 0U) {
+    MEMSET(serial.buf, 0U, BL_BUFFER_SIZE);
+    serial.bufIdx = 0U;
+  }
 }
 
 BL_Err_t Serial_Transmit(BL_UINT8_T *data, BL_UINT32_T length)
 {
-    BL_Err_t err = BL_EINVAL;
+  BL_Err_t err = BL_EINVAL;
 
-    if (serial.lock != SERIAL_UNLOCKED)
-    {
-        if (data && serial.cfg[serial.lock].transmit && length)
-        {
-            serial.cfg[serial.lock].transmit(data, length);
-            err = BL_OK;
-        }
+  if(serial.lock != SERIAL_UNLOCKED) {
+    if(data && serial.cfg[serial.lock].transmit && length) {
+      serial.cfg[serial.lock].transmit(data, length);
+      err = BL_OK;
     }
-    else
-    {
-        err = BL_ENODEV;
-    }
+  } else {
+    err = BL_ENODEV;
+  }
 
-    return err;
+  return err;
 }
 
 BL_Err_t Serial_Receive(BL_UINT8_T *data, BL_UINT32_T length)
 {
-    BL_Err_t err = BL_EINVAL;
+  BL_Err_t err = BL_EINVAL;
 
-    if (data && length)
-    {
-        /* Assign rx buffer to data, then flush the rx buffer */
-        MEMCPY(data, serial.buf, length);
-        MEMSET(serial.buf, 0U, BL_BUFFER_SIZE);
-        serial.bufIdx = 0U;
-        err = BL_OK;
-    }
+  if(data && length) {
+    /* Assign rx buffer to data, then flush the rx buffer */
+    MEMCPY(data, serial.buf, length);
+    MEMSET(serial.buf, 0U, BL_BUFFER_SIZE);
+    serial.bufIdx = 0U;
+    err           = BL_OK;
+  }
 
-    return err;
+  return err;
 }
 
 BL_Err_t Serial_RegisterCb(void (*cb)(BL_UINT32_T length))
 {
-    BL_Err_t err = BL_EINVAL;
+  BL_Err_t err = BL_EINVAL;
 
-    if (cb)
-    {
-        serial.cb = cb;
-        err = BL_OK;
-    }
+  if(cb) {
+    serial.cb = cb;
+    err       = BL_OK;
+  }
 
-    return err;
+  return err;
 }
 
 BL_Err_t Serial_DeregisterCb(void)
 {
-    BL_Err_t err = BL_EACCES;
+  BL_Err_t err = BL_EACCES;
 
-    if (serial.cb)
-    {
-        serial.cb = BL_NULL;
-        err = BL_OK;
-    }
+  if(serial.cb) {
+    serial.cb = BL_NULL;
+    err       = BL_OK;
+  }
 
-    return err;
+  return err;
 }
 
 BL_Err_t Serial_Unlock(void)
 {
-    BL_Err_t err = BL_OK;
+  BL_Err_t err = BL_OK;
 
-    serial.lock = SERIAL_UNLOCKED;
-    serial_CbInit(&err);
+  serial.lock = SERIAL_UNLOCKED;
+  serial_CbInit(&err);
 
-    return BL_OK;
+  return BL_OK;
 }
 
 SERIAL_CFG(SERIAL_CB_DEFINE)
 
-BL_STATIC void serial_CbInit(BL_Err_t *err)
-{
-    SERIAL_CFG(SERIAL_INIT)
-}
+BL_STATIC void serial_CbInit(BL_Err_t *err){ SERIAL_CFG(SERIAL_INIT) }
 
 BL_STATIC BL_BOOL_T serial_LockCb(BL_UINT8_T lIdx)
 {
-    bool ret = true;
+  bool ret = true;
 
-    /* If the module is not locked, lock this peripheral */
-    if (serial.lock == SERIAL_UNLOCKED)
-    {
-        serial.lock = (BL_INT8_T) lIdx;
+  /* If the module is not locked, lock this peripheral */
+  if(serial.lock == SERIAL_UNLOCKED) {
+    serial.lock = (BL_INT8_T)lIdx;
 
-        /* Deregister any rx callbacks not being used */
-        SERIAL_CFG(SERIAL_LOCK)
+    /* Deregister any rx callbacks not being used */
+    SERIAL_CFG(SERIAL_LOCK)
 
-    }
-    else if (lIdx != serial.lock)
-    {
-        ret = false;
-    }
+  } else if(lIdx != serial.lock) {
+    ret = false;
+  }
 
-    return ret;
+  return ret;
 }
 
 /**@} serial */

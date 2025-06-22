@@ -36,7 +36,10 @@ all:init
 init:$(BUILD_DIR)
 	@git submodule update --init --recursive
 ifeq ("$(wildcard $(BUILD_DIR)/CMakeCache.txt)","")
-	@cd $(BUILD_DIR) && $(CMAKE) -G $(GEN_NAME) -DCMAKE_TOOLCHAIN_FILE=$(ROOT_DIR)/cmake/arm.cmake -DCMAKE_VERBOSE_OUTPUT=1 $(ROOT_DIR)
+	@cd $(BUILD_DIR) && $(CMAKE) -G $(GEN_NAME) \
+		-DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+		-DCMAKE_TOOLCHAIN_FILE=$(ROOT_DIR)/cmake/arm.cmake \
+		$(ROOT_DIR)
 endif
 
 $(BUILD_DIR):
