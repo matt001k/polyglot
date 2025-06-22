@@ -37,7 +37,6 @@ bool Crypto_AESDecrypt(uint8_t *input,
 void Crypto_SHA256Start(void);
 bool Crypto_SHA256Update(uint8_t *data, uint32_t size);
 bool Crypto_SHA256Finish(uint8_t *digest);
-uint8_t *Crypto_ECDHKey(void);
 bool Crypto_ECDHVerify(uint8_t *hash,
                        uint8_t *signature,
                        uint8_t *key);

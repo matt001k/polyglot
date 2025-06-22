@@ -26,11 +26,6 @@ static struct
     mbedtls_sha256_context ctx;
 } sha256;
 
-static struct
-{
-    const struct uECC_Curve_t *curve;
-} ecc;
-
 void Crypto_Init(void)
 {
     mbedtls_sha256_init(&sha256.ctx);
@@ -41,22 +36,22 @@ uint8_t *Crypto_AESKey(void)
 
     static const uint8_t key[16] =
     {
-        0xA4,
-        0xD4,
-        0x60,
-        0x43,
-        0xC3,
-        0x21,
-        0xA2,
-        0xF8,
+        0x76,
+        0xA9,
+        0x26,
+        0x6F,
+        0x7C,
+        0x56,
+        0xC6,
+        0x9D,
+        0x34,
+        0xA5,
+        0xDF,
         0x89,
-        0x14,
-        0xB1,
-        0x3E,
-        0x43,
-        0xB7,
-        0x55,
-        0xC1,
+        0xBD,
+        0x57,
+        0xA1,
+        0xCB, 
     };
     return (uint8_t *) key;
 }
@@ -144,6 +139,7 @@ bool Crypto_AESDecrypt(uint8_t *input,
 
 void Crypto_SHA256Start(void)
 {
+    mbedtls_sha256_init(&sha256.ctx);
     mbedtls_sha256_starts(&sha256.ctx, 0);
 }
 
@@ -156,33 +152,23 @@ bool Crypto_SHA256Update(uint8_t *data, uint32_t size)
 bool Crypto_SHA256Finish(uint8_t *digest)
 {
     mbedtls_sha256_finish(&sha256.ctx, digest);
+    mbedtls_sha256_free(&sha256.ctx);
     return true;
-}
-
-uint8_t *Crypto_ECDHKey(void)
-{
-    uint8_t *ret = NULL;
-    static const uint8_t key[] =
-    {
-        0x3b,0x8d,0xc1,0x9a,0xd1,0xaa,0xa8,0x74,0x1b,0x4b,0xff,0x8d,0xbe,0xdd,
-        0xbc,0x3d,0x24,0xb4,0x84,0x84,0xec,0x26,0xf3,0x14,0x95,0xe2,0x90,0xdf,0x9d,
-        0xd4,0xd7,0x08,0xa7,0x40,0xe8,0x2e,0x5c,0x73,0x80,0x3a,0x4e,0x01,0xc1,0xe5,
-        0xba,0xc7,0x6b,0x09,0xe3,0xfa,0x92,0x97,0x1d,0x4f,0xd3,0x16,0x05,0xdb,0xaf,
-        0x26,0x02,0x42,0x4e,0x7c
-    };
-    ecc.curve = uECC_secp256k1();
-    if (uECC_valid_public_key(key, ecc.curve))
-    {
-        ret = (uint8_t *) key;
-    }
-    return (uint8_t *) ret;
 }
 
 bool Crypto_ECDHVerify(uint8_t *hash,
                        uint8_t *signature,
                        uint8_t *key)
 {
-    bool ret = uECC_verify(key, hash, 32, signature, ecc.curve);
+    bool ret = false;
+    uECC_Curve curve;
+    key = key + 1;
+    curve = uECC_secp256k1();
+    if (!uECC_valid_public_key(key, curve))
+    {
+        return ret;
+    }
+    ret = uECC_verify(key, hash, 32, signature, curve);
     return ret;
 }
 
