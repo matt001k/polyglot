@@ -30,7 +30,9 @@ typedef uint32_t Dict_Item_t;
 enum
 {
     BL_WRITE = 0x674F4761,
-    BL_VALIDATE = 0x7A306536,
+    BL_READ = 0x674F4762,
+    BL_FINISH = 0x674F4763,
+    BL_LOAD = 0x7A306536,
     BL_RUN = 0x75326972,
     BL_ERASE = 0X4B7A4B44,
     BL_LOCK = 0x34594337,

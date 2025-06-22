@@ -113,6 +113,8 @@ BL_Err_t Loader_Load(void)
             LOADER_CHECK(state, loader_Validate());
             break;
         case LOADER_CLEAN:
+            NVM_OperationFinish(APPLICATION_NODE);
+            NVM_OperationFinish(loader.node);
             if (loader.clean)
             {
                 err = BL_OK;
@@ -176,11 +178,13 @@ BL_STATIC BL_Err_t loader_Table(void)
     err = NVM_Read(loader.node,
                    (BL_UINT8_T *) &loader.table,
                    &size);
-    if (err == BL_OK && size &&
-            (err = NVM_OperationFinish(loader.node)) == BL_OK)
+    if (err == BL_OK && size)
     {
         err = Table_WritePartition(PARTITION_CURRENT,
                                   &loader.table);
+        if (err == BL_OK) {
+            AES_SetIV(loader.table.iv);
+        }
     }
     return err;
 }
@@ -188,11 +192,15 @@ BL_STATIC BL_Err_t loader_Table(void)
 BL_STATIC BL_Err_t loader_Erase(void)
 {
     BL_Err_t err = BL_ERR;
-    err = NVM_Erase(loader.node,
-                   loader.size.partition);
+    BL_UINT32_T size = 0;
+    if (NVM_GetSize(APPLICATION_NODE, &size) != BL_OK) {
+        return err;
+    }
+    err = NVM_Erase(APPLICATION_NODE,
+                    size);
     if (err == BL_OK)
     {
-        err = NVM_OperationFinish(loader.node);
+        err = NVM_OperationFinish(APPLICATION_NODE);
     }
     return err;
 }
@@ -202,6 +210,10 @@ BL_STATIC BL_Err_t loader_Read(void)
     BL_UINT8_T *data = Buffer_Get();
     BL_Err_t err = BL_ERR;
     loader.size.buf = (BL_BUFFER_SIZE / 2) - (BL_BUFFER_SIZE / 2) % AES_IV_SIZE;
+    // Truncate buffer size if it is out of bounds
+    if (loader.size.buf + loader.size.total > loader.table.length) {
+        loader.size.buf = loader.table.length - loader.size.total;
+    }
     loader.p.in = data;
     loader.p.out = data + loader.size.buf;
     err = NVM_Read(loader.node,
@@ -242,10 +254,7 @@ BL_STATIC states_e loader_Finish(BL_Err_t *err)
     states_e state = LOADER_CHECK;
     if (loader.size.total >= loader.table.length)
     {
-        if ((*err = SHA256_Finish(loader.digest)) == BL_OK &&
-             (*err = NVM_OperationFinish(loader.node)) == BL_OK &&
-             (*err = NVM_OperationFinish(APPLICATION_NODE)) == BL_OK)
-        {
+        if ((*err = SHA256_Finish(loader.digest)) == BL_OK) {
             state = LOADER_VALIDATE;
             *err = BL_EINPROGRESS;
         }
@@ -264,7 +273,7 @@ BL_STATIC states_e loader_Finish(BL_Err_t *err)
 
 BL_STATIC BL_Err_t loader_Validate(void)
 {
-    BL_Err_t err = BL_ERR;
+    BL_Err_t err = BL_OK;
     if((err = ECC_Decrypt(loader.digest, loader.table.signature)) == BL_OK &&
             (err = Table_UpdatePartitions()) == BL_OK)
     {

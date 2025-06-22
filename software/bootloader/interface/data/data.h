@@ -24,6 +24,7 @@
 #include <iostream>
 #include "common.h"
 #include "serial.h"
+#include <stdint.h>
 
 class Data
 {
@@ -36,8 +37,8 @@ public:
     } Data_Type_e;
     Data();
     ~Data();
-    BL_Err_t Send_Length(Serial serial, std::uint32_t length);
-    BL_Err_t Send_Data(Serial serial, std::uint8_t *data, std::uint32_t length);
+    BL_Err_t Send_Length(Serial serial, uint32_t length);
+    BL_Err_t Send_Data(Serial serial, uint8_t *data, uint32_t length);
 private:
 };
 

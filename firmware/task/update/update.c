@@ -177,11 +177,9 @@ BL_STATIC void update_Run(void)
     /* transmits a response */
     if (inst.flags.transmit)
     {
-        inst.flags.response = BL_FALSE;
         if (Command_Send(inst.response) == BL_OK)
         {
-            inst.flags.transmit = BL_FALSE;
-            inst.flags.response = BL_TRUE;
+            inst.flags.transmit = FLAG_CLEAR;
         }
     }
     /* handles new commands */

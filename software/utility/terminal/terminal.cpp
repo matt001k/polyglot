@@ -553,6 +553,7 @@ Terminal::Action_e Terminal::BLTest(void)
         "Send Ready",      //Command::TRANSMIT_READY
         "Send Error",      //Command::TRANSMIT_ERROR
         "Send Write",      //Command::TRANSMIT_WRITE
+        "Send Finish",      //Command::TRANSMIT_FINISH
         "Send Run",        //Command::TRANSMIT_RUN
         "Send Load",       //Command::TRANSMIT_LOAD
         "Send Erase",      //Command::TRANSMIT_ERASE
@@ -687,6 +688,10 @@ Terminal::Action_e Terminal::BLTest(void)
                 }
                 size-=sent;
             }
+            std::cout << "Finishing Transfer..." << std::endl;
+            c.Send(b.USB, Command::TRANSMIT_FINISH);
+            c.Receive(b.USB, &dict, &r);
+            std::cout << "Command Received: " << r << std::endl;
             std::cout << "Beginning Validation..." << std::endl;
             c.Send(b.USB, Command::TRANSMIT_LOAD);
             c.Receive(b.USB, &dict, &r);
@@ -769,6 +774,11 @@ Terminal::Action_e Terminal::BLTest(void)
             Updater u(b.USB);
             u.Update(data, line.length());
         }
+    case BL_TEST_ENTER_BOOTLOADER: {
+        const char data[1] = {'s'};
+        b.USB.Transmit((uint8_t *)data, 1);
+        break;
+                                   }
     case BL_TEST_EXIT:
         state = BL_TEST_INIT;
         action = EXIT;

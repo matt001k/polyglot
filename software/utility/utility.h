@@ -21,6 +21,7 @@
  * @date        2022-10-02
  *****************************************************************************/
 #include <iostream>
+#include <cstdint>
 
 typedef std::uint8_t bool_t;
 

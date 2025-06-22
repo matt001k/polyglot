@@ -21,10 +21,11 @@
  * @date        2022-10-22
  *****************************************************************************/
 #include <iostream>
+#include <stdint.h>
 
-std::uint32_t CRC32(std::uint32_t crc,
+uint32_t CRC32(uint32_t crc,
                     const void *buf,
-                    std::uint32_t size);
+                    uint32_t size);
 
 /**@} crc32 */
 

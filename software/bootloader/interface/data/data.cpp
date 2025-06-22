@@ -31,23 +31,23 @@ Data::~Data()
 }
 
 BL_Err_t Data::Send_Length(Serial serial,
-                           std::uint32_t length)
+                           uint32_t length)
 {
-    std::uint8_t buf[sizeof(std::uint32_t)] = {0U};
-    std::int8_t bIdx = sizeof(std::uint32_t) - 1U;
+    uint8_t buf[sizeof(uint32_t)] = {0U};
+    int8_t bIdx = sizeof(uint32_t) - 1U;
 
-    buf[bIdx--] = (std::uint8_t) (length);
+    buf[bIdx--] = (uint8_t) (length);
     for (; bIdx >= 0; --bIdx)
     {
-        buf[bIdx] = (std::uint8_t) (length >>= 8U);
+        buf[bIdx] = (uint8_t) (length >>= 8U);
     }
 
-    return serial.Transmit(buf, sizeof(std::uint32_t));
+    return serial.Transmit(buf, sizeof(uint32_t));
 }
 
 BL_Err_t Data::Send_Data(Serial serial,
-                         std::uint8_t *data,
-                         std::uint32_t length)
+                         uint8_t *data,
+                         uint32_t length)
 {
     return serial.Transmit(data, length);
 }

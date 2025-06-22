@@ -27,7 +27,8 @@ enable_language(${USED_LANGUAGES})
 ###############################################################################
 add_executable(${PROJECT_EXECUTABLE} main.cpp)
 target_include_directories(${PROJECT_EXECUTABLE} PUBLIC
-    .)
+    .
+)
 
 ###############################################################################
 # Add required libraries
