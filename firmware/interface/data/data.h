@@ -1,4 +1,4 @@
-/**************************************************************************//**
+/******************************************************************************
  * (c) 2022 Ahriman
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
@@ -11,7 +11,7 @@
  * @{
  */
 
-/**************************************************************************//**
+/******************************************************************************
  * @file        data.h
  *
  * @brief       Provides an interface for the bootloader to send commands to
@@ -26,7 +26,7 @@
 
 typedef BL_UINT32_T DataLength_t;
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Initialize the data interface length callback
  *
  * @details This implements a callback to determine data length from the serial
@@ -36,14 +36,14 @@ typedef BL_UINT32_T DataLength_t;
  *****************************************************************************/
 BL_Err_t Data_LengthCbInit(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Deinitialize the data interface length callback
  *
  * @return BL_Err_t
  *****************************************************************************/
 BL_Err_t Data_LengthCbDeinit(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Initialize the data interface data callback
  *
  * @details This implements a callback to determine data length from the serial
@@ -53,14 +53,14 @@ BL_Err_t Data_LengthCbDeinit(void);
  *****************************************************************************/
 BL_Err_t Data_DataCbInit(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Deinitialize the data interface data callback
  *
  * @return BL_Err_t
  *****************************************************************************/
 BL_Err_t Data_DataCbDeinit(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Resets the data interface
  *
  * @details Resets static variables in the data interface
@@ -69,7 +69,7 @@ BL_Err_t Data_DataCbDeinit(void);
  *****************************************************************************/
 void Data_Reset(void);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Get the length of the next incoming data stream
  *
  * @details This API must be called before Data_ReceiveData and Data_SetLength
@@ -80,7 +80,7 @@ void Data_Reset(void);
  *****************************************************************************/
 BL_Err_t Data_GetLength(DataLength_t *length);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Set the length of the next incoming data stream
  *
  * @details This API must be called before Data_ReceiveData to receive the
@@ -91,7 +91,7 @@ BL_Err_t Data_GetLength(DataLength_t *length);
  *****************************************************************************/
 BL_Err_t Data_SetLength(DataLength_t length);
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Receives to a buffer
  *
  * @param buf[in/out] buffer to receive data to

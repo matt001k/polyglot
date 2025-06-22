@@ -1,4 +1,4 @@
-/**************************************************************************//**
+/******************************************************************************
  * (c) 2022 Ahriman
  * This code is licensed under MIT license (see LICENSE.txt for details)
  *****************************************************************************/
@@ -22,33 +22,34 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#include <stdint.h>
+#include "fake_nvm.h"
+
 #include <stdbool.h>
 #include <stddef.h>
-#include "fake_nvm.h"
+#include <stdint.h>
 
 #define OTA_1_NODE 2
 #define OTA_2_NODE 3
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Definitions of various types within the bootloader in accordance to
  *        system requirements
  *
  * @details All of these must be defined in order to use the bootloader
  *****************************************************************************/
-#define BL_UINT8_T uint8_t
+#define BL_UINT8_T  uint8_t
 #define BL_UINT16_T uint16_t
 #define BL_UINT32_T uint32_t
 #define BL_UINT64_T uint64_t
 
-#define BL_INT8_T int8_t
+#define BL_INT8_T  int8_t
 #define BL_INT16_T int16_t
 #define BL_INT32_T int32_t
 #define BL_INT64_T int64_t
 
 #define BL_BOOL_T bool
-#define BL_TRUE true
-#define BL_FALSE false
+#define BL_TRUE   true
+#define BL_FALSE  false
 
 #define BL_STATIC
 #define BL_STATIC_INLINE
@@ -58,37 +59,37 @@
 
 #define BL_NULL NULL
 
-typedef enum
-{
-    BL_OK          = 0U,
-    BL_ERR         = 1U,
-    BL_ENOENT      = 2U,
-    BL_EIO         = 5U,
-    EL_ENXIO       = 6U,
-    BL_ENOMEM      = 12U,
-    BL_EACCES      = 13U,
-    BL_EBUSY       = 16U,
-    BL_ENODEV      = 19U,
-    BL_EINVAL      = 22U,
-    BL_ENOSYS      = 38U,
-    BL_ENOMSG      = 41U,
-    BL_ENODATA     = 61U,
-    BL_EINPROGRESS = 115U,
-    BL_EALREADY    = 116U,
+#define BL_STATIC_ASSERT _Static_assert
+
+typedef enum {
+  BL_OK          = 0U,
+  BL_ERR         = 1U,
+  BL_ENOENT      = 2U,
+  BL_EIO         = 5U,
+  EL_ENXIO       = 6U,
+  BL_ENOMEM      = 12U,
+  BL_EACCES      = 13U,
+  BL_EBUSY       = 16U,
+  BL_ENODEV      = 19U,
+  BL_EINVAL      = 22U,
+  BL_ENOSYS      = 38U,
+  BL_ENOMSG      = 41U,
+  BL_ENODATA     = 61U,
+  BL_EINPROGRESS = 115U,
+  BL_EALREADY    = 116U,
 } BL_Err_t;
 
-#define BL_BUFFER_SIZE (1024U)
-#define BL_NUM_PARTITIONS_TO_UPDATE (2U)
+#define BL_BUFFER_SIZE       (1024U)
 #define BL_SERIAL_TIMEOUT_MS (20U)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Abstractions for Necessary Functions
  *
  * @details This ensures that the necessary function abstractions will be
  *          compatible with the API being ported.
  *****************************************************************************/
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entries for Serial Peripherals
  *
  * @details This configuration includes all of the serial peripherals that are
@@ -125,9 +126,9 @@ typedef enum
  *          cannot take control unless a command is sent to the device to
  *          unlock the peripheral.
  *****************************************************************************/
-#define SERIAL_CFG(ENTRY)                       \
+#define SERIAL_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Systick Peripheral
  *
  * @details This configuration is used for the systick timer which will be used
@@ -148,9 +149,9 @@ typedef enum
  *                 BL_UINT32_T ms(void)
  *
  *****************************************************************************/
-#define SYSTICK_CFG(ENTRY)                      \
+#define SYSTICK_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for LED Peripheral
  *
  * @details This configuration is used for toggling LEDs while the bootloader
@@ -169,9 +170,9 @@ typedef enum
  *
  *          @param period period of the led toggling
  *****************************************************************************/
-#define LED_CFG(ENTRY)            \
+#define LED_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Watchdog Timer
  *
  * @details This configuration is used for ensuring that the bootloader does
@@ -194,9 +195,9 @@ typedef enum
  *                      void kick(void)
  *
  *****************************************************************************/
-#define WDT_CFG(ENTRY)                          \
+#define WDT_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for NVM Partitions
  *
  * @details This configuration is used for ensuring that the bootloader will
@@ -263,42 +264,41 @@ typedef enum
  *          @param partition partition number, see required partitions
  *
  *****************************************************************************/
-#define NVM_CFG(ENTRY)                      \
-    ENTRY(Fake_NVMInit,                     \
-          Fake_NVMWrite,                    \
-          Fake_NVMRead,                     \
-          Fake_NVMErase,                    \
-          FAKE_NVM_SIZE,                    \
-          FAKE_NVM_LOCATION,                \
-          FAKE_NVM_SECTOR_SIZE,             \
-          0)                                \
-    ENTRY(Fake_NVMInit,                     \
-          Fake_NVMWrite,                    \
-          Fake_NVMRead,                     \
-          Fake_NVMErase,                    \
-          FAKE_NVM_SIZE,                    \
-          FAKE_NVM_LOCATION,                \
-          FAKE_NVM_SECTOR_SIZE,             \
-          1)                                \
-    ENTRY(Fake_NVMInit,                     \
-          Fake_NVMWrite,                    \
-          Fake_NVMRead,                     \
-          Fake_NVMErase,                    \
-          FAKE_NVM_SIZE,                    \
-          FAKE_NVM_LOCATION,                \
-          FAKE_NVM_SECTOR_SIZE,             \
-          2)                                \
-    ENTRY(Fake_NVMInit,                     \
-          Fake_NVMWrite,                    \
-          Fake_NVMRead,                     \
-          Fake_NVMErase,                    \
-          FAKE_NVM_SIZE,                    \
-          FAKE_NVM_LOCATION,                \
-          FAKE_NVM_SECTOR_SIZE,             \
-          3)
+#define NVM_CFG(ENTRY)                                                         \
+  ENTRY(Fake_NVMInit,                                                          \
+        Fake_NVMWrite,                                                         \
+        Fake_NVMRead,                                                          \
+        Fake_NVMErase,                                                         \
+        FAKE_NVM_SIZE,                                                         \
+        FAKE_NVM_LOCATION,                                                     \
+        FAKE_NVM_SECTOR_SIZE,                                                  \
+        0)                                                                     \
+  ENTRY(Fake_NVMInit,                                                          \
+        Fake_NVMWrite,                                                         \
+        Fake_NVMRead,                                                          \
+        Fake_NVMErase,                                                         \
+        FAKE_NVM_SIZE,                                                         \
+        FAKE_NVM_LOCATION,                                                     \
+        FAKE_NVM_SECTOR_SIZE,                                                  \
+        1)                                                                     \
+  ENTRY(Fake_NVMInit,                                                          \
+        Fake_NVMWrite,                                                         \
+        Fake_NVMRead,                                                          \
+        Fake_NVMErase,                                                         \
+        FAKE_NVM_SIZE,                                                         \
+        FAKE_NVM_LOCATION,                                                     \
+        FAKE_NVM_SECTOR_SIZE,                                                  \
+        2)                                                                     \
+  ENTRY(Fake_NVMInit,                                                          \
+        Fake_NVMWrite,                                                         \
+        Fake_NVMRead,                                                          \
+        Fake_NVMErase,                                                         \
+        FAKE_NVM_SIZE,                                                         \
+        FAKE_NVM_LOCATION,                                                     \
+        FAKE_NVM_SECTOR_SIZE,                                                  \
+        3)
 
-
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Jump
  *
  * @details This peripheral is used to jump to a valid application in the main
@@ -314,9 +314,9 @@ typedef enum
  *                      void jump(BL_UINT32_T address)
  *
  *****************************************************************************/
-#define JUMP_CFG(ENTRY)             \
+#define JUMP_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration Entry for Hold
  *
  * @details This peripheral is used to hold the device in bootloader mode even
@@ -335,14 +335,14 @@ typedef enum
  *                      BL_BOOL_T hold(void)
  *
  *****************************************************************************/
-#define HOLD_CFG(ENTRY)             \
+#define HOLD_CFG(ENTRY)
 
-/**************************************************************************//**
+/******************************************************************************
  * @brief Configuration for peripheral initialization
  *
  *****************************************************************************/
-#define INIT_CFG(ENTRY)              \
+#define INIT_CFG(ENTRY)
 
-#endif // __CONFIG_H
+#endif  // __CONFIG_H
 
 /**@} config */
