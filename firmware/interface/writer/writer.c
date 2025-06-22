@@ -65,7 +65,7 @@ BL_Err_t Writer_Start(void)
     }
     else if (writer.flags.start)
     {
-        err = BL_EALREADY;
+        err = BL_OK;
     }
     return err;
 }

@@ -30,7 +30,7 @@ class Updater
     public:
         Updater(Serial serial);
         ~Updater();
-        BL_Err_t Update(std::vector<std::uint8_t> data, std::size_t transfer);
+        BL_Err_t Update(std::vector<uint8_t> data, std::size_t transfer);
     private:
         Serial m_serial;
 };

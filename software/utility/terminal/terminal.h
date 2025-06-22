@@ -73,6 +73,7 @@ private:
         BL_TEST_DATA,
         BL_TEST_CRC_OFFSET,
         BL_TEST_RAND,
+        BL_TEST_ENTER_BOOTLOADER,
         BL_TEST_EXIT,
     } BL_Test_States_e;
     Action_e BLTest(void);

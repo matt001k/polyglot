@@ -56,7 +56,7 @@ BL_Err_t Serial::Init(Serial_Cfg_t cfg)
     return BL_OK;
 }
 
-BL_Err_t Serial::Transmit(std::uint8_t *data, std::uint32_t length)
+BL_Err_t Serial::Transmit(uint8_t *data, uint32_t length)
 {
     BL_Err_t err = BL_ENODEV;
 
@@ -69,7 +69,7 @@ BL_Err_t Serial::Transmit(std::uint8_t *data, std::uint32_t length)
     return err;
 }
 
-BL_Err_t Serial::Receive(std::uint8_t *data, std::uint32_t length)
+BL_Err_t Serial::Receive(uint8_t *data, uint32_t length)
 {
     BL_Err_t err = BL_ENODEV;
 

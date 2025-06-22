@@ -47,10 +47,10 @@ BL_Err_t AES_SetKey(void)
     return err;
 }
 
-BL_Err_t AES_SetIV(void)
+BL_Err_t AES_SetIV(uint8_t *iv)
 {
     BL_Err_t err = BL_OK;
-    MEMCPY(aes.iv, aes.cb.iv(), AES_IV_SIZE);
+    MEMCPY(aes.iv, iv, AES_IV_SIZE);
     return err;
 }
 

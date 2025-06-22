@@ -24,7 +24,7 @@ Updater::~Updater()
 {
 }
 
-BL_Err_t Updater::Update(std::vector<std::uint8_t> data, std::size_t transfer)
+BL_Err_t Updater::Update(std::vector<uint8_t> data, std::size_t transfer)
 {
     BL_Err_t err = BL_OK;
     struct
@@ -38,7 +38,7 @@ BL_Err_t Updater::Update(std::vector<std::uint8_t> data, std::size_t transfer)
     } update =
     {
         .total = data.size(),
-        .p = static_cast<std::uint8_t*>(data.data()),
+        .p = static_cast<uint8_t*>(data.data()),
     };
     Dict_Item_t dict = 0U;
     std::cout << "Beginning Transfer..." << std::endl;
