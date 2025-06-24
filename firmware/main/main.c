@@ -25,7 +25,6 @@ int main(void)
   ECC_Init();
   SHA256_Init();
   Init_Init();
-  Systick_Init();
   Serial_Init();
   NVM_Init();
   LED_Init();

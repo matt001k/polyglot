@@ -21,28 +21,13 @@
  *****************************************************************************/
 #include "systick.h"
 
-#define SYSTICK_TABLE_ENTRY(init, ms) init, ms
+#define SYSTICK_TABLE_ENTRY(ms) ms
 
 typedef struct {
-  Systick_Init_t  init;
   Systick_GetMs_t ms;
 } systick_t;
 
 BL_STATIC BL_CONST systick_t systick = { SYSTICK_CFG(SYSTICK_TABLE_ENTRY) };
-
-BL_Err_t Systick_Init(void)
-{
-  BL_Err_t err = BL_OK;
-
-  /* Initialize the systick module, if there is more than 1 return error */
-  if(systick.init && systick.ms) {
-    systick.init();
-  } else {
-    err = BL_EINVAL;
-  }
-
-  return err;
-}
 
 BL_UINT32_T Systick_GetMs(void)
 {

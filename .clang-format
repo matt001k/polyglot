@@ -35,3 +35,6 @@ SpacesInLineCommentPrefix:
   Maximum: 1
 AlignTrailingComments: Always
 MaxEmptyLinesToKeep: 1
+AlignOperands: Align
+AllowShortBlocksOnASingleLine: Empty
+AllowShortEnumsOnASingleLine: false

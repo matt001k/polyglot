@@ -19,13 +19,13 @@
  *****************************************************************************/
 #include "wdt.h"
 
-#define WDT_FUNCTION(init, kick) init, kick,
+#define WDT_FUNCTION(enable, kick) enable, kick,
 
-typedef void (*WDT_Init_t)(void);
+typedef void (*WDT_Enable_t)(void);
 typedef void (*WDT_Kick_t)(void);
 typedef struct {
-  WDT_Init_t init;
-  WDT_Kick_t kick;
+  WDT_Enable_t enable;
+  WDT_Kick_t   kick;
 } WDT_t;
 
 BL_STATIC BL_CONST WDT_t wdt = { WDT_CFG(WDT_FUNCTION) };
@@ -34,8 +34,8 @@ BL_Err_t WDT_Init(void)
 {
   BL_Err_t err = BL_OK;
 
-  if(wdt.init) {
-    wdt.init();
+  if(wdt.enable) {
+    wdt.enable();
   } else {
     err = BL_EINVAL;
   }

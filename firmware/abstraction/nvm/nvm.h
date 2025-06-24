@@ -26,8 +26,7 @@
  *****************************************************************************/
 #include "config.h"
 
-#define NVM_COUNTER(init,                                                      \
-                    write,                                                     \
+#define NVM_COUNTER(write,                                                     \
                     read,                                                      \
                     erase,                                                     \
                     size,                                                      \
@@ -47,7 +46,9 @@ typedef enum {
 
 typedef BL_UINT8_T NVM_Node_t;
 
-enum { NVM_CFG(NVM_COUNTER) NUM_NVM_NODES };
+enum {
+  NVM_CFG(NVM_COUNTER) NUM_NVM_NODES
+};
 
 /******************************************************************************
  * @brief Initialize The Configured NVM Peripherals

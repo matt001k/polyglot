@@ -23,17 +23,9 @@
  *****************************************************************************/
 #include "nvm.h"
 
-#define NVM_TABLE_ENTRY(init,                                                  \
-                        write,                                                 \
-                        read,                                                  \
-                        erase,                                                 \
-                        size,                                                  \
-                        offset,                                                \
-                        page,                                                  \
-                        priority)                                              \
-  { init, write, read, erase, size, offset, page, priority, offset },
+#define NVM_TABLE_ENTRY(write, read, erase, size, offset, page, priority)      \
+  { write, read, erase, size, offset, page, priority, offset },
 
-typedef void (*NVM_Init_t)(void);
 typedef BL_BOOL_T (*NVM_Write_t)(BL_UINT32_T address,
                                  BL_UINT8_T *data,
                                  BL_UINT32_T length);
@@ -42,7 +34,6 @@ typedef BL_BOOL_T (*NVM_Read_t)(BL_UINT32_T address,
                                 BL_UINT32_T length);
 typedef BL_BOOL_T (*NVM_Erase_t)(BL_UINT32_T address, BL_UINT32_T size);
 typedef struct {
-  NVM_Init_t  init;      ///< Function pointer to initialization
   NVM_Write_t write;     ///< Function pointer to write to flash
   NVM_Read_t  read;      ///< Function pointer to read from flash
   NVM_Erase_t erase;     ///< Function pointer to erase flash
@@ -72,11 +63,8 @@ BL_Err_t NVM_Init(void)
   nvm.cfg = nCfg;
 
   /* Initialize all NVM nodes if available */
-  while(nvm.cfg[nvm.count].init != 0 && nvm.cfg[nvm.count].write != 0 &&
-        nvm.cfg[nvm.count].read != 0 && nvm.cfg[nvm.count].erase != 0) {
-    if(nvm.cfg[nvm.count].init) {
-      nvm.cfg[nvm.count].init();
-    }
+  while(nvm.cfg[nvm.count].write != 0 && nvm.cfg[nvm.count].read != 0 &&
+        nvm.cfg[nvm.count].erase != 0) {
     nvm.count++;
   }
 

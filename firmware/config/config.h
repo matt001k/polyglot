@@ -92,14 +92,10 @@ typedef enum {
  *          include anything that may speak serially, such as SPI, UART, I2C,
  *          CAN, LIN, etc. The correct format of an entry is as follows:
  *
- *          ENTRY(name, index, init, transmit, register, deregister)
+ *          ENTRY(name, index, transmit, register, deregister)
  *
  *          @param name name of the serial module, this is text not a string
  *          @param index index of the entry, this starts at zero
- *          @param init initialization function pointer in the format of:
- *
- *                  void init(void)
- *
  *          @param transmit transmit function pointer to transmit data in the
  *                          format of:
  *
@@ -132,11 +128,7 @@ typedef enum {
  *          entered, the system will throw an assertion. The correct format
  *          of an entry looks as follows:
  *
- *          ENTRY(init, ms)
- *
- *          @param init initialization function pointer in the format of:
- *
- *                      void init(void)
+ *          ENTRY(ms)
  *
  *          @param ms function pointer which obtains the current runtime of the
  *                    system in milliseconds in the format of:
@@ -176,13 +168,12 @@ typedef enum {
  *          defined, an assertion will be thrown. The correct format of an
  *          entry looks as follows:
  *
- *          ENTRY(init, kick)
+ *          ENTRY(enable, kick)
  *
- *          @param init initialization function for the WDT, this will include
- *                      API used to start the watchdog as well, the format of
- *                      this function is as follows:
+ *          @param enable API used to start the watchdog, the format of
+ *                        this function is as follows:
  *
- *                      void init(void)
+ *                        void enable(void)
  *
  *          @param kick API to kick the watchdog and keep the bootloader alive
  *                      the format of this function is as follows:
@@ -204,19 +195,13 @@ typedef enum {
  *          will store the older updates on the device. The correct format of
  *          an entry looks as follows:
  *
- *          ENTRY(init,
- *                write,
+ *          ENTRY(write,
  *                read,
  *                erase,
  *                size,
  *                location,
  *                sector_size,
  *                partition)
- *
- *          @param init initialization function for the NVM partition, the
- *                      format of the function is as follows:
- *
- *                      void init(void)
  *
  *          @param write write function for the NVM partition, this function
  *                       requires an address to write to, a data buffer to

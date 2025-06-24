@@ -29,13 +29,6 @@ typedef void (*Systick_Init_t)(void);
 typedef BL_UINT32_T (*Systick_GetMs_t)(void);
 
 /******************************************************************************
- * @brief Initialize The Configured Systick Timer
- *
- * @return BL_Err_t
- *****************************************************************************/
-BL_Err_t Systick_Init(void);
-
-/******************************************************************************
  * @brief Get the system ticks in milliseconds
  *
  * @return BL_UINT32_T system ticks in milliseconds

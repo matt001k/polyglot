@@ -26,9 +26,9 @@
 #include "helper.h"
 
 #define SERIAL_UNLOCKED (-1)
-#define SERIAL_CB(name, index, init, tx, register, deregister)                 \
+#define SERIAL_CB(name, index, tx, register, deregister)                       \
   BL_STATIC void name##_Cb(BL_UINT8_T *data, BL_UINT32_T length);
-#define SERIAL_CB_DEFINE(name, index, init, tx, register, deregister)          \
+#define SERIAL_CB_DEFINE(name, index, tx, register, deregister)                \
   BL_STATIC void name##_Cb(BL_UINT8_T *data, BL_UINT32_T length)               \
   {                                                                            \
     if(serial_LockCb(index)) {                                                 \
@@ -42,27 +42,25 @@
       }                                                                        \
     }                                                                          \
   }
-#define SERIAL_TABLE_ENTRY(name, index, init, tx, register, deregister)        \
-  { index, init, tx, register, deregister },
-#define SERIAL_INIT(name, index, init, tx, register, deregister)               \
+#define SERIAL_TABLE_ENTRY(name, index, tx, register, deregister)              \
+  { index, tx, register, deregister },
+#define SERIAL_INIT(name, index, tx, register, deregister)                     \
   if(serial.cfg[index].reg && *err == BL_OK) {                                 \
     serial.cfg[index].reg(name##_Cb);                                          \
   } else {                                                                     \
     *err = BL_EINVAL;                                                          \
   }
-#define SERIAL_LOCK(name, index, init, tx, register, deregister)               \
+#define SERIAL_LOCK(name, index, tx, register, deregister)                     \
   if(serial.cfg[index].dereg && serial.lock != index) {                        \
     serial.cfg[index].dereg();                                                 \
   }
 
-typedef void (*Serial_Init_t)(void);
 typedef void (*Serial_Transmit_t)(BL_UINT8_T *data, BL_UINT32_T length);
 typedef void (*Serial_Cb_t)(BL_UINT8_T *data, BL_UINT32_T length);
 typedef void (*Serial_RegisterCb_t)(Serial_Cb_t cb);
 typedef void (*Serial_DeregisterCb_t)(void);
 typedef struct {
   BL_UINT8_T            index;     ///< Name of the port
-  Serial_Init_t         init;      ///< Function pointer to initialization
   Serial_Transmit_t     transmit;  ///< Function pointer to transmit
   Serial_RegisterCb_t   reg;       ///< Function pointer to register cb
   Serial_DeregisterCb_t dereg;     ///< Function pointer to deregister cb
@@ -95,17 +93,10 @@ BL_Err_t Serial_Init(void)
 
   serial.cfg  = sCfg;
   serial.lock = SERIAL_UNLOCKED;
-  while(serial.cfg[serial.count].init != 0 &&
-        serial.cfg[serial.count].transmit != 0 &&
+  while(serial.cfg[serial.count].transmit != 0 &&
         serial.cfg[serial.count].reg != 0 &&
         serial.cfg[serial.count].dereg != 0) {
-    if(serial.cfg[serial.count].init) {
-      serial.cfg[serial.count].init();
-      serial.count++;
-    } else {
-      err = BL_EINVAL;
-      break;
-    }
+    serial.count++;
   }
 
   serial_CbInit(&err);
